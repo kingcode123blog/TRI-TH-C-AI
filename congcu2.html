@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Công Cụ Chuyển Đổi Toán Học</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        /* Custom Scrollbar Premium Cyber */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #04020a; }
+        ::-webkit-scrollbar-thumb { background: #251647; border-radius: 99px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6d28d9; }
+        
+        /* Ambient Glow & Shimmer Loading Effects */
+        .shimmer {
+            background: linear-gradient(90deg, #0e0924 25%, #231245 50%, #0e0924 75%);
+            background-size: 200% 100%;
+            animation: loading-shimmer 1.6s infinite linear;
+        }
+        @keyframes loading-shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .katex-mathml { display: none !important; }
+
+        /* Glassmorphism Cards */
+        .cyber-card {
+            background: rgba(12, 8, 28, 0.65);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(147, 51, 234, 0.12);
+        }
+        .cyber-card:hover {
+            border-color: rgba(147, 51, 234, 0.28);
+            box-shadow: 0 12px 40px -12px rgba(139, 92, 246, 0.18);
+        }
+        
+        /* Active Navigation Line */
+        .nav-link {
+            position: relative;
+            color: #94a3b8;
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover, .nav-link.active { color: #f8fafc; }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #a855f7, #ec4899);
+            box-shadow: 0 0 10px #a855f7;
+        }
+        
+        /* Chỉnh lại style hiển thị cho công thức sau khi render */
+        .katex-display { margin: 1em 0; overflow-x: auto; overflow-y: hidden; }
+    </style>
+</head>
+<body class="bg-[#05030b] text-[#cbd5e1] min-h-screen flex flex-col antialiased selection:bg-purple-600/30 selection:text-purple-200 relative overflow-x-hidden font-sans">
+
+    <div class="absolute top-[-15%] left-[-10%] w-[60vw] h-[60vw] bg-purple-900/10 blur-[160px] pointer-events-none rounded-full z-0"></div>
+    <div class="absolute top-[25%] right-[-15%] w-[55vw] h-[55vw] bg-pink-900/10 blur-[180px] pointer-events-none rounded-full z-0"></div>
+    <div class="absolute bottom-[-10%] left-[15%] w-[45vw] h-[45vw] bg-indigo-900/5 blur-[150px] pointer-events-none rounded-full z-0"></div>
+
+    <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#05030b]/80 border-b border-purple-950/30 transition-all">
+        <div class="max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            
+            <div class="flex items-center gap-2.5 shrink-0">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center shadow-md shadow-purple-500/20">
+                    <i class="fa-solid fa-cube text-white text-xs"></i>
+                </div>
+                <div>
+                    <span class="text-base font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-purple-300 bg-clip-text text-transparent">CHUYỂN ĐỔI CÔNG THỨC TOÁN HỌC</span>
+                    <span class="text-[9px] font-bold px-1.5 py-0.5 ml-1 rounded-sm bg-purple-950/80 border border-purple-500/30 text-purple-300">PRO</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 text-xs font-semibold text-purple-400 bg-purple-950/40 px-3 py-1.5 rounded-full border border-purple-900/40">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Hệ Thống Đang Kích Hoạt</span>
+                </div>
+                
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-950 to-slate-900 border border-purple-500/20 flex items-center justify-center text-xs font-bold text-purple-300 shadow-sm select-none">
+                    AI
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-[1550px] w-full mx-auto p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10">
+        
+        <section class="lg:col-span-5 flex flex-col gap-5">
+            
+            <div class="cyber-card rounded-2xl p-5 shadow-2xl flex flex-col gap-3.5 transition-all">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-[11px] font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-folder-open text-pink-500"></i> Nạp đề thi / tài liệu gốc
+                    </h2>
+                    <span class="text-[10px] text-slate-400 bg-purple-950/50 px-2 py-0.5 rounded border border-purple-950/60 font-mono">DOCX, PDF</span>
+                </div>
+
+                <div class="border border-dashed border-purple-900/40 hover:border-purple-500/60 rounded-xl p-5 text-center transition-all cursor-pointer relative bg-purple-950/5" id="dropZone">
+                    <input type="file" id="fileInput" accept=".docx,.pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
+                    
+                    <div id="uploadPromptState" class="flex flex-col items-center gap-2">
+                        <div class="w-10 h-10 rounded-xl bg-purple-950/50 text-purple-400 border border-purple-500/10 flex items-center justify-center shadow-md">
+                            <i class="fa-solid fa-cloud-arrow-up text-base"></i>
+                        </div>
+                        <p class="text-xs font-semibold text-slate-300">Kéo thả tài liệu vào đây hoặc click để chọn file</p>
+                        <p class="text-[10px] text-purple-400/40">Hỗ trợ phân tích dữ liệu lớn</p>
+                    </div>
+
+                    <div id="uploadFileActiveState" class="hidden flex items-center gap-4 text-left bg-[#0c081c] p-3 rounded-xl border border-purple-500/30 shadow-xl relative z-30">
+                        <div class="w-9 h-9 rounded-lg bg-purple-950 text-purple-400 border border-purple-500/20 flex items-center justify-center text-base shrink-0" id="fileTypeIcon">
+                            <i class="fa-solid fa-file-word"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-xs font-bold text-slate-200 truncate" id="activeFileName">de_thi.docx</p>
+                            <div class="w-full bg-purple-950 h-1 rounded-full mt-2 overflow-hidden">
+                                <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-full w-full rounded-full"></div>
+                            </div>
+                        </div>
+                        <button id="removeFileBtn" class="w-6 h-6 rounded-md text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 flex items-center justify-center transition-colors cursor-pointer" title="Hủy file">
+                            <i class="fa-solid fa-xmark text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cyber-card rounded-2xl p-5 shadow-2xl flex-1 flex flex-col gap-4 min-h-[440px]">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-[11px] font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-keyboard text-indigo-400"></i> Nội dung thô
+                    </h2>
+                    <div class="flex items-center gap-1.5">
+                        <button id="pasteClipboardBtn" class="text-[11px] font-bold text-purple-300 hover:text-white px-2.5 py-1 rounded-lg bg-purple-950/40 border border-purple-900/50 hover:border-purple-500/40 cursor-pointer transition-colors">
+                            <i class="fa-solid fa-clipboard mr-1 text-purple-400"></i> Dán nhanh
+                        </button>
+                        <button id="clearEditorBtn" class="text-[11px] font-bold text-slate-400 hover:text-rose-400 px-2.5 py-1 rounded-lg bg-slate-900/40 border border-purple-950/30 cursor-pointer transition-colors">
+                            Xóa sạch
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex-1 flex border border-purple-950/60 rounded-xl overflow-hidden bg-[#070412]/50 focus-within:ring-1 focus-within:ring-purple-500/30 focus-within:border-purple-500/40 transition-all">
+                    <div class="w-9 bg-purple-950/10 border-r border-purple-950/50 py-3 text-right pr-2 select-none text-[11px] font-mono text-purple-950 font-extrabold leading-6">
+                        1<br>2<br>3<br>4<br>5
+                    </div>
+                    <textarea id="textInput" placeholder="Nhập văn bản cần sửa lỗi... Ví dụ: $2H_2 + O_2 \rightarrow 2H_2O$" 
+                              class="flex-1 p-3 bg-transparent text-xs font-medium focus:outline-none resize-none text-slate-200 placeholder-purple-900/30 leading-6 font-mono"></textarea>
+                </div>
+
+                <div class="flex items-center justify-between gap-3 pt-1">
+                    <span class="text-[11px] text-purple-400/30 hidden sm:inline-flex items-center gap-1.5">
+                        <kbd class="px-1.5 py-0.5 rounded border border-purple-900/60 bg-purple-950/40 font-mono text-[9px] text-purple-400">Ctrl</kbd> + <kbd class="px-1.5 py-0.5 rounded border border-purple-900/60 bg-purple-950/40 font-mono text-[9px] text-purple-400">Enter</kbd>
+                    </span>
+                    <button id="processBtn" class="flex-1 sm:flex-initial bg-gradient-to-r from-purple-600 via-purple-700 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-bold px-5 py-3.5 rounded-xl shadow-lg shadow-purple-500/5 transition-all flex items-center justify-center gap-2 cursor-pointer group tracking-wider">
+                        <span>XỬ LÝ ➔ SỬA LỖI</span>
+                        <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-0.5 transition-transform"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="cyber-card rounded-2xl p-4 shadow-2xl">
+                <p class="text-[10px] font-bold text-purple-400/40 uppercase tracking-widest mb-2">Lịch sử tiến trình</p>
+                <div id="recentHistoryContainer" class="flex flex-col gap-1.5 text-xs font-medium text-slate-500">
+                    <span class="text-purple-400/20 italic text-center py-1">Chưa lưu lịch sử làm việc.</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="lg:col-span-7 flex flex-col" id="outputPanelSection">
+            <div class="cyber-card rounded-2xl shadow-2xl flex flex-col h-full overflow-hidden min-h-[600px]">
+                
+                <div class="px-4 py-3 bg-purple-950/10 border-b border-purple-950/30 flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-md shadow-purple-400" id="statusDotIndicator"></span>
+                        <h3 id="panelOutputTitle" class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Kết quả trực quan</h3>
+                    </div>
+                    
+                    <div class="flex items-center gap-1.5">
+                        <button id="zoomOutBtn" class="w-7 h-7 rounded-lg text-purple-400 hover:text-white hover:bg-purple-950/50 border border-transparent hover:border-purple-900/60 flex items-center justify-center transition-colors cursor-pointer" title="Thu nhỏ">
+                            <i class="fa-solid fa-magnifying-glass-minus text-xs"></i>
+                        </button>
+                        <button id="zoomInBtn" class="w-7 h-7 rounded-lg text-purple-400 hover:text-white hover:bg-purple-950/50 border border-transparent hover:border-purple-900/60 flex items-center justify-center transition-colors cursor-pointer" title="Phóng to">
+                            <i class="fa-solid fa-magnifying-glass-plus text-xs"></i>
+                        </button>
+                        <div class="w-px h-4 bg-purple-950/60 mx-1"></div>
+                        <button id="copyAllOutputBtn" disabled class="text-[11px] font-bold px-3 h-7 rounded-lg border border-purple-900/40 bg-purple-950/10 text-purple-300 hover:text-white hover:border-purple-500/40 disabled:opacity-20 disabled:cursor-not-allowed transition-colors flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-copy text-[10px]"></i> Sao chép
+                        </button>
+                        <button id="fullscreenToggleBtn" class="w-7 h-7 rounded-lg text-purple-400 hover:text-white hover:bg-purple-950/50 border border-transparent hover:border-purple-900/60 flex items-center justify-center transition-colors cursor-pointer" title="Toàn màn hình">
+                            <i class="fa-solid fa-expand text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex-1 p-6 overflow-y-auto relative bg-[#06040f]/40" id="previewAreaScrollParent">
+                    <div id="textOutputPreview" class="text-slate-200 leading-relaxed max-w-none transition-all text-sm space-y-4">
+                        <div id="emptyStateContainer" class="py-32 flex flex-col items-center text-center max-w-xs mx-auto gap-3.5">
+                            <div class="w-14 h-14 rounded-full bg-purple-950/20 border border-dashed border-purple-500/10 flex items-center justify-center text-purple-400/30">
+                                <i class="fa-solid fa-chart-simple text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-400">Chưa tìm thấy dữ liệu xuất bản</p>
+                                <p class="text-[11px] text-purple-400/30 mt-1 leading-relaxed">Hãy tải tệp hoặc điền cấu trúc mã lỗi ở bảng bên trái.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="loadingOverlay" class="absolute inset-0 bg-[#05030b]/95 backdrop-blur-md flex flex-col items-center justify-center gap-4 hidden z-50">
+                        <div class="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin shadow-lg"></div>
+                        <div class="space-y-2 text-center max-w-xs">
+                            <p class="text-xs font-bold text-purple-300 tracking-wide">Hệ thống đang gọi AI xử lý...</p>
+                            <div class="w-40 h-1 shimmer rounded-full mx-auto opacity-50"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="px-5 py-3 bg-purple-950/10 border-t border-purple-950/30 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <span class="text-[11px] font-semibold text-purple-400/40" id="executionTimerLabel">Trạng thái: Sẵn sàng</span>
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        <button id="downloadMDBtn" disabled class="flex-1 sm:flex-initial text-[11px] font-bold px-3.5 py-2.5 rounded-xl border border-purple-900/40 bg-purple-950/10 text-slate-400 hover:text-purple-400 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer transition-colors flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-file-code text-[10px]"></i> Tải (.md)
+                        </button>
+                        <button id="downloadWordBtn" disabled class="flex-1 sm:flex-initial bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white text-[11px] font-bold px-4 py-2.5 rounded-xl shadow-lg disabled:opacity-20 disabled:pointer-events-none cursor-pointer transition-all flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-file-word text-[10px]"></i> Tải Word (.docx)
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-auto py-3.5 px-8 border-t border-purple-950/30 bg-[#04020a]/60 text-center text-[10px] font-semibold text-purple-400/20 tracking-wider">
+        © 2026 Trí Thức AI • Giao diện chuẩn Cyber Dark SaaS UI Độc Quyền
+    </footer>
+
+    <script>
+        // ==========================================
+        // ĐIỀN NHIỀU API KEY CÁCH NHAU BẰNG DẤU PHẨY (,)
+        // Ví dụ: "KEY_1, KEY_2, KEY_3"
+        // ==========================================
+        const GEMINI_API_KEYS = "AQ.Ab8RN6Lg-nbeRtrpL4aZDap6FrQgASE25AWAn0S6DUZC_P36qg, AQ.Ab8RN6Inqljv0H0bna8up6lmHHOyNuElWdrTXKqYhyGgy4E_BA, AQ.Ab8RN6Ja-awVJlxH7j8NKR1Nca1AC674bgiRKcY6HvcCVnLpvg";
+        
+        const PANDOC_API_URL = "https://pandoc-export-server.onrender.com/api/export-docx";
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+        
+        const fileInput = document.getElementById('fileInput');
+        const dropZone = document.getElementById('dropZone');
+        const uploadPromptState = document.getElementById('uploadPromptState');
+        const uploadFileActiveState = document.getElementById('uploadFileActiveState');
+        const activeFileName = document.getElementById('activeFileName');
+        const fileTypeIcon = document.getElementById('fileTypeIcon');
+        const removeFileBtn = document.getElementById('removeFileBtn');
+        const textInput = document.getElementById('textInput');
+        const processBtn = document.getElementById('processBtn');
+        const textOutputPreview = document.getElementById('textOutputPreview');
+        const emptyStateContainer = document.getElementById('emptyStateContainer');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const downloadWordBtn = document.getElementById('downloadWordBtn');
+        const downloadMDBtn = document.getElementById('downloadMDBtn');
+        const pasteClipboardBtn = document.getElementById('pasteClipboardBtn');
+        const clearEditorBtn = document.getElementById('clearEditorBtn');
+        const copyAllOutputBtn = document.getElementById('copyAllOutputBtn');
+        const fullscreenToggleBtn = document.getElementById('fullscreenToggleBtn');
+        const outputPanelSection = document.getElementById('outputPanelSection');
+        const statusDotIndicator = document.getElementById('statusDotIndicator');
+        const panelOutputTitle = document.getElementById('panelOutputTitle');
+        const executionTimerLabel = document.getElementById('executionTimerLabel');
+        const recentHistoryContainer = document.getElementById('recentHistoryContainer');
+        const zoomInBtn = document.getElementById('zoomInBtn');
+        const zoomOutBtn = document.getElementById('zoomOutBtn');
+
+        let extractedFileText = "";
+        let globalFinalMarkdown = "";
+        let currentZoomSize = 100;
+
+        if (localStorage.getItem('editor_draft_content')) {
+            textInput.value = localStorage.getItem('editor_draft_content');
+        }
+        textInput.addEventListener('input', () => {
+            localStorage.setItem('editor_draft_content', textInput.value);
+        });
+
+        function updateHistoryListLog(name) {
+            recentHistoryContainer.innerHTML = `
+                <div class="flex items-center justify-between bg-purple-950/20 border border-purple-900/30 p-2 rounded-lg">
+                    <span class="truncate pr-2 text-slate-300 text-[11px]"><i class="fa-solid fa-clock-rotate-left mr-1.5 opacity-70 text-purple-400"></i> ${name}</span>
+                    <span class="text-[9px] text-emerald-400 shrink-0 font-bold uppercase">Vừa xong</span>
+                </div>
+            `;
+        }
+
+        pasteClipboardBtn.addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                textInput.value += text;
+                localStorage.setItem('editor_draft_content', textInput.value);
+            } catch (err) {
+                alert('Không thể đọc dữ liệu từ clipboard.');
+            }
+        });
+
+        clearEditorBtn.addEventListener('click', () => {
+            textInput.value = "";
+            localStorage.removeItem('editor_draft_content');
+        });
+
+        fileInput.addEventListener('change', (e) => handleTargetFile(e.target.files[0]));
+        
+        removeFileBtn.addEventListener('click', (e) => {
+            e.preventDefault(); e.stopPropagation();
+            fileInput.value = ""; extractedFileText = "";
+            uploadFileActiveState.classList.add('hidden');
+            uploadPromptState.classList.remove('hidden');
+        });
+
+        async function handleTargetFile(file) {
+            if (!file) return;
+            uploadPromptState.classList.add('hidden');
+            uploadFileActiveState.classList.remove('hidden');
+            activeFileName.innerText = file.name;
+            
+            if (file.name.endsWith('.docx')) {
+                fileTypeIcon.innerHTML = `<i class="fa-solid fa-file-word text-blue-400"></i>`;
+                const arrayBuffer = await file.arrayBuffer();
+                const result = await mammoth.extractRawText({ arrayBuffer: arrayBuffer });
+                extractedFileText = result.value;
+            } else if (file.name.endsWith('.pdf')) {
+                fileTypeIcon.innerHTML = `<i class="fa-solid fa-file-pdf text-rose-400"></i>`;
+                const arrayBuffer = await file.arrayBuffer();
+                extractedFileText = await runPdfExtraction(arrayBuffer);
+            }
+            updateHistoryListLog(file.name);
+        }
+
+        async function runPdfExtraction(arrayBuffer) {
+            const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+            const pdf = await loadingTask.promise;
+            let fullText = [];
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const textContent = await page.getTextContent();
+                fullText.push(textContent.items.map(item => item.str).join(' '));
+            }
+            return fullText.join('\n');
+        }
+
+        function parseMarkdownAndMath(mdText, exportMode = 'web') {
+            let placeholders = [];
+            let tokenCount = 0;
+            let processedText = mdText || "";
+
+            const outputConfig = exportMode === 'word' ? 'mathml' : 'htmlAndMathml';
+
+            processedText = processedText.replace(/\$\$([\s\S]+?)\$\$/g, (match, formula) => {
+                const token = `KtxMathBlockToken${tokenCount++}End`; 
+                try {
+                    const rendered = katex.renderToString(formula.trim(), { 
+                        output: outputConfig, 
+                        displayMode: true,
+                        throwOnError: false
+                    });
+                    const wrapHtml = exportMode === 'word'
+                        ? `<div style="text-align:center; margin: 12pt 0;">${rendered}</div>`
+                        : rendered;
+                    placeholders.push({ token: token, html: wrapHtml });
+                    return token;
+                } catch (e) {
+                    placeholders.push({ token: token, html: match });
+                    return token;
+                }
+            });
+
+            processedText = processedText.replace(/\$([^\$]+?)\$/g, (match, formula) => {
+                const token = `KtxMathInlineToken${tokenCount++}End`;
+                try {
+                    const rendered = katex.renderToString(formula.trim(), { 
+                        output: outputConfig, 
+                        displayMode: false,
+                        throwOnError: false
+                    });
+                    placeholders.push({ token: token, html: rendered });
+                    return token;
+                } catch (e) {
+                    placeholders.push({ token: token, html: match });
+                    return token;
+                }
+            });
+
+            let htmlResult = marked.parse(processedText);
+
+            placeholders.forEach(item => {
+                htmlResult = htmlResult.replace(item.token, item.html);
+            });
+
+            return htmlResult;
+        }
+
+        processBtn.addEventListener('click', async () => {
+            // Xử lý chuỗi API Keys
+            const keysArray = GEMINI_API_KEYS.split(',').map(key => key.trim()).filter(key => key !== "");
+            
+            if (keysArray.length === 0 || keysArray[0] === "ĐIỀN_API_KEY_CỦA_BẠN_VÀO_ĐÂY") { 
+                alert('Vui lòng cấu hình API Key vào biến GEMINI_API_KEYS trong mã nguồn để sử dụng hệ thống!'); 
+                return; 
+            }
+
+            // Chọn ngẫu nhiên 1 API Key để tránh lỗi giới hạn tốc độ (Rate Limit 429)
+            const apiKey = keysArray[Math.floor(Math.random() * keysArray.length)];
+
+            let targetPayloadText = extractedFileText ? extractedFileText : textInput.value.trim();
+            if (!targetPayloadText) { alert('Dữ liệu thô rỗng! Hãy tải file hoặc dán đề bài.'); return; }
+
+            loadingOverlay.classList.remove('hidden');
+            statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-md shadow-amber-400/50";
+            panelOutputTitle.innerText = "Hệ thống AI đang tính toán...";
+            const startTime = performance.now();
+
+            const promptRules = `Bạn là chuyên gia chuyển hóa tài liệu đề thi hóa học, toán học, vật lý học cao cấp. Hãy dịch văn bản được gửi thành cấu trúc đề bài Markdown sạch.
+QUY TẮC:
+- Định dạng công thức toán/hóa bắt buộc nằm trong cặp kí tự $...$ cho inline và $$...$$ cho block display. (Ví dụ: $2H_2 + O_2 \\rightarrow 2H_2O$)
+- Trả về duy nhất nội dung đề thi hoàn chỉnh, tuyệt đối không chèn câu thoại giải thích bên ngoài.`;
+
+            try {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+                const res = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: targetPayloadText }] }],
+                        systemInstruction: { parts: [{ text: promptRules }] },
+                        generationConfig: { temperature: 0.1 }
+                    })
+                });
+
+                if (!res.ok) throw new Error('API Key lỗi hoặc server từ chối.');
+
+                const json = await res.json();
+                let rawText = json.candidates[0].content.parts[0].text.trim();
+                
+                if (rawText.startsWith('```')) {
+                    rawText = rawText.replace(/^```[a-zA-Z]*\n/, '').replace(/\n```$/, '');
+                }
+                
+                let cleanMarkdownResult = rawText.trim();
+                
+                cleanMarkdownResult = cleanMarkdownResult
+                    .replace(/\\\[\s*([\s\S]*?)\s*\\\]/g, '$$\n$1\n$$')
+                    .replace(/\\\(\s*([\s\S]*?)\s*\\\)/g, '$$$1$');
+                
+                globalFinalMarkdown = cleanMarkdownResult;
+                
+                textOutputPreview.innerHTML = parseMarkdownAndMath(cleanMarkdownResult, 'web');
+
+                downloadWordBtn.disabled = false;
+                downloadMDBtn.disabled = false;
+                copyAllOutputBtn.disabled = false;
+                statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-md shadow-emerald-400/50";
+                panelOutputTitle.innerText = "Đã kết xuất dữ liệu thành công!";
+                
+                const endTime = performance.now();
+                executionTimerLabel.innerHTML = `Hoàn thành trong: <span class="text-emerald-400 font-bold">${((endTime - startTime) / 1000).toFixed(2)}s</span>`;
+                if (!extractedFileText) updateHistoryListLog("Văn bản dán thô từ Editor");
+
+            } catch (err) {
+                statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-rose-500 shadow-md shadow-rose-500/50";
+                panelOutputTitle.innerText = "Xảy ra sự cố lỗi biên dịch!";
+                executionTimerLabel.innerText = "Trạng thái: Thất bại";
+                alert('Có lỗi trong quá trình kết nối API. Vui lòng kiểm tra lại API Key đã nhập trong mã nguồn.');
+                console.error(err);
+            } finally {
+                loadingOverlay.classList.add('hidden');
+            }
+        });
+
+        // ========================================================
+        // KẾT NỐI PANDOC BACKEND ĐỂ XUẤT FILE DOCX CHUẨN
+        // ========================================================
+        downloadWordBtn.addEventListener('click', async () => {
+            if (!globalFinalMarkdown) return;
+            const originalBtnContent = downloadWordBtn.innerHTML;
+
+            try {
+                downloadWordBtn.disabled = true;
+                downloadWordBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang gọi Backend...';
+                downloadWordBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+                const response = await fetch(PANDOC_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        markdown: globalFinalMarkdown
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Mã lỗi HTTP Backend: ${response.status}`);
+                }
+
+                const blob = await response.blob();
+                
+                // ĐÃ CẬP NHẬT TÊN FILE TẠI ĐÂY
+                triggerDirectDownload(blob, 'Cong_Thuc_Chuan.docx');
+
+            } catch (error) {
+                console.error('Lỗi khi xuất file qua Pandoc Backend:', error);
+                alert(`Không thể gọi được Pandoc Backend (${PANDOC_API_URL}). Hãy kiểm tra xem server có đang hoạt động hay không.`);
+            } finally {
+                downloadWordBtn.innerHTML = originalBtnContent;
+                downloadWordBtn.disabled = false;
+                downloadWordBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        });
+        
+        downloadMDBtn.addEventListener('click', () => {
+            if (!globalFinalMarkdown) return;
+            const blob = new Blob([globalFinalMarkdown], { type: 'text/markdown;charset=utf-8;' });
+            triggerDirectDownload(blob, 'De_Thi_Cau_Truc.md');
+        });
+
+        function triggerDirectDownload(blob, name) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = name;
+            document.body.appendChild(a); a.click();
+            document.body.removeChild(a); URL.revokeObjectURL(url);
+        }
+
+        zoomInBtn.addEventListener('click', () => {
+            currentZoomSize += 10;
+            textOutputPreview.style.fontSize = `${currentZoomSize}%`;
+        });
+        zoomOutBtn.addEventListener('click', () => {
+            if (currentZoomSize <= 70) return;
+            currentZoomSize -= 10;
+            textOutputPreview.style.fontSize = `${currentZoomSize}%`;
+        });
+
+        copyAllOutputBtn.addEventListener('click', async () => {
+            if (!globalFinalMarkdown) return;
+            try {
+                const richHtmlMath = parseMarkdownAndMath(globalFinalMarkdown, 'word');
+                const blobPlain = new Blob([globalFinalMarkdown], { type: 'text/plain' });
+                const blobHtml = new Blob([richHtmlMath], { type: 'text/html' });
+                
+                await navigator.clipboard.write([
+                    new ClipboardItem({ 'text/plain': blobPlain, 'text/html': blobHtml })
+                ]);
+                alert('Đã copy toàn bộ dữ liệu! Bạn có thể dán (Ctrl+V) trực tiếp vào Word để lấy công thức gốc, hoặc dán vào trình soạn thảo Markdown.');
+            } catch (err) {
+                try {
+                    await navigator.clipboard.writeText(globalFinalMarkdown);
+                    alert('Đã copy mã cấu trúc Markdown sạch vào bộ nhớ tạm!');
+                } catch (fallbackErr) {
+                    alert('Không thể sao chép dữ liệu.');
+                }
+            }
+        });
+
+        fullscreenToggleBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                outputPanelSection.requestFullscreen().catch(err => alert('Không hỗ trợ xem toàn màn hình.'));
+                fullscreenToggleBtn.innerHTML = `<i class="fa-solid fa-minimize text-xs"></i>`;
+            } else {
+                document.exitFullscreen();
+                fullscreenToggleBtn.innerHTML = `<i class="fa-solid fa-expand text-xs"></i>`;
+            }
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                processBtn.click();
+            }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.key === 'c')) {
+                if (!copyAllOutputBtn.disabled) {
+                    e.preventDefault();
+                    copyAllOutputBtn.click();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

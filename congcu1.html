@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI Soạn Đề Thi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/docx@8.2.2/build/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+        /* KHÓA HOÀN TOÀN CUỘN TRANG (BODY SCROLL) */
+        body {
+            height: 100dvh; 
+            width: 100vw;
+            overflow: hidden; 
+            background-color: #030712; 
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 30%), 
+                radial-gradient(circle at 85% 30%, rgba(2, 132, 199, 0.05) 0%, transparent 30%), 
+                linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 24px 24px, 24px 24px;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .neon-title {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.8), 0 0 20px rgba(6, 182, 212, 0.4);
+            letter-spacing: 1px;
+        }
+
+        .panel { 
+            background-color: #0f141b; 
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+        }
+
+        .chat-container {
+            background-color: #030712;
+            border: 1px solid #1e293b;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+           scroll-behavior: auto !important;
+        }
+
+        /* ================= NÂNG CẤP GIAO DIỆN 3 NÚT (CÙNG TÔNG MÀU XANH CYBER) ================= */
+        
+        /* 1. NÚT GỬI YÊU CẦU - CYAN CYBER GLOW */
+        .btn-neon-cyan {
+            background: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #00bcd4 100%);
+            background-size: 200% auto;
+            border: 1px solid #22d3ee;
+            color: white; 
+            box-shadow: 0 4px 10px rgba(6, 182, 212, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-neon-cyan:hover:not(:disabled) { 
+            background-position: right center;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.6), 0 0 40px rgba(6, 182, 212, 0.2), inset 0 1px 3px rgba(255, 255, 255, 0.5); 
+            transform: translateY(-1.5px); 
+        }
+        .btn-neon-cyan:active:not(:disabled) { transform: translateY(1px); box-shadow: 0 2px 5px rgba(6, 182, 212, 0.4); }
+
+        /* 2. NÚT XUẤT WORD - BLUE CYBER GLOW */
+        .btn-neon-blue {
+            background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 50%, #2563eb 100%);
+            background-size: 200% auto;
+            border: 1px solid #60a5fa;
+            color: white; 
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-neon-blue:hover:not(:disabled) { 
+            background-position: right center;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.2), inset 0 1px 3px rgba(255, 255, 255, 0.5); 
+            transform: translateY(-1.5px); 
+        }
+        .btn-neon-blue:active:not(:disabled) { transform: translateY(1px); box-shadow: 0 2px 5px rgba(59, 130, 246, 0.4); }
+
+        /* 3. NÚT XỬ LÝ WAYGROUND - SKY BLUE GLOW (ĐÃ ĐỔI TỪ TÍM SANG XANH) */
+        .btn-neon-sky {
+            background: linear-gradient(135deg, #0284c7 0%, #38bdf8 50%, #0ea5e9 100%);
+            background-size: 200% auto;
+            border: 1px solid #7dd3fc;
+            color: white; 
+            box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-neon-sky:hover:not(:disabled) { 
+            background-position: right center;
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.6), 0 0 40px rgba(14, 165, 233, 0.2), inset 0 1px 3px rgba(255, 255, 255, 0.5); 
+            transform: translateY(-1.5px); 
+        }
+        .btn-neon-sky:active:not(:disabled) { transform: translateY(1px); box-shadow: 0 2px 5px rgba(14, 165, 233, 0.4); }
+        
+        /* TRẠNG THÁI KHÓA NÚT */
+        .btn-neon-sky:disabled, .btn-neon-blue:disabled, .btn-neon-cyan:disabled { 
+            filter: grayscale(100%); opacity: 0.4; cursor: not-allowed; transform: none !important; box-shadow: none !important; 
+        }
+
+        /* =================================================================================== */
+
+        .disabled-zone { pointer-events: none; opacity: 0.5; filter: grayscale(100%); }
+        .drag-active { border-color: #06b6d4 !important; background-color: rgba(6, 182, 212, 0.1) !important; }
+
+        .btn-home-outline {
+            background: transparent;
+            border: 1px solid #06b6d4; 
+            color: #06b6d4;
+            transition: all 0.3s ease;
+        }
+        .btn-home-outline:hover {
+            color: #ffffff;
+            border-color: #22d3ee;
+            box-shadow: inset 0 0 10px rgba(6, 182, 212, 0.4);
+        }
+
+        .status-glow {
+            padding: 0px 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            background-color: transparent;
+            border: none !important;
+            box-shadow: none !important;
+            line-height: 1;
+        }
+
+        #resultZone {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            max-width: 600px;
+            z-index: 50;
+            background: #030712;
+            border: 1px solid #06b6d4;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+        }
+
+        .custom-scroll::-webkit-scrollbar { width: 5px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #06b6d4; }
+        
+        .ai-msg { 
+            background-color: #0f141b !important; 
+            border-radius: 0 12px 12px 12px !important; 
+            border: 2px solid #06b6d4 !important; 
+            color: #f3f4f6 !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        .user-msg { 
+            background-color: #0891b2 !important; 
+            border-radius: 12px 12px 0 12px !important; 
+            border: 2px solid #22d3ee !important; 
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        @media (min-width: 768px) {
+            .ai-msg, .user-msg { font-size: 20px !important; }
+            .status-glow { font-size: 16px; }
+        }
+    </style>
+</head>
+<body class="flex flex-col p-2 md:p-4">
+
+    <header class="flex items-center justify-between mb-2 md:mb-4 flex-shrink-0">
+        <div class="flex items-center gap-2 md:gap-3">
+            <div class="bg-cyan-600 p-2 md:p-3 rounded-xl shadow-[0_0_10px_rgba(6,182,212,0.5)] flex items-center justify-center">
+                <i class="fa-solid fa-cube text-lg md:text-3xl text-white"></i> 
+            </div>
+            <div>
+                <h1 class="text-lg md:text-3xl font-extrabold neon-title">AI SOẠN ĐỀ THI</h1>
+                <p class="text-[9px] md:text-[13px] text-cyan-300 font-bold tracking-[1px] md:tracking-[2px]">VERSION 3.0</p>
+            </div>
+        </div>
+        
+        <div class="flex items-center gap-2 md:gap-4">
+            <div class="hidden md:flex items-center gap-6 text-[#64748b] text-2xl md:border-r md:border-[#1e293b] pr-5">
+                <i class="fa-solid fa-book-open hover:text-cyan-400 transition-colors cursor-pointer"></i>
+                <i class="fa-solid fa-graduation-cap hover:text-blue-400 transition-colors cursor-pointer"></i>
+                <i class="fa-solid fa-flask hover:text-sky-400 transition-colors cursor-pointer"></i>
+            </div>
+            <button onclick="window.location.href='index.html'" class="btn-home-outline p-2 md:p-3 rounded-xl text-xs md:text-lg flex items-center justify-center" title="Quay về trang chủ">
+                <i class="fa-solid fa-house"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="flex flex-col lg:flex-row flex-1 min-h-0 gap-2 md:gap-4 w-full overflow-hidden">
+        
+        <div class="panel p-3 md:p-4 flex flex-col flex-[0.8] lg:flex-none lg:w-[35%] min-h-0 w-full relative">
+            <div class="flex items-center gap-2 mb-2 md:mb-3 text-cyan-400 font-bold text-xs md:text-base uppercase tracking-wide flex-shrink-0">
+                <i class="fa-solid fa-file-import"></i> Nguồn tài liệu (Input)
+            </div>
+
+            <div id="drop-zone" class="border-2 border-dashed border-[#475569] rounded-xl h-20 md:h-32 flex flex-col items-center justify-center cursor-pointer hover:border-cyan-500 hover:bg-cyan-500/10 transition-all mb-2 flex-shrink-0" onclick="document.getElementById('file-input').click()">
+                <i class="fa-solid fa-cloud-arrow-up text-2xl md:text-4xl mb-1 text-cyan-400 pointer-events-none"></i>
+                <p class="text-xs md:text-sm font-bold text-gray-200 pointer-events-none">Kéo thả file hoặc <span class="text-cyan-400">duyệt qua máy</span></p>
+                <input type="file" id="file-input" class="hidden" accept=".pdf,.doc,.docx">
+            </div>
+
+            <div id="file-info-box" class="hidden items-center justify-between bg-cyan-500/20 border border-cyan-500/50 p-2 rounded-lg mb-2 flex-shrink-0">
+                <span id="file-name" class="text-xs md:text-sm font-bold text-white truncate w-2/3">file.pdf</span>
+                <button id="remove-btn" onclick="removeFile()" class="text-[10px] md:text-xs bg-red-500 hover:bg-red-600 text-white px-2 py-1 md:px-3 md:py-1.5 rounded font-bold transition-all"><i class="fa-solid fa-trash"></i> XÓA</button>
+            </div>
+
+            <div class="flex-1 flex flex-col min-h-0 relative">
+                <p class="text-sm md:text-lg font-bold text-gray-200 mb-1 border-b border-[#1e293b] pb-1"><i class="fa-solid fa-align-left mr-1 text-cyan-400"></i>Nội dung trích xuất</p>
+                
+                <div id="extract-loading" class="hidden absolute inset-0 top-[28px] bg-[#030712]/80 backdrop-blur-sm border border-[#1e293b] rounded-xl flex-col items-center justify-center z-10 transition-all">
+                    <i class="fa-solid fa-circle-notch animate-spin text-3xl md:text-4xl text-cyan-500 mb-2 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]"></i>
+                    <span class="text-cyan-300 font-bold tracking-wider animate-pulse text-[10px] md:text-sm uppercase">Đang trích xuất...</span>
+                </div>
+
+                <textarea id="result-text" disabled class="custom-scroll flex-1 w-full p-2 md:p-3 bg-[#030712] border border-[#1e293b] rounded-xl text-gray-100 text-base md:text-xl outline-none focus:border-cyan-500 resize-none leading-relaxed min-h-0 overflow-y-auto" placeholder="Nội dung trích xuất sẽ hiện ở đây..."></textarea>
+            </div>
+        </div>
+
+        <div class="panel p-3 md:p-4 flex flex-col flex-[1.2] lg:flex-none lg:w-[65%] min-h-0 w-full relative">
+            
+            <div class="flex items-center justify-between mb-2 md:mb-3 flex-shrink-0">
+                <div class="flex items-center gap-2 text-cyan-400 font-bold text-xs md:text-base uppercase tracking-wide">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Khung Chat
+                </div>
+                <div class="flex items-center gap-1 md:gap-2 bg-blue-500/10 px-2 py-1 md:px-3 md:py-1 rounded-lg border border-blue-500/30">
+                    <i class="fa-solid fa-bolt text-[10px] md:text-xs text-blue-400"></i>
+                    <span class="text-[10px] md:text-xs font-bold text-blue-400 tracking-wider">TỐC ĐỘ CAO</span>
+                </div>
+            </div>
+
+            <div id="chatBox" class="custom-scroll flex-1 chat-container min-h-0 p-3 md:p-4 rounded-xl overflow-y-auto mb-2 space-y-3">
+                <div class="flex justify-start">
+                    <div class="ai-msg p-2.5 md:p-4 text-[14px] md:max-w-[85%] leading-relaxed font-medium">
+                        Hãy nhập yêu cầu trực tiếp xuống ô bên dưới hoặc trích xuất yêu cầu từ file ở ô bên trái nhé!
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-2 flex-shrink-0">
+                <textarea id="userInput" class="custom-scroll w-full bg-[#030712] border border-[#334155] p-2 md:p-3 rounded-xl text-sm md:text-lg text-gray-100 outline-none focus:border-cyan-500 transition-all resize-none h-12 md:h-20 flex-shrink-0" placeholder="Nhập yêu cầu tại đây..."></textarea>
+                
+                <div class="grid grid-cols-3 gap-1.5 md:gap-3 flex-shrink-0">
+                    <button id="sendBtn" onclick="handleSend()" class="btn-neon-cyan py-2.5 md:py-3.5 rounded-xl font-bold text-xs md:text-base flex flex-col md:flex-row items-center justify-center gap-1 text-center">
+                        <i class="fa-solid fa-paper-plane text-xs md:text-sm"></i> <span class="leading-tight">GỬI <br class="md:hidden">YÊU CẦU</span>
+                    </button>
+                    <button id="exportBtn" onclick="handleExport()" class="btn-neon-blue py-2.5 md:py-3.5 rounded-xl font-bold text-xs md:text-base flex flex-col md:flex-row items-center justify-center gap-1 text-center">
+                        <i class="fa-solid fa-file-word text-xs md:text-sm"></i> <span class="leading-tight">XUẤT <br class="md:hidden">WORD</span>
+                    </button>
+                    <button id="processBtn" onclick="handleProcessRender()" class="btn-neon-sky py-2.5 md:py-3.5 rounded-xl font-bold text-xs md:text-base flex flex-col md:flex-row items-center justify-center gap-1 text-center">
+                        <i class="fa-solid fa-microchip text-xs md:text-sm"></i> <span class="leading-tight">XỬ LÝ <br class="md:hidden">WAYGROUND</span>
+                    </button>
+                </div>
+
+                <div id="statusArea" class="text-center h-[20px] md:h-[24px] flex items-center justify-center mt-0.5 flex-shrink-0">
+                </div>
+            </div>
+
+            <div id="resultZone" class="hidden p-3 md:p-4 rounded-xl">
+                <div class="flex justify-between items-center mb-2 border-b border-cyan-500/30 pb-2">
+                    <h3 class="text-cyan-400 font-bold text-xs md:text-sm uppercase"><i class="fa-solid fa-check-circle mr-1"></i> Hoàn tất! </h3>
+                    <button onclick="document.getElementById('resultZone').classList.add('hidden')" class="text-gray-400 hover:text-white transition-colors"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </div>
+                <div id="fileList" class="grid grid-cols-1 gap-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_KEYS = [
+            "AIzaSyBTtDppOPr0mZPcacD_PkHsdhE_jHhSutQ",
+            "AIzaSyBgb-jZFGtxXQxZYt3auv-fqgcb4FjFpy4" 
+        ];
+
+        function getRandomApiKey() {
+            if (API_KEYS.length === 0) return null;
+            return API_KEYS[Math.floor(Math.random() * API_KEYS.length)];
+        }
+
+        const EXTRACT_SERVER_URL = 'https://pandoc-export-server.onrender.com/extract-text'; 
+        const PANDOC_SERVER_URL = 'https://pandoc-export-server.onrender.com/api/export-docx'; 
+        const RENDER_SERVER_URL = 'https://chuyen-doi-wayground.onrender.com';
+
+        let currentAIContent = ""; 
+        let mảng_nội_dung = [];
+        let isProcessing = false; 
+
+        function setLock(status) {
+            isProcessing = status;
+            
+            const elements = [
+                document.getElementById('sendBtn'),
+                document.getElementById('exportBtn'),
+                document.getElementById('processBtn'),
+                document.getElementById('remove-btn') 
+            ];
+            
+            elements.forEach(el => {
+                if(el) el.disabled = status;
+            });
+
+            const dropZone = document.getElementById('drop-zone');
+            const fileInput = document.getElementById('file-input');
+            if(status) {
+                dropZone.classList.add('disabled-zone');
+                fileInput.disabled = true;
+            } else {
+                dropZone.classList.remove('disabled-zone');
+                fileInput.disabled = false;
+            }
+        }
+
+        const systemPrompt = String.raw`Đừng ghi lời nói của bạn vào đây chỉ cần chuẩn Promt
+NHIỆM VỤ:
+1. Tóm tắt ngắn gọn nội dung file gửi lên (nếu có) và giải bài tập nếu có
+2. Tạo bộ đề thi trắc nghiệm/tự luận theo cấu trúc quy định, tối ưu hóa format để script Python chuyển đổi sang Microsoft Word không bị lỗi.
+QUY TẮC TUYỆT ĐỐI VỀ FORMAT CÔNG THỨC (QUAN TRỌNG NHẤT):
+Để bộ chuyển đổi hoạt động, bạn PHẢI tuân thủ cú pháp LaTeX sau:
+1. **CÚ PHÁP BAO BỌC:**
+    * Mọi công thức Toán, Lý, Hóa, biến số ($x, y, t, m$), số mũ, đơn vị phức tạp đều PHẢI đặt trong cặp dấu \`$\`.
+    * Ví dụ: $y = ax^2 + bx + c$, $v = 30 m/s$.
+    * KHÔNG dùng block math \`$$\` hoặc \`\[...\]\`, chỉ dùng inline math \`$ ... $\`.
+
+2. **PHÂN SỐ & CĂN THỨC (Bắt buộc cho Word):**
+    * Tuyệt đối KHÔNG viết phân số kiểu text như: 1/2, a/b.
+    * BẮT BUỘC dùng lệnh \`\frac{...}{...}\`.
+        * Sai: $a/b$, $x/2$.
+        * Đúng: $\frac{a}{b}$, $\frac{x}{2}$.
+    * Căn thức: Dùng $\sqrt{...}$ hoặc $\sqrt[n]{...}$.
+3. **HÓA HỌC & VẬT LÝ:**
+    * Chỉ số trên/dưới phải dùng ngoặc nhọn \`{}\` nếu có nhiều ký tự.
+    * Hóa học: $H_2SO_4$, $Fe^{3+}$, $SO_4^{2-}$. (Không viết H2SO4).
+    * Mũi tên phản ứng: Dùng $\rightarrow$ hoặc $\xrightarrow{t^o}$.
+    * Vật lý: Vector $\vec{v}$, $\vec{F}$.
+    * Góc: $60^\circ$ (dùng \`^\circ\`), $\alpha, \pi, \Omega$.
+4. **LÀM SẠCH VĂN BẢN:**
+    * Không dùng lệnh LaTeX định dạng văn bản như \`\textbf\`, \`\textit\`, \`\text{}\` bên trong công thức nếu không cần thiết.
+    * Không dùng \`\boxed{}\`.
+    * Không dùng các môi trường liệt kê như \`\begin{enumerate}\`...
+5. **ĐỐI VỚI MÔN TIN:**
+    * Không cần đặt các block \'$ ... $\' để render các code trừ khi có công thức toán học.
+5. **ĐỐI VỚI MÔN VĂN,SỬ,ĐỊA:** * Không cần đặt các block \'$ ... $\' trong các số đứng một mình ví dụ như năm 1980.
+---
+CẤU TRÚC ĐỀ THI (Output Template):
+# ĐỀ KIỂM TRA [MÔN hoặc KHÔNG GHI MÔN]
+## PHẦN 1: [Số câu trắc nghiệm theo yêu cầu người dùng hoặc 20] CÂU TRẮC NGHIỆM KHÁCH QUAN
+**Câu 1:** [Nội dung câu hỏi, công thức kẹp trong $...$]
+
+A. [Nội dung A]
+
+B. [Nội dung B]
+
+C. [Nội dung C]
+
+D. [Nội dung D]
+... (Tiếp tục đến câu 20 hoặc theo yêu cầu người dùng)
+
+Lưu ý trắc nghiệm khách quan: Tỉ lệ đáp án A B C D tương đối đều nhau không cho 1 đáp án xảy ra nhiều lần
+## PHẦN 2: [Số câu đúng sai theo yêu cầu người dùng hoặc 4 ] CÂU ĐÚNG SAI
+**Câu [ Tiếp tục theo số câu trắc nghiệm]:** [Nội dung ngữ cảnh]
+
+a) [Phát biểu 1]
+
+b) [Phát biểu 2]
+
+c) [Phát biểu 3]
+
+d) [Phát biểu 4]
+... (Tiếp tục thêm 4 câu hoặc theo yêu cầu người dùng)
+
+## PHẦN 3: [Số câu tự luận theo yêu cầu người dùng hoặc 3] CÂU TỰ LUẬN
+**Câu [Tiếp tục theo câu đúng sai]:** [Câu hỏi]
+
+... (Tiếp tục thêm 3 câu hoặc theo yêu cầu người dùng)
+
+		
+# ĐÁP ÁN VÀ GIẢI THÍCH CHI TIẾT
+## PHẦN 1: TRẮC NGHIỆM KHÁCH QUAN
+**Câu 1:**
+
+\- Đáp án: [A/B/C/D]
+
+\- Giải thích: [Giải thích ngắn gọn bằng tiếng việt, công thức dùng LaTeX $...$].Các suy luận khi giải bài bắt buộc bằng tiếng việt
+
+## PHẦN 2: ĐÚNG SAI
+**Câu [bắt đầu của câu đúng sai]:**
+- Đáp án: a) [Đ/S], b) [Đ/S], c) [Đ/S], d) [Đ/S]
+
+- Giải thích:
+
+    a) [Giải thích ngắn gọn bằng tiếng việt]
+
+    b) [Giải thích ngắn gọn bằng tiếng việt]
+
+    c) [Giải thích ngắn gọn bằng tiếng việt]
+
+    d) [Giải thích ngắn gọn bằng tiếng việt]. Các suy luận khi giải bài bắt buộc bằng tiếng việt và chỉ giải thích tại sao chọn Đ hoặc S chỉ nói liên quan đến đề bài 
+
+## PHẦN 3: TỰ LUẬN
+**Câu [bắt đầu của câu tự luận]:**
+
+\- Đáp án: [Bằng ngôn ngữ tiếng việt]
+
+\- Giải thích: [Hướng dẫn giải vắn tắt].Các suy luận khi giải bài bắt buộc bằng tiếng việt.
+
+Lưu ý đối với AI:Yêu cầu bạn trả về 2 kết quả phải giống nhau giống với Promt và ngăn cách giữa 2 kết quả là "1e9658952":
+1. Đối với kết quả 2 thì
+- Xóa **
+- Xoá # và ## ở đầu các tiêu đề
+- Thay \- đầu câu thành -
+- Giữ nguyên LaTeX
+2.Đối với cả 2 kết quả thì
+- Trước khi trả lời mỗi dòng phải xuống dòng một cái trừ
+-Với mỗi ý trả lời cũng vậy 
+ví dụ:
++[ý 1]
+
++[ý 2]
+`;
+
+        function showStatus(msg, type = 'info') {
+            const area = document.getElementById('statusArea');
+            let textClass = "text-cyan-400";
+            let icon = '<i class="fa-solid fa-circle-info"></i>';
+
+            if(type === 'success') { textClass = "text-blue-400"; icon = '<i class="fa-solid fa-check-circle"></i>'; }
+            if(type === 'error') { textClass = "text-red-400"; icon = '<i class="fa-solid fa-triangle-exclamation"></i>'; }
+            if(type === 'loading') { textClass = "text-cyan-400"; icon = '<i class="fa-solid fa-circle-notch animate-spin inline-block"></i>'; }
+
+            area.innerHTML = `<div class="status-glow ${textClass}">${icon} <span>${msg}</span></div>`;
+        }
+
+        function isValidFileType(file) {
+            const validMimeTypes = [
+                'application/pdf', 
+                'application/msword', 
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            ];
+            if (validMimeTypes.includes(file.type)) return true;
+            const ext = file.name.split('.').pop().toLowerCase();
+            if (['pdf', 'doc', 'docx'].includes(ext)) return true;
+            return false;
+        }
+
+        async function processInputFile(file) {
+            if(!file || isProcessing) return;
+            if(!isValidFileType(file)) return;
+            
+            setLock(true); 
+            document.getElementById('file-info-box').classList.remove('hidden');
+            document.getElementById('file-info-box').classList.add('flex');
+            document.getElementById('file-name').innerText = file.name;
+            
+            document.getElementById('extract-loading').classList.remove('hidden');
+            document.getElementById('extract-loading').classList.add('flex');
+            document.getElementById('result-text').value = "";
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            try {
+                const res = await fetch(EXTRACT_SERVER_URL, { method: 'POST', body: formData });
+                const data = await res.json();
+                if(data.success) {
+                    const txtArea = document.getElementById('result-text');
+                    txtArea.value = data.text;
+                    txtArea.disabled = false;
+                }
+            } catch(e) {
+                showStatus("Lỗi kết nối máy chủ!", "error");
+                removeFile();
+            } finally {
+                document.getElementById('extract-loading').classList.add('hidden');
+                document.getElementById('extract-loading').classList.remove('flex');
+                setLock(false); 
+            }
+        }
+
+        const dropZone = document.getElementById('drop-zone');
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            if(isProcessing) return;
+            dropZone.classList.add('drag-active');
+        });
+
+        dropZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-active');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-active');
+            if(isProcessing) return;
+
+            if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                processInputFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        const fileInput = document.getElementById('file-input');
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files.length > 0) {
+                processInputFile(e.target.files[0]);
+            }
+            e.target.value = "";
+        });
+
+        function removeFile() {
+            if(isProcessing) return;
+            fileInput.value = "";
+            document.getElementById('file-info-box').classList.add('hidden');
+            document.getElementById('file-info-box').classList.remove('flex');
+            const txtArea = document.getElementById('result-text');
+            txtArea.value = "";
+            txtArea.disabled = true;
+            document.getElementById('statusArea').innerHTML = "";
+        }
+
+        async function handleSend() {
+            if(isProcessing) return;
+            
+            const key = getRandomApiKey();
+            const input = document.getElementById('userInput').value.trim();
+            const extracted = document.getElementById('result-text').value.trim();
+            
+            const hasFile = !document.getElementById('file-info-box').classList.contains('hidden');
+            const fileName = document.getElementById('file-name').innerText;
+            
+            if(!key || key.includes("ĐIỀN_API_KEY")) { alert("Vui lòng cấu hình API Key trong mã nguồn!"); return; }
+            if(!input && !extracted) { alert("Vui lòng nhập yêu cầu hoặc tải file!"); return; }
+            
+            let finalContentToAI = extracted ? extracted : input;
+            const chatBox = document.getElementById('chatBox');
+            
+            let userMsgHTML = `<div class="flex justify-end"><div class="user-msg p-2.5 md:p-4 text-[14px] md:max-w-[85%] shadow-md leading-relaxed flex flex-col gap-2">`;
+            
+            if (hasFile && extracted) {
+                userMsgHTML += `
+                    <div class="flex items-center gap-1.5 md:gap-2 bg-black/20 p-2 rounded-lg border border-white/20 mb-1">
+                        <i class="fa-solid fa-file-lines text-lg md:text-2xl text-cyan-200"></i>
+                        <span class="font-semibold text-cyan-50 text-[11px] md:text-[15px] truncate max-w-[120px] md:max-w-[200px]">${fileName}</span>
+                        <i class="fa-solid fa-check-circle text-cyan-300 ml-auto"></i>
+                    </div>
+                `;
+                if(input) { userMsgHTML += `<span>${input}</span>`; }
+            } else {
+                userMsgHTML += `<span>${input}</span>`;
+            }
+
+            userMsgHTML += `</div></div>`;
+            chatBox.innerHTML += userMsgHTML;
+            
+            const aiThinkingHTML = `
+            <div id="ai-loading-bubble" class="flex justify-start mt-2">
+                <div class="ai-msg p-3 md:p-4 border border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.3)] flex items-center gap-3">
+                    <div class="animate-spin duration-[2000ms] ease-linear infinite flex items-center justify-center">
+                        <span class="text-3xl font-bold" style="color: #00d4ff; text-shadow: 0 0 10px rgba(0,212,255,0.8), 0 0 20px rgba(180,77,255,0.6); margin-top: -4px;">⬡</span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-cyan-300 text-xs md:text-sm font-bold tracking-wider">AI đang suy nghĩ</span>
+                        <span class="flex gap-1 mt-1">
+                            <span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style="animation-delay: 0s"></span>
+                            <span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style="animation-delay: 0.15s"></span>
+                            <span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style="animation-delay: 0.3s"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>`;
+            chatBox.innerHTML += aiThinkingHTML;
+            chatBox.scrollTop = chatBox.scrollHeight;
+            document.getElementById('userInput').value = "";
+            if (hasFile) { removeFile(); }
+            
+            setLock(true); 
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${key}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        systemInstruction: { parts: [{ text: systemPrompt }] },
+                        contents: [{ parts: [{ text: finalContentToAI }] }]
+                    })
+                });
+                
+                const data = await response.json();
+                if(data.error) throw new Error(data.error.message);
+
+                currentAIContent = data.candidates[0].content.parts[0].text;
+                mảng_nội_dung = currentAIContent.split("1e9658952");
+                
+                const displayHTML = mảng_nội_dung.length > 1 ? mảng_nội_dung[1].trim() : currentAIContent;
+
+                const loadingBubble = document.getElementById('ai-loading-bubble');
+                if (loadingBubble) { loadingBubble.remove(); }
+
+                const uniqueId = "ai-msg-" + Date.now();
+                chatBox.innerHTML += `<div class="flex justify-start"><div id="${uniqueId}" class="ai-msg p-2.5 md:p-4 text-[14px] md:max-w-[85%] whitespace-pre-wrap leading-relaxed"></div></div>`;
+                
+                const aiMsgElement = document.getElementById(uniqueId);
+                const tokens = displayHTML.split(/(\s+)/); 
+                let tokenIndex = 0;
+                let accumulatedText = "";
+
+                function streamContent() {
+                    if (tokenIndex < tokens.length) {
+                        let chunk = tokens.slice(tokenIndex, tokenIndex + 5).join("");
+                        tokenIndex += 5;
+                        
+                        accumulatedText += chunk;
+                        aiMsgElement.textContent = accumulatedText; 
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                        
+                        setTimeout(streamContent, 4); 
+                    } else {
+                        aiMsgElement.innerHTML = displayHTML;
+                        if (window.MathJax) {
+                            MathJax.typesetPromise([aiMsgElement]).then(() => {
+                                chatBox.scrollTop = chatBox.scrollHeight;
+                            }).catch(() => {});
+                        }
+                        showStatus("Tạo đề thành công!", "success");
+                        setLock(false);
+                    }
+                }
+                streamContent();
+                
+            } catch (err) {
+                const loadingBubble = document.getElementById('ai-loading-bubble');
+                if (loadingBubble) { loadingBubble.remove(); }
+                showStatus("Lỗi AI: " + (err.message || "Kiểm tra lại Key"), "error");
+                setLock(false);
+            }
+        }
+
+        async function handleProcessRender() {
+            if (isProcessing) return; 
+            if (!currentAIContent) { alert("Chưa có đề thi để xử lý!"); return; }
+            
+            setLock(true); 
+            showStatus("Đang xử lý Wayground...", "loading");
+
+            try {
+                const textToProcess = mảng_nội_dung.length > 1 ? mảng_nội_dung[1].trim() : currentAIContent;
+                const response = await fetch(`${RENDER_SERVER_URL}/api/process`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ text: textToProcess })
+                });
+
+                if(!response.ok) throw new Error("Lỗi Server Wayground");
+
+                const data = await response.json();
+                const fileList = document.getElementById("fileList");
+                
+                fileList.innerHTML = `
+                    <a href="${RENDER_SERVER_URL}${data.excel_url}" class="flex items-center justify-between p-2 md:p-3 bg-[#0f141b] border border-[#1e293b] rounded-lg hover:border-cyan-500 hover:shadow-[0_0_10px_rgba(6,182,212,0.2)] transition-all text-xs md:text-sm text-gray-100">
+                        <span class="truncate pr-2"><i class="fa-solid fa-file-excel text-cyan-500 mr-1 md:text-lg"></i> Excel Wayground</span>
+                        <span class="text-cyan-400 font-bold bg-cyan-500/10 px-2 py-1 md:px-3 md:py-1.5 rounded-lg border border-cyan-500/30 whitespace-nowrap"><i class="fa-solid fa-download"></i> Tải</span>
+                    </a>
+                    <a href="${RENDER_SERVER_URL}${data.word_bold_url}" class="flex items-center justify-between p-2 md:p-3 bg-[#0f141b] border border-[#1e293b] rounded-lg hover:border-blue-500 hover:shadow-[0_0_10px_rgba(59,130,246,0.2)] transition-all text-xs md:text-sm text-gray-100">
+                        <span class="truncate pr-2"><i class="fa-solid fa-file-word text-blue-500 mr-1 md:text-lg"></i> Đề + Đáp Án Đỏ</span>
+                        <span class="text-blue-400 font-bold bg-blue-500/10 px-2 py-1 md:px-3 md:py-1.5 rounded-lg border border-blue-500/30 whitespace-nowrap"><i class="fa-solid fa-download"></i> Tải</span>
+                    </a>
+                    <a href="${RENDER_SERVER_URL}${data.word_std_url}" class="flex items-center justify-between p-2 md:p-3 bg-[#0f141b] border border-[#1e293b] rounded-lg hover:border-sky-500 hover:shadow-[0_0_10px_rgba(14,165,233,0.2)] transition-all text-xs md:text-sm text-gray-100">
+                        <span class="truncate pr-2"><i class="fa-solid fa-file-word text-sky-500 mr-1 md:text-lg"></i> Đề & Giải Riêng</span>
+                        <span class="text-sky-400 font-bold bg-sky-500/10 px-2 py-1 md:px-3 md:py-1.5 rounded-lg border border-sky-500/30 whitespace-nowrap"><i class="fa-solid fa-download"></i> Tải</span>
+                    </a>
+                `;
+                document.getElementById('resultZone').classList.remove('hidden');
+                showStatus("Xử lý thành công!", "success");
+            } catch (e) {
+                showStatus("Lỗi Server xử lý!", "error");
+            } finally {
+                setLock(false); 
+            }
+        }
+
+        async function handleExport() {
+             if (isProcessing) return; 
+             if (!currentAIContent || mảng_nội_dung.length === 0) { alert("Chưa có đề để xuất!"); return; }
+             
+             setLock(true); 
+             showStatus("Đang tạo Word...", "loading");
+
+             try {
+                const markdownContent = mảng_nội_dung[0].trim();
+                const response = await fetch(PANDOC_SERVER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ markdown: markdownContent })
+                });
+
+                if (!response.ok) throw new Error("Server Pandoc từ chối");
+
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `De_Thi_AI.docx`; 
+                link.click();
+                URL.revokeObjectURL(url);
+
+                showStatus("Xuất Word thành công!", "success");
+             } catch (error) {
+                showStatus("Lỗi xuất file Word!", "error");
+             } finally {
+                 setLock(false); 
+             }
+        }
+    </script>
+</body>
+</html>
