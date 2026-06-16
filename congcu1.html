@@ -278,17 +278,13 @@
 
     <script>
         // Lấy API Keys từ Placeholder được tiêm vào qua GitHub Actions
-        const secretsPlaceholder = '{{INJECT_API_KEYS_HERE}}'; 
+        const secretsPlaceholder = "INJECT_API_KEYS_HERE"; 
         let API_KEYS = [];
         
         // Kiểm tra xem Placeholder đã được GitHub Action thay thế chưa
-        if (!secretsPlaceholder.includes('{{INJECT_API_KEYS_HERE}}')) {
-            // Giả định chuỗi truyền vào là các key cách nhau bằng dấu phẩy
-            API_KEYS = secretsPlaceholder.split(',').map(key => key.trim()).filter(key => key !== '');
-        } else {
-            // Danh sách dự phòng nếu chạy local mà chưa có Actions (Bạn có thể để trống mảng này)
-            API_KEYS = []; 
-        }
+		API_KEYS = SECRET_KEYS !== "INJECT_API_KEYS_HERE" 
+            ? SECRET_KEYS.split(',').map(k => k.trim()) 
+            : [];
 
         const EXTRACT_SERVER_URL = 'https://pandoc-export-server.onrender.com/extract-text'; 
         const PANDOC_SERVER_URL = 'https://pandoc-export-server.onrender.com/api/export-docx'; 
