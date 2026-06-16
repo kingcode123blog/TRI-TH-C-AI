@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"] # Sửa thành "master" nếu repo của bạn dùng nhánh master
+    branches: ["master"] # Sửa thành "master" nếu repo của bạn dùng nhánh master
 
 # Cấp quyền thiết yếu cho GITHUB_TOKEN để deploy GitHub Pages tự động
 permissions:
