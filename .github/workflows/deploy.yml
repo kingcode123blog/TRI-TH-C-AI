@@ -1,0 +1,24 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Tự động chạy khi bạn push code lên nhánh main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Inject API Keys vào HTML
+        # Đây là lệnh bạn đã hỏi, nó thay thế biến trong file HTML bằng Secret Key thật
+        run: |
+          sed -i 's/INJECT_API_KEYS_HERE/${{ secrets.GOOGLE_API_KEY }}/g' congcu1.html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .  # Thư mục chứa file congcu1.html
