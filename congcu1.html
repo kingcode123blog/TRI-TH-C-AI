@@ -283,9 +283,9 @@ const secretsPlaceholder = "{{INJECT_API_KEYS_HERE}}";
 let API_KEYS = [];
 
 // 2. So sánh chính xác với chuỗi ban đầu (bao gồm cả {{ }})
-API_KEYS = secretsPlaceholder !== "{{INJECT_API_KEYS_HERE}}" 
+API_KEYS = (secretsPlaceholder !== "{{INJECT_API_KEYS_HERE}}" 
     ? secretsPlaceholder.split(',').map(k => k.trim()) 
-    : [];
+    : []);
 
         const EXTRACT_SERVER_URL = 'https://pandoc-export-server.onrender.com/extract-text'; 
         const PANDOC_SERVER_URL = 'https://pandoc-export-server.onrender.com/api/export-docx'; 
