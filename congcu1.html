@@ -534,7 +534,7 @@ ví dụ:
             const hasFile = !document.getElementById('file-info-box').classList.contains('hidden');
             const fileName = document.getElementById('file-name').innerText;
             
-            if(API_KEYS.length === 0) { alert("Chưa có API Key nào được cấu hình từ GitHub Secrets!"); return; }
+            if(API_KEYS.length == 0) { alert("Chưa có API Key nào được cấu hình từ GitHub Secrets!"); return; }
             if(!input && !extracted) { alert("Vui lòng nhập yêu cầu hoặc tải file!"); return; }
             
             let finalContentToAI = extracted ? extracted : input;
