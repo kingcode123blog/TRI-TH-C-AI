@@ -285,15 +285,13 @@
     </div>
 
     <script>
-        const API_KEYS = [
-            "AIzaSyBTtDppOPr0mZPcacD_PkHsdhE_jHhSutQ",
-            "AIzaSyBgb-jZFGtxXQxZYt3auv-fqgcb4FjFpy4" 
-        ];
+        // GitHub Actions sẽ ghi đè chuỗi này khi deploy. Nếu chưa deploy, chuỗi giữ nguyên
+        const SECRET_KEYS = "INJECT_API_KEYS_HERE"; 
 
-        function getRandomApiKey() {
-            if (API_KEYS.length === 0) return null;
-            return API_KEYS[Math.floor(Math.random() * API_KEYS.length)];
-        }
+        // Tự động tách chuỗi thành mảng. Các key dùng khi chạy Local (trên máy cá nhân) được đặt ở nhánh "else"
+        let API_KEYS = SECRET_KEYS !== "INJECT_API_KEYS_HERE" 
+            ? SECRET_KEYS.split(',').map(k => k.trim()) 
+            : [];
 
         const EXTRACT_SERVER_URL = 'https://pandoc-export-server.onrender.com/extract-text'; 
         const PANDOC_SERVER_URL = 'https://pandoc-export-server.onrender.com/api/export-docx'; 
@@ -535,17 +533,55 @@ ví dụ:
             document.getElementById('statusArea').innerHTML = "";
         }
 
+        // Hàm gọi API với cơ chế Fallback (tự chuyển Key khi lỗi)
+        async function fetchGeminiWithFallback(bodyData) {
+            if (API_KEYS.length === 0) {
+                throw new Error("Không có API Key nào được cấu hình!");
+            }
+
+            for (let i = 0; i < API_KEYS.length; i++) {
+                const key = API_KEYS[i];
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${key}`;
+
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(bodyData)
+                    });
+
+                    const data = await response.json();
+
+                    // Nếu thành công
+                    if (response.ok && !data.error) {
+                        return data;
+                    }
+
+                    // Bắt các mã lỗi hết Quota hoặc bị chặn (429, 403)
+                    if (response.status === 429 || response.status === 403 || (data.error && data.error.code === 429)) {
+                        continue;
+                    }
+
+                    // Các lỗi còn lại văng lỗi để hiển thị cho người dùng
+                    throw new Error(data.error?.message || "Lỗi không xác định từ Gemini API");
+
+                } catch (err) {
+                    if (i === API_KEYS.length - 1) {
+                        throw new Error("Tất cả các API Key đều đã hết Quota hoặc bị lỗi!");
+                    }
+                }
+            }
+        }
+
         async function handleSend() {
             if(isProcessing) return;
             
-            const key = getRandomApiKey();
             const input = document.getElementById('userInput').value.trim();
             const extracted = document.getElementById('result-text').value.trim();
             
             const hasFile = !document.getElementById('file-info-box').classList.contains('hidden');
             const fileName = document.getElementById('file-name').innerText;
             
-            if(!key || key.includes("ĐIỀN_API_KEY")) { alert("Vui lòng cấu hình API Key trong mã nguồn!"); return; }
             if(!input && !extracted) { alert("Vui lòng nhập yêu cầu hoặc tải file!"); return; }
             
             let finalContentToAI = extracted ? extracted : input;
@@ -593,18 +629,13 @@ ví dụ:
             setLock(true); 
 
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${key}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        systemInstruction: { parts: [{ text: systemPrompt }] },
-                        contents: [{ parts: [{ text: finalContentToAI }] }]
-                    })
-                });
-                
-                const data = await response.json();
-                if(data.error) throw new Error(data.error.message);
+                const bodyData = {
+                    systemInstruction: { parts: [{ text: systemPrompt }] },
+                    contents: [{ parts: [{ text: finalContentToAI }] }]
+                };
 
+                const data = await fetchGeminiWithFallback(bodyData);
+                
                 currentAIContent = data.candidates[0].content.parts[0].text;
                 mảng_nội_dung = currentAIContent.split("1e9658952");
                 
@@ -647,7 +678,6 @@ ví dụ:
             } catch (err) {
                 const loadingBubble = document.getElementById('ai-loading-bubble');
                 if (loadingBubble) { loadingBubble.remove(); }
-                showStatus("Lỗi AI: " + (err.message || "Kiểm tra lại Key"), "error");
                 setLock(false);
             }
         }
