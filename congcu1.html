@@ -278,11 +278,11 @@
 
     <script>
         // Lấy API Keys từ Placeholder được tiêm vào qua GitHub Actions
-const secretsPlaceholder = "{{INJECT_API_KEYS_HERE}}"; 
+const secretsPlaceholder = "INJECT_API_KEYS_HE"; 
 let API_KEYS = [];
 
 // Kiểm tra xem Placeholder đã được GitHub Action thay thế chưa
-API_KEYS = secretsPlaceholder !== "{{INJECT_API_KEYS_HERE}}" 
+API_KEYS = secretsPlaceholder !== "INJECT_API_KEYS_HERE" 
     ? secretsPlaceholder.split(',').map(k => k.trim()) 
     : [];
 
