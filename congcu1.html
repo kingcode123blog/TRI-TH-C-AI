@@ -55,9 +55,6 @@
            scroll-behavior: auto !important;
         }
 
-        /* ================= NÂNG CẤP GIAO DIỆN 3 NÚT (CÙNG TÔNG MÀU XANH CYBER) ================= */
-        
-        /* 1. NÚT GỬI YÊU CẦU - CYAN CYBER GLOW */
         .btn-neon-cyan {
             background: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #00bcd4 100%);
             background-size: 200% auto;
@@ -73,7 +70,6 @@
         }
         .btn-neon-cyan:active:not(:disabled) { transform: translateY(1px); box-shadow: 0 2px 5px rgba(6, 182, 212, 0.4); }
 
-        /* 2. NÚT XUẤT WORD - BLUE CYBER GLOW */
         .btn-neon-blue {
             background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 50%, #2563eb 100%);
             background-size: 200% auto;
@@ -89,7 +85,6 @@
         }
         .btn-neon-blue:active:not(:disabled) { transform: translateY(1px); box-shadow: 0 2px 5px rgba(59, 130, 246, 0.4); }
 
-        /* 3. NÚT XỬ LÝ WAYGROUND - SKY BLUE GLOW (ĐÃ ĐỔI TỪ TÍM SANG XANH) */
         .btn-neon-sky {
             background: linear-gradient(135deg, #0284c7 0%, #38bdf8 50%, #0ea5e9 100%);
             background-size: 200% auto;
@@ -105,12 +100,9 @@
         }
         .btn-neon-sky:active:not(:disabled) { transform: translateY(1px); box-shadow: 0 2px 5px rgba(14, 165, 233, 0.4); }
         
-        /* TRẠNG THÁI KHÓA NÚT */
         .btn-neon-sky:disabled, .btn-neon-blue:disabled, .btn-neon-cyan:disabled { 
             filter: grayscale(100%); opacity: 0.4; cursor: not-allowed; transform: none !important; box-shadow: none !important; 
         }
-
-        /* =================================================================================== */
 
         .disabled-zone { pointer-events: none; opacity: 0.5; filter: grayscale(100%); }
         .drag-active { border-color: #06b6d4 !important; background-color: rgba(6, 182, 212, 0.1) !important; }
@@ -285,13 +277,18 @@
     </div>
 
     <script>
-        // GitHub Actions sẽ ghi đè chuỗi này khi deploy. Nếu chưa deploy, chuỗi giữ nguyên
-        const SECRET_KEYS = "INJECT_API_KEYS_HERE"; 
-
-        // Tự động tách chuỗi thành mảng. Các key dùng khi chạy Local (trên máy cá nhân) được đặt ở nhánh "else"
-        let API_KEYS = SECRET_KEYS !== "INJECT_API_KEYS_HERE" 
-            ? SECRET_KEYS.split(',').map(k => k.trim()) 
-            : [];
+        // Lấy API Keys từ Placeholder được tiêm vào qua GitHub Actions
+        const secretsPlaceholder = '{{INJECT_API_KEYS_HERE}}'; 
+        let API_KEYS = [];
+        
+        // Kiểm tra xem Placeholder đã được GitHub Action thay thế chưa
+        if (!secretsPlaceholder.includes('{{INJECT_API_KEYS_HERE}}')) {
+            // Giả định chuỗi truyền vào là các key cách nhau bằng dấu phẩy
+            API_KEYS = secretsPlaceholder.split(',').map(key => key.trim()).filter(key => key !== '');
+        } else {
+            // Danh sách dự phòng nếu chạy local mà chưa có Actions (Bạn có thể để trống mảng này)
+            API_KEYS = []; 
+        }
 
         const EXTRACT_SERVER_URL = 'https://pandoc-export-server.onrender.com/extract-text'; 
         const PANDOC_SERVER_URL = 'https://pandoc-export-server.onrender.com/api/export-docx'; 
@@ -533,55 +530,15 @@ ví dụ:
             document.getElementById('statusArea').innerHTML = "";
         }
 
-        // Hàm gọi API với cơ chế Fallback (tự chuyển Key khi lỗi)
-        async function fetchGeminiWithFallback(bodyData) {
-            if (API_KEYS.length === 0) {
-                throw new Error("Không có API Key nào được cấu hình!");
-            }
-
-            for (let i = 0; i < API_KEYS.length; i++) {
-                const key = API_KEYS[i];
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${key}`;
-
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(bodyData)
-                    });
-
-                    const data = await response.json();
-
-                    // Nếu thành công
-                    if (response.ok && !data.error) {
-                        return data;
-                    }
-
-                    // Bắt các mã lỗi hết Quota hoặc bị chặn (429, 403)
-                    if (response.status === 429 || response.status === 403 || (data.error && data.error.code === 429)) {
-                        continue;
-                    }
-
-                    // Các lỗi còn lại văng lỗi để hiển thị cho người dùng
-                    throw new Error(data.error?.message || "Lỗi không xác định từ Gemini API");
-
-                } catch (err) {
-                    if (i === API_KEYS.length - 1) {
-                        throw new Error("Tất cả các API Key đều đã hết Quota hoặc bị lỗi!");
-                    }
-                }
-            }
-        }
-
         async function handleSend() {
             if(isProcessing) return;
             
             const input = document.getElementById('userInput').value.trim();
             const extracted = document.getElementById('result-text').value.trim();
-            
             const hasFile = !document.getElementById('file-info-box').classList.contains('hidden');
             const fileName = document.getElementById('file-name').innerText;
             
+            if(API_KEYS.length === 0) { alert("Chưa có API Key nào được cấu hình từ GitHub Secrets!"); return; }
             if(!input && !extracted) { alert("Vui lòng nhập yêu cầu hoặc tải file!"); return; }
             
             let finalContentToAI = extracted ? extracted : input;
@@ -628,15 +585,46 @@ ví dụ:
             
             setLock(true); 
 
-            try {
-                const bodyData = {
-                    systemInstruction: { parts: [{ text: systemPrompt }] },
-                    contents: [{ parts: [{ text: finalContentToAI }] }]
-                };
+            let responseData = null;
+            let apiSuccess = false;
 
-                const data = await fetchGeminiWithFallback(bodyData);
-                
-                currentAIContent = data.candidates[0].content.parts[0].text;
+            // Thuật toán duyệt qua từng API Key
+            for (let i = 0; i < API_KEYS.length; i++) {
+                const currentKey = API_KEYS[i];
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${currentKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            systemInstruction: { parts: [{ text: systemPrompt }] },
+                            contents: [{ parts: [{ text: finalContentToAI }] }]
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    // Bắt các lỗi từ API (ví dụ 400, 403, 429)
+                    if(data.error) {
+                        throw new Error(data.error.message);
+                    }
+
+                    // Nếu không có lỗi, lưu dữ liệu và thoát vòng lặp lập tức
+                    responseData = data;
+                    apiSuccess = true;
+                    break; 
+
+                } catch (err) {
+                    continue;
+                    // Tiếp tục vòng lặp tới key tiếp theo
+                }
+            }
+
+            try {
+                if (!apiSuccess || !responseData) {
+                    throw new Error("Tất cả API Keys đều bị lỗi, quá tải hoặc hết hạn!");
+                }
+
+                currentAIContent = responseData.candidates[0].content.parts[0].text;
                 mảng_nội_dung = currentAIContent.split("1e9658952");
                 
                 const displayHTML = mảng_nội_dung.length > 1 ? mảng_nội_dung[1].trim() : currentAIContent;
@@ -678,6 +666,7 @@ ví dụ:
             } catch (err) {
                 const loadingBubble = document.getElementById('ai-loading-bubble');
                 if (loadingBubble) { loadingBubble.remove(); }
+                showStatus("Lỗi: " + (err.message), "error");
                 setLock(false);
             }
         }
