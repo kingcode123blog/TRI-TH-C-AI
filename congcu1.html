@@ -279,7 +279,7 @@
     <script>
         // Lấy API Keys từ Placeholder được tiêm vào qua GitHub Actions
 // 1. Phải có cặp {{ }} để GitHub Actions tìm thấy và thay thế
-const secretsPlaceholder = {{INJECT_API_KEYS_HERE}}; 
+const secretsPlaceholder = "{{INJECT_API_KEYS_HERE}}"; 
 let API_KEYS = [];
 
 // 2. So sánh chính xác với chuỗi ban đầu (bao gồm cả {{ }})
