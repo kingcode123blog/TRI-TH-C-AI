@@ -1,27 +1,49 @@
-name: Deploy to GitHub Pages
+yaml_content = """name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"] # Sửa thành "master" nếu repo của bạn dùng nhánh master
 
-# THÊM ĐOẠN NÀY ĐỂ CẤP QUYỀN GHI
+# Cấp quyền thiết yếu cho GITHUB_TOKEN để deploy GitHub Pages tự động
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+# Tránh việc chạy chồng chéo nhiều bản deploy cùng lúc
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: 1. Checkout mã nguồn về máy ảo
+        uses: actions/checkout@v4
 
-      - name: Inject API Keys vào HTML
+      - name: 2. Tiêm API Key từ Secrets vào file HTML
         run: |
-          sed -i 's/INJECT_API_KEYS_HERE/${{ secrets.GOOGLE_API_KEY }}/g' congcu1.html
+          sed -i "s/{{INJECT_API_KEYS_HERE}}/${{ secrets.GOOGLE_API_KEY }}/g" congcu1.html
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: 3. Cấu hình GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: 4. Nén và tải lên các file tĩnh (Artifact)
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
+          # Định nghĩa thư mục chứa file HTML (dấu chấm '.' nghĩa là toàn bộ thư mục gốc)
+          path: '.' 
+
+      - name: 5. Tiến hành Deploy lên mạng công cộng
+        id: deployment
+        uses: actions/deploy-pages@v4
+"""
+
+with open("deploy.yml", "w", encoding="utf-8") as f:
+    f.write(yaml_content)
+
+print("File deploy.yml generated successfully.")
