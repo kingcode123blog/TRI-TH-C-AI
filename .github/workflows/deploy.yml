@@ -20,9 +20,9 @@ jobs:
         run: |
           # Dùng sed để thay thế chuỗi placeholder bằng Secret
           sed -i "s/{{INJECT_API_KEYS_HERE}}/${{ secrets.GOOGLE_API_KEY }}/g" congcu1.html
-          sed -i "s/{{INJECT_API_KEYS_HERE}}/${{ secrets.GOOGLE_API_KEY2 }}/g" congcu2.html
-          sed -i "s/{{INJECT_API_KEYS_HERE}}/${{ secrets.GOOGLE_API_KEY3 }}/g" congcu3.html
-          sed -i "s/{{INJECT_API_KEYS_HERE}}/${{ secrets.GOOGLE_API_KEY4 }}/g" congcu4.html
+          sed -i "s/{{INJECT_API_KEYS_HERE2}}/${{ secrets.GOOGLE_API_KEY2 }}/g" congcu2.html
+          sed -i "s/{{INJECT_API_KEYS_HERE3}}/${{ secrets.GOOGLE_API_KEY3 }}/g" congcu3.html
+          sed -i "s/{{INJECT_API_KEYS_HERE4}}/${{ secrets.GOOGLE_API_KEY4 }}/g" congcu4.html
 
       - name: Cấu hình GitHub Pages
         uses: actions/configure-pages@v5
