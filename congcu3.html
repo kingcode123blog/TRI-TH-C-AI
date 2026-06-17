@@ -202,8 +202,8 @@
     </div>
 
   <script>
-        const API_KEYS_CONFIG = "AQ.Ab8RN6LO9zPFX5uFDOlDuWJzDduWY0kDCfyPrHoy8Nv0szM8Aw,AQ.Ab8RN6KCqBo7bsJhAgUF5wI9sWTkeHgtRFNTCUJnYctDkYdrKA,AQ.Ab8RN6JGEeVhPc52okdLVSn_uVmmIhi77ZsFNBGb_Vz0CPF2Xg,AQ.Ab8RN6LAe1_LZDMqtVJcpCWZ2lQiqa-egnRkhOuvFqhmUWJDIA,AQ.Ab8RN6LREm6_MB1efdkj8CZ6ISQUizg2t2P5KR0kuQx7I0KFIA,AQ.Ab8RN6LKsqJSWjBQtTXwxp1r18WpxxnN4RGIGSwHOtcoTDlc-g,AQ.Ab8RN6LeqTbkYZKAup4XTq1WtpJBnZfXjzBw50v-JTOinHppag"; 
-        const apiKeys = API_KEYS_CONFIG.split(',').map(k => k.trim()).filter(k => k !== '');
+        const API_KEYS_CONFIG = "{{INJECT_API_KEYS_HERE3}}";
+        const apiKeys = API_KEYS_CONFIG.split(',').map(k => k.trim());
 
         function getApiKey() {
             if (apiKeys.length === 0) return null; 
