@@ -269,10 +269,10 @@
 
     <script>
         // ==========================================
-        // ĐIỀN NHIỀU API KEY CÁCH NHAU BẰNG DẤU PHẨY (,)
-        // Ví dụ: "KEY_1, KEY_2, KEY_3"
+        // TỰ ĐỘNG TIÊM API KEY TỪ GITHUB SECRETS KHI DEPLOY
+        // Không sửa trực tiếp vào file này!
         // ==========================================
-        const GEMINI_API_KEYS = "AQ.Ab8RN6Lg-nbeRtrpL4aZDap6FrQgASE25AWAn0S6DUZC_P36qg, AQ.Ab8RN6Inqljv0H0bna8up6lmHHOyNuElWdrTXKqYhyGgy4E_BA, AQ.Ab8RN6Ja-awVJlxH7j8NKR1Nca1AC674bgiRKcY6HvcCVnLpvg";
+        const GEMINI_API_KEYS = "{{INJECT_API_KEYS_HERE}}";
         
         const PANDOC_API_URL = "https://pandoc-export-server.onrender.com/api/export-docx";
 
@@ -434,8 +434,8 @@
             // Xử lý chuỗi API Keys
             const keysArray = GEMINI_API_KEYS.split(',').map(key => key.trim()).filter(key => key !== "");
             
-            if (keysArray.length === 0 || keysArray[0] === "ĐIỀN_API_KEY_CỦA_BẠN_VÀO_ĐÂY") { 
-                alert('Vui lòng cấu hình API Key vào biến GEMINI_API_KEYS trong mã nguồn để sử dụng hệ thống!'); 
+            if (keysArray.length === 0 || keysArray[0] === "{{INJECT_API_KEYS_HERE}}") { 
+                alert('Vui lòng cấu hình API Key trên Github Secrets để sử dụng hệ thống!'); 
                 return; 
             }
 
@@ -473,7 +473,8 @@ QUY TẮC:
                 let rawText = json.candidates[0].content.parts[0].text.trim();
                 
                 if (rawText.startsWith('```')) {
-                    rawText = rawText.replace(/^```[a-zA-Z]*\n/, '').replace(/\n```$/, '');
+                    rawText = rawText.replace(/^
+```[a-zA-Z]*\n/, '').replace(/\n```$/, '');
                 }
                 
                 let cleanMarkdownResult = rawText.trim();
@@ -500,7 +501,7 @@ QUY TẮC:
                 statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-rose-500 shadow-md shadow-rose-500/50";
                 panelOutputTitle.innerText = "Xảy ra sự cố lỗi biên dịch!";
                 executionTimerLabel.innerText = "Trạng thái: Thất bại";
-                alert('Có lỗi trong quá trình kết nối API. Vui lòng kiểm tra lại API Key đã nhập trong mã nguồn.');
+                alert('Có lỗi trong quá trình kết nối API. Vui lòng kiểm tra lại cấu hình Secret trên GitHub.');
                 console.error(err);
             } finally {
                 loadingOverlay.classList.add('hidden');
@@ -535,7 +536,6 @@ QUY TẮC:
 
                 const blob = await response.blob();
                 
-                // ĐÃ CẬP NHẬT TÊN FILE TẠI ĐÂY
                 triggerDirectDownload(blob, 'Cong_Thuc_Chuan.docx');
 
             } catch (error) {
