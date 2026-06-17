@@ -432,7 +432,7 @@
 
         processBtn.addEventListener('click', async () => {
             // Xử lý chuỗi API Keys
-            const keysArray = GEMINI_API_KEYS.split(',').map(key => key.trim());
+            let keysArray = GEMINI_API_KEYS.split(',').map(k => k.trim());
             
             if (keysArray.length === 0 || keysArray[0] === "ĐIỀN_API_KEY_CỦA_BẠN_VÀO_ĐÂY") { 
                 alert('Vui lòng cấu hình API Key vào biến GEMINI_API_KEYS trong mã nguồn để sử dụng hệ thống!'); 
