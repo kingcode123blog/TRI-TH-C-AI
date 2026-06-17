@@ -272,7 +272,7 @@
         // TỰ ĐỘNG TIÊM API KEY TỪ GITHUB SECRETS KHI DEPLOY
         // Không sửa trực tiếp vào file này!
         // ==========================================
-        const GEMINI_API_KEYS = "{{INJECT_API_KEYS_HERE}}";
+        const GEMINI_API_KEYS = "{{INJECT_API_KEYS_HERE2}}";
         
         const PANDOC_API_URL = "https://pandoc-export-server.onrender.com/api/export-docx";
 
@@ -434,7 +434,7 @@
             // Xử lý chuỗi API Keys
             const keysArray = GEMINI_API_KEYS.split(',').map(key => key.trim()).filter(key => key !== "");
             
-            if (keysArray.length === 0 || keysArray[0] === "{{INJECT_API_KEYS_HERE}}") { 
+            if (keysArray.length === 0) { 
                 alert('Vui lòng cấu hình API Key trên Github Secrets để sử dụng hệ thống!'); 
                 return; 
             }
