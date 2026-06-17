@@ -432,8 +432,8 @@
 
         processBtn.addEventListener('click', async () => {
             // Xử lý chuỗi API Keys
-            const keysArray = GEMINI_API_KEYS.split(',').map(key => key.trim()).filter(key => key !== "");
-            
+            let KeysArray=[];
+            KeysArray = GEMINI_API_KEYS.split(',').map(k => k.trim()) ;
             if (keysArray.length === 0) { 
                 alert('Vui lòng cấu hình API Key trên Github Secrets để sử dụng hệ thống!'); 
                 return; 
