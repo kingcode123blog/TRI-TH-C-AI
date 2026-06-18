@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
-    <title>SaaS OCR Reader - Cloud Voice Engine </title>
+    <title>SaaS OCR Reader - Cloud Voice Engine</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
@@ -77,7 +77,7 @@
         
         .slider-container { display: flex; align-items: center; gap: 12px; }
         input[type="range"] { flex: 1; accent-color: var(--accent-color); cursor: pointer; }
-        .slider-val { font-size: 0.85rem; color: var(--accent-color); min-width: 35px; text-align: right; font-weight: 600;}
+        .slider-val { font-size: 0.85rem; color: var(--accent-color); min-width: 40px; text-align: right; font-weight: 600;}
 
         .controls-group { display: flex; gap: 12px; margin-top: 24px; }
         .btn { padding: 14px 24px; border-radius: var(--radius-md); font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; border: none; transition: var(--transition); }
@@ -115,7 +115,7 @@
             <div class="logo-box"><i data-lucide="speech" style="color: white;"></i></div>
             <div class="header-text">
                 <h1>Máy Đọc Sách Đa Ngôn Ngữ</h1>
-                <p>Hoạt động mọi thiết bị </p>
+                <p>Hoạt động mọi thiết bị</p>
             </div>
         </header>
 
@@ -150,6 +150,15 @@
                             <div class="slider-container">
                                 <input type="range" id="rate-slider" min="0.5" max="1.5" value="1.0" step="0.1">
                                 <span class="slider-val" id="rate-val">1.0x</span>
+                            </div>
+                        </div>
+
+                        <!-- THANH ĐIỀU CHỈNH ÂM LƯỢNG MỚI ĐƯỢC THÊM VÀO -->
+                        <div class="setting-item">
+                            <label>Âm lượng (Lớn/Nhỏ):</label>
+                            <div class="slider-container">
+                                <input type="range" id="volume-slider" min="0" max="1" value="1.0" step="0.05">
+                                <span class="slider-val" id="volume-val">100%</span>
                             </div>
                         </div>
                     </div>
@@ -220,20 +229,34 @@
         const languageSelect = document.getElementById('language-select');
         const rateSlider = document.getElementById('rate-slider');
         const rateVal = document.getElementById('rate-val');
+        
+        // BIẾN CHO ÂM LƯỢNG MỚI
+        const volumeSlider = document.getElementById('volume-slider');
+        const volumeVal = document.getElementById('volume-val');
 
         let currentFile = null;
         let textChunks = []; 
         let currentChunkIndex = 0;
         let isPlaying = false;
-        let playTimeout = null; // Biến kiểm soát delay tránh spam API
+        let playTimeout = null; 
         
         let currentAudio = new Audio();
+        // Cài đặt âm lượng mặc định lúc khởi tạo
+        currentAudio.volume = parseFloat(volumeSlider.value);
 
+        // HÀM CẬP NHẬT GIAO DIỆN TỐC ĐỘ VÀ ÂM LƯỢNG
         function updateSliderUI() {
             rateVal.innerText = rateSlider.value + 'x';
             if (isPlaying) currentAudio.playbackRate = parseFloat(rateSlider.value);
         }
         rateSlider.addEventListener('input', updateSliderUI);
+
+        function updateVolumeUI() {
+            let vol = parseFloat(volumeSlider.value);
+            volumeVal.innerText = Math.round(vol * 100) + '%';
+            currentAudio.volume = vol;
+        }
+        volumeSlider.addEventListener('input', updateVolumeUI);
         
         languageSelect.addEventListener('change', () => { 
             if(isPlaying) {
@@ -284,17 +307,13 @@
             });
         };
 
-        // THUẬT TOÁN "MÁY CHÉM" - BẢO VỆ API (Cực kỳ quan trọng)
         function secureChunkerForCloudAPI(text) {
-            // 1. Dọn rác: Xóa các khoảng trắng thừa, các dấu enter liên tiếp của OCR
             let cleanText = text.replace(/[\r\n\t]+/g, ' ').replace(/\s+/g, ' ').trim();
             if (!cleanText) return [];
 
             let chunks = [];
-            // 2. Chia thành các câu theo dấu câu
             let sentences = cleanText.match(/[^.!?]+[.!?]+/g) || [cleanText];
 
-            // 3. Kiểm tra độ dài TỪNG câu. Nếu quá 150 ký tự (Giới hạn an toàn của Google), bắt buộc phải chặt đôi.
             sentences.forEach(sentence => {
                 let s = sentence.trim();
                 while (s.length > 0) {
@@ -302,16 +321,14 @@
                         chunks.push(s);
                         break;
                     } else {
-                        // Tìm khoảng trắng gần nhất trong phạm vi 150 ký tự để ngắt câu không bị đứt chữ
                         let breakPoint = s.lastIndexOf(' ', 150);
-                        if (breakPoint === -1) breakPoint = 150; // Chặt cứng nếu là 1 chuỗi dính liền
+                        if (breakPoint === -1) breakPoint = 150; 
                         chunks.push(s.substring(0, breakPoint).trim() + "...");
                         s = s.substring(breakPoint).trim();
                     }
                 }
             });
             
-            // Lọc các chuỗi rỗng
             return chunks.filter(c => c.length > 0);
         }
 
@@ -359,7 +376,6 @@
 
                 if(!extractedText || !extractedText.trim()) throw new Error("Không tìm thấy nội dung văn bản hợp lệ.");
                 
-                // Sử dụng thuật toán băm chữ chặt chẽ chống lỗi Google API
                 textChunks = secureChunkerForCloudAPI(extractedText);
 
                 addLog(`Xử lý hoàn tất! Đã phân tách dữ liệu thành ${textChunks.length} câu nhỏ.`);
@@ -386,7 +402,7 @@
         });
 
         function playChunk(index) {
-            clearTimeout(playTimeout); // Reset bộ đếm an toàn
+            clearTimeout(playTimeout); 
 
             if (index >= textChunks.length) {
                 isPlaying = false;
@@ -404,6 +420,7 @@
             
             currentAudio.src = url;
             currentAudio.playbackRate = parseFloat(rateSlider.value);
+            currentAudio.volume = parseFloat(volumeSlider.value); // Áp dụng âm lượng
             
             currentAudio.oncanplay = () => {
                 currentAudio.play();
@@ -414,7 +431,6 @@
                 lucide.createIcons();
             };
 
-            // NẾU BỊ LỖI: Đợi 2 giây để Google hạ nhiệt rồi mới bỏ qua câu khác
             currentAudio.onerror = () => {
                 addLog(`Lỗi tải câu ${index + 1} (Do Google Limit). Đang đợi 2s để khôi phục...`, 'error');
                 playTimeout = setTimeout(() => {
@@ -424,7 +440,6 @@
                 }, 2000); 
             };
 
-            // NẾU ĐỌC XONG: Đợi 0.6 giây trước khi nạp câu tiếp theo để tránh bị quét Spam
             currentAudio.onended = () => {
                 if (isPlaying) {
                     currentChunkIndex++;
