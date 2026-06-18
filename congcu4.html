@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SaaS OCR Reader - Clean Voice Engine</title>
+    <title>SaaS OCR Reader - Google Cloud Engine</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
@@ -12,7 +12,6 @@
     
     <style>
         :root {
-            /* Tông màu Đen - Cam Vàng theo ảnh */
             --bg-color: #0A0A0A; 
             --card-bg: rgba(20, 15, 10, 0.6);
             --card-border: rgba(255, 122, 0, 0.15); 
@@ -29,9 +28,8 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         
         body {
-            background-color: var(--bg-color); color: var(--text-primary);
+            background-color: #0A0A0A; color: var(--text-primary);
             min-height: 100vh; display: flex; flex-direction: column;
-            /* Cập nhật Gradient nền phát sáng màu cam/vàng */
             background-image: radial-gradient(circle at 10% 20%, rgba(255, 122, 0, 0.08) 0%, transparent 40%),
                               radial-gradient(circle at 90% 80%, rgba(234, 179, 8, 0.08) 0%, transparent 40%);
         }
@@ -87,7 +85,6 @@
         .btn-secondary { background: rgba(255, 122, 0, 0.05); color: var(--accent-color); border: 1px solid rgba(255, 122, 0, 0.3); flex: 1; }
         .btn-secondary:hover { background: rgba(255, 122, 0, 0.1); border-color: var(--accent-color); }
 
-        /* Khung Player */
         .audio-player { background: rgba(0,0,0,0.4); border-radius: var(--radius-md); padding: 20px; border: 1px solid rgba(255,122,0,0.1); }
         .player-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
         .play-btn { width: 50px; height: 50px; border-radius: 50%; background: var(--primary-gradient); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; color: white; box-shadow: 0 4px 15px rgba(255, 122, 0, 0.4); transition: var(--transition); }
@@ -97,13 +94,11 @@
         .track-title { font-size: 1rem; font-weight: 600; margin-bottom: 4px; color: #FFF; }
         .track-status { font-size: 0.85rem; color: var(--accent-color); }
 
-        /* Thanh Tua */
         .seek-container { display: flex; flex-direction: column; gap: 8px; }
         .seek-slider { width: 100%; margin: 0; padding: 0; }
         input[type="range"].seek-slider::-webkit-slider-thumb { width: 14px; height: 14px; background: #FFF; border-radius: 50%; border: 2px solid var(--accent-color); }
         .time-info { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); font-family: monospace; }
         
-        /* KHUNG HIỂN THỊ CHỮ */
         .current-sentence-box { background: rgba(255, 122, 0, 0.03); padding: 12px; border-radius: 8px; font-size: 0.85rem; color: #D1D5DB; margin-top: 16px; font-style: italic; min-height: 40px; border-left: 3px solid var(--accent-color); }
 
         .terminal-log { background: #050403; border: 1px solid rgba(255,122,0,0.1); border-radius: var(--radius-md); padding: 16px; font-family: monospace; font-size: 0.85rem; height: 160px; overflow-y: auto; color: #FDBA74; }
@@ -118,8 +113,7 @@
         <header>
             <div class="logo-box"><i data-lucide="speech" style="color: white;"></i></div>
             <div class="header-text">
-                <h1>Máy Đọc Sách Hiện Đại</h1>
-                <p>Khuyên dùng Microsoft Edge để có đầy đủ danh sách giọng đọc Việt/Anh chất lượng cao</p>
+                <h1>Máy Đọc Sách</h1>
             </div>
         </header>
 
@@ -139,16 +133,21 @@
                     <div class="settings-group">
                         
                         <div class="setting-item">
-                            <label style="font-weight: 500; color: #E5E7EB;">Chọn Giọng gốc có sẵn trên máy:</label>
+                            <label style="font-weight: 500; color: #E5E7EB;">Chọn Ngôn ngữ :</label>
                             <select id="voice-select" class="modern-select">
-                                <option value="">Đang nạp danh sách giọng đọc Việt/Anh...</option>
+                                <option value="vi">Tiếng Việt </option>
+                                <option value="en">Tiếng Anh </option>
+                                <option value="fr">Tiếng Pháp </option>
+                                <option value="ja">Tiếng Nhật </option>
+                                <option value="ko">Tiếng Hàn </option>
+                                <option value="zh-CN">Tiếng Trung </option>
                             </select>
                         </div>
 
                         <div class="setting-item">
                             <label>Tốc độ đọc (Nhanh/Chậm):</label>
                             <div class="slider-container">
-                                <input type="range" id="rate-slider" min="0.5" max="2" value="1.0" step="0.05">
+                                <input type="range" id="rate-slider" min="0.5" max="1.5" value="1.0" step="0.1">
                                 <span class="slider-val" id="rate-val">1.0x</span>
                             </div>
                         </div>
@@ -156,7 +155,7 @@
                             <label>Độ trầm bổng (Pitch):</label>
                             <div class="slider-container">
                                 <input type="range" id="pitch-slider" min="0.5" max="1.5" value="1.0" step="0.1">
-                                <span class="slider-val" id="pitch-val">1.0</span>
+                                <span class="slider-val" id="pitch-val">Tự động</span>
                             </div>
                         </div>
                     </div>
@@ -197,7 +196,7 @@
                 <div class="card">
                     <div class="card-title"><i data-lucide="activity" style="color:var(--accent-color); width:18px;"></i>Trạng thái Hệ thống</div>
                     <div class="terminal-log" id="terminal">
-                        <div class="log-item" style="color:var(--text-muted)">&gt; Đã khởi động hệ thống. Sẵn sàng xử lý.</div>
+                        <div class="log-item" style="color:var(--text-muted)">&gt; Đã khởi động hệ thống đám mây Google Engine. Sẵn sàng.</div>
                     </div>
                 </div>
             </div>
@@ -236,82 +235,19 @@
         let textChunks = []; 
         let currentChunkIndex = 0;
         let isPlaying = false;
-        let isSeeking = false; 
-        let synth = window.speechSynthesis;
-        let systemVoices = [];
-
-        function populateVoiceList() {
-            systemVoices = synth.getVoices();
-            if (systemVoices.length === 0) return;
-            voiceSelect.innerHTML = '';
-            
-            const filteredVoices = systemVoices.filter(voice => {
-                const lang = voice.lang.toLowerCase();
-                return lang.includes('vi') || lang.includes('en');
-            });
-
-            filteredVoices.sort((a, b) => {
-                const aIsVi = a.lang.toLowerCase().includes('vi');
-                const bIsVi = b.lang.toLowerCase().includes('vi');
-                if (aIsVi && !bIsVi) return -1;
-                if (!aIsVi && bIsVi) return 1;
-                return 0;
-            });
-
-            const top9Voices = filteredVoices.slice(0, 9);
-
-            if (top9Voices.length === 0) {
-                const option = document.createElement('option');
-                option.textContent = "Không tìm thấy giọng đọc phù hợp.";
-                voiceSelect.appendChild(option);
-                return;
-            }
-
-            top9Voices.forEach((voice) => {
-                const option = document.createElement('option');
-                let friendlyName = voice.name;
-                const lowerName = voice.name.toLowerCase();
-                const lowerLang = voice.lang.toLowerCase();
-
-                if (lowerLang.includes('vi')) {
-                    if (lowerName.includes('hoaimy') || lowerName.includes('hoài my')) friendlyName = "Giọng Nữ Miền Nam (Hoài My)";
-                    else if (lowerName.includes('namminh') || lowerName.includes('nam minh')) friendlyName = "Giọng Nam Miền Bắc (Nam Minh)";
-                    else if (lowerName.includes('google')) friendlyName = "Giọng Tiếng Việt Chuẩn (Google)";
-                    else friendlyName = `Giọng Tiếng Việt (${voice.name})`;
-                } else if (lowerLang.includes('en')) {
-                    let region = "Mỹ";
-                    if (lowerLang.includes('gb')) region = "Anh";
-                    else if (lowerLang.includes('au')) region = "Úc";
-                    else if (lowerLang.includes('ca')) region = "Canada";
-                    
-                    let gender = "";
-                    if (lowerName.includes('zira') || lowerName.includes('hazel') || lowerName.includes('susan') || lowerName.includes('female')) gender = " - Nữ";
-                    else if (lowerName.includes('david') || lowerName.includes('george') || lowerName.includes('male')) gender = " - Nam";
-                    
-                    friendlyName = `Giọng Tiếng Anh (${region})${gender}`;
-                }
-
-                option.textContent = friendlyName;
-                option.value = systemVoices.indexOf(voice);
-                voiceSelect.appendChild(option);
-            });
-        }
-
-        populateVoiceList();
-        if (speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = populateVoiceList;
-        }
+        let isPaused = false;
+        let currentAudio = null;
 
         function updateSliderUI() {
             rateVal.innerText = rateSlider.value + 'x';
-            pitchVal.innerText = pitchSlider.value;
         }
         rateSlider.addEventListener('input', updateSliderUI);
-        pitchSlider.addEventListener('input', updateSliderUI);
         
-        rateSlider.addEventListener('change', () => { if(isPlaying) playChunk(currentChunkIndex); });
-        pitchSlider.addEventListener('change', () => { if(isPlaying) playChunk(currentChunkIndex); });
-        voiceSelect.addEventListener('change', () => { if(isPlaying) playChunk(currentChunkIndex); });
+        rateSlider.addEventListener('change', () => { 
+            if(currentAudio) {
+                currentAudio.playbackRate = parseFloat(rateSlider.value);
+            }
+        });
 
         dropzone.onclick = () => fileInput.click();
         dropzone.ondragover = (e) => { e.preventDefault(); dropzone.style.borderColor = 'var(--accent-color)'; };
@@ -332,7 +268,6 @@
                 terminal.appendChild(item);
             }
             item.innerText = `> ${text}`;
-            /* Đổi màu Log sang tông cam vàng */
             item.style.color = type === 'error' ? '#EF4444' : (type === 'progress' ? '#FBBF24' : '#FDBA74');
             terminal.scrollTop = terminal.scrollHeight;
         }
@@ -368,7 +303,9 @@
 
         btnRun.addEventListener('click', async () => {
             if(!currentFile) return alert('Vui lòng kéo thả hoặc chọn tệp trước khi xử lý!');
-            synth.cancel(); isPlaying = false; playButton.disabled = true; terminal.innerHTML = '';
+            
+            if(currentAudio) { currentAudio.pause(); currentAudio = null; }
+            isPlaying = false; isPaused = false; playButton.disabled = true; terminal.innerHTML = '';
             btnRun.disabled = true; btnRun.innerHTML = '<i data-lucide="loader" class="spin" style="width:18px;"></i> Đang xử lý...'; lucide.createIcons();
             
             try {
@@ -413,10 +350,31 @@
                 if(!extractedText || !extractedText.trim()) throw new Error("Không tìm thấy nội dung văn bản hợp lệ hoặc ảnh quá mờ.");
                 
                 let rawText = extractedText.replace(/\s+/g, ' ').trim();
-                textChunks = rawText.match(/[^.!?\n]+[.!?\n]+/g) || [rawText];
-                textChunks = textChunks.filter(c => c.trim().length > 0);
+                let sentences = rawText.match(/[^.!?\n]+[.!?\n]+/g) || [rawText];
+                textChunks = [];
+                
+                // Tách thông minh để đảm bảo không câu nào vượt quá giới hạn của Google API
+                sentences.forEach(s => {
+                    s = s.trim();
+                    if(s.length === 0) return;
+                    if(s.length <= 150) {
+                        textChunks.push(s);
+                    } else {
+                        let words = s.split(' ');
+                        let currentChunk = "";
+                        words.forEach(w => {
+                            if((currentChunk + " " + w).length > 150) {
+                                if(currentChunk) textChunks.push(currentChunk.trim());
+                                currentChunk = w;
+                            } else {
+                                currentChunk += (currentChunk ? " " : "") + w;
+                            }
+                        });
+                        if(currentChunk) textChunks.push(currentChunk.trim());
+                    }
+                });
 
-                addLog(`Xử lý hoàn tất! Đã phân tách dữ liệu thành ${textChunks.length} câu nhỏ.`);
+                addLog(`Xử lý hoàn tất! Đã phân tách dữ liệu thành ${textChunks.length} phần đọc nhỏ.`);
                 
                 currentChunkIndex = 0;
                 playButton.disabled = false;
@@ -439,49 +397,72 @@
             }
         });
 
+        // Sử dụng lõi API Google thông qua thẻ Audio không lo CORS hoặc lỗi File Local
         function playChunk(index) {
             if (index >= textChunks.length) {
                 isPlaying = false;
+                isPaused = false;
                 playButton.innerHTML = '<i data-lucide="play" style="fill:white; width:22px;"></i>';
                 playerStatus.innerText = "Đã hoàn thành bài đọc!";
                 lucide.createIcons();
                 return;
             }
 
-            isSeeking = true; 
-            synth.cancel();
+            if(currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
             
-            setTimeout(() => {
-                isSeeking = false;
-                let text = textChunks[index];
-                const utterance = new SpeechSynthesisUtterance(text);
-                
-                const selectedVoiceIdx = voiceSelect.value;
-                if(selectedVoiceIdx !== "" && systemVoices[selectedVoiceIdx]) {
-                    utterance.voice = systemVoices[selectedVoiceIdx];
+            let text = textChunks[index];
+            let lang = voiceSelect.value;
+            
+            playerStatus.innerText = "Đang tải giọng đọc từ Google Cloud...";
+            
+            let url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&client=tw-ob&q=${encodeURIComponent(text)}`;
+            
+            currentAudio = new Audio(url);
+            currentAudio.playbackRate = parseFloat(rateSlider.value);
+            
+            currentAudio.addEventListener('canplaythrough', () => {
+                if (isPlaying && !isPaused) {
+                    currentAudio.play().catch(err => console.log("Chờ tương tác..."));
                 }
-                
-                utterance.rate = parseFloat(rateSlider.value);
-                utterance.pitch = parseFloat(pitchSlider.value);
+            });
 
-                utterance.onend = () => {
-                    if (isPlaying && !isSeeking) {
-                        currentChunkIndex++;
-                        updateProgressUI();
-                        playChunk(currentChunkIndex);
-                    }
-                };
-
-                synth.speak(utterance);
-                
-                currentChunkIndex = index;
+            currentAudio.addEventListener('play', () => {
                 isPlaying = true;
+                isPaused = false;
                 playButton.innerHTML = '<i data-lucide="pause" style="fill:white; width:22px;"></i>';
                 playerStatus.innerText = "Đang phát văn bản...";
                 updateProgressUI();
                 lucide.createIcons();
-                
-            }, 40); 
+            });
+            
+            currentAudio.addEventListener('ended', () => {
+                if (isPlaying && !isPaused) {
+                    currentChunkIndex++;
+                    playChunk(currentChunkIndex);
+                }
+            });
+            
+            currentAudio.addEventListener('error', () => {
+                // Nếu lỗi mạng, tự động chuyển câu sau 1 giây tránh treo ứng dụng
+                setTimeout(() => {
+                    currentChunkIndex++;
+                    playChunk(currentChunkIndex);
+                }, 1000);
+            });
+
+            currentAudio.play().catch(() => {
+                // Fallback nếu trình duyệt yêu cầu click chuột lần đầu để kích hoạt âm thanh
+                isPlaying = true;
+                isPaused = false;
+                playButton.innerHTML = '<i data-lucide="pause" style="fill:white; width:22px;"></i>';
+                playerStatus.innerText = "Bấm nút Nhấn phát lại để kích hoạt âm thanh";
+                lucide.createIcons();
+            });
+            
+            currentChunkIndex = index;
         }
 
         function updateProgressUI() {
@@ -497,7 +478,7 @@
         });
 
         seekSlider.addEventListener('change', () => {
-            if (isPlaying || synth.paused) {
+            if (isPlaying || isPaused) {
                 playChunk(currentChunkIndex); 
             }
         });
@@ -505,18 +486,21 @@
         playButton.addEventListener('click', () => {
             if(textChunks.length === 0) return;
 
-            if(isPlaying) {
-                synth.pause();
+            if(isPlaying && !isPaused) {
+                if(currentAudio) currentAudio.pause();
                 isPlaying = false;
+                isPaused = true;
                 playButton.innerHTML = '<i data-lucide="play" style="fill:white; width:22px;"></i>';
                 playerStatus.innerText = "Đang tạm dừng";
             } else {
-                if(synth.paused) {
-                    synth.resume();
+                if(isPaused) {
+                    if(currentAudio) currentAudio.play();
                     isPlaying = true;
+                    isPaused = false;
                     playButton.innerHTML = '<i data-lucide="pause" style="fill:white; width:22px;"></i>';
                     playerStatus.innerText = "Đang phát văn bản...";
                 } else {
+                    isPlaying = true;
                     playChunk(currentChunkIndex); 
                 }
             }
@@ -524,7 +508,8 @@
         });
 
         btnClear.addEventListener('click', () => {
-            synth.cancel(); isPlaying = false; isSeeking = false; currentFile = null; textChunks = [];
+            if(currentAudio) { currentAudio.pause(); currentAudio = null; }
+            isPlaying = false; isPaused = false; currentFile = null; textChunks = [];
             fileInput.value = ""; dropzone.style.borderColor = 'rgba(255,122,0,0.25)'; uploadMsg.innerText = "Nhấp hoặc kéo thả tệp vào đây";
             uploadMsg.style.color = ''; playerTrackName.innerText = "Chưa có tệp dữ liệu"; playerStatus.innerText = "Vui lòng nạp file để bắt đầu...";
             playButton.disabled = true; seekSlider.disabled = true; seekSlider.value = 0; currentTextBox.innerText = "Nội dung câu văn đang phát sẽ hiển thị chạy chữ tại đây...";
