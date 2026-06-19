@@ -153,7 +153,6 @@
                             </div>
                         </div>
 
-                        <!-- THANH ĐIỀU CHỈNH ÂM LƯỢNG MỚI ĐƯỢC THÊM VÀO -->
                         <div class="setting-item">
                             <label>Âm lượng (Lớn/Nhỏ):</label>
                             <div class="slider-container">
@@ -230,7 +229,6 @@
         const rateSlider = document.getElementById('rate-slider');
         const rateVal = document.getElementById('rate-val');
         
-        // BIẾN CHO ÂM LƯỢNG MỚI
         const volumeSlider = document.getElementById('volume-slider');
         const volumeVal = document.getElementById('volume-val');
 
@@ -241,10 +239,8 @@
         let playTimeout = null; 
         
         let currentAudio = new Audio();
-        // Cài đặt âm lượng mặc định lúc khởi tạo
         currentAudio.volume = parseFloat(volumeSlider.value);
 
-        // HÀM CẬP NHẬT GIAO DIỆN TỐC ĐỘ VÀ ÂM LƯỢNG
         function updateSliderUI() {
             rateVal.innerText = rateSlider.value + 'x';
             if (isPlaying) currentAudio.playbackRate = parseFloat(rateSlider.value);
@@ -307,15 +303,40 @@
             });
         };
 
+        // --- BẮT ĐẦU BỘ LỌC WHITELIST ---
+
+        // Hàm lọc siêu cấp: Tận diệt tất cả các ký tự rác, checkbox, ô vuông...
+        function sanitizeText(text) {
+            if (!text) return "";
+            return text
+                // CHỈ CHO PHÉP: Chữ cái (\p{L}), Số 0-9, Khoảng trắng (\s), và một số dấu câu cơ bản. Mọi thứ khác (bao gồm checkbox) sẽ bị gạch bỏ thành khoảng trắng.
+                .replace(/[^\p{L}0-9\s.,?!;:'"()\[\]{}\-/%$₫€]/gu, ' ')
+                // Gộp các đường kẻ dài (như bảng biểu)
+                .replace(/[-=_*]{3,}/g, ' ')
+                // Gom nhiều khoảng trắng/xuống dòng thành 1 dấu cách duy nhất để đọc trơn tru
+                .replace(/[\r\n\t]+/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
         function secureChunkerForCloudAPI(text) {
-            let cleanText = text.replace(/[\r\n\t]+/g, ' ').replace(/\s+/g, ' ').trim();
+            // Chạy qua bước làm sạch văn bản trước
+            let cleanText = sanitizeText(text);
             if (!cleanText) return [];
 
             let chunks = [];
+            // Phân tách câu dựa trên dấu chấm, chấm hỏi, chấm than
             let sentences = cleanText.match(/[^.!?]+[.!?]+/g) || [cleanText];
 
             sentences.forEach(sentence => {
                 let s = sentence.trim();
+                
+                // QUAN TRỌNG: Chỉ giữ lại các câu có chứa ÍT NHẤT 1 CHỮ CÁI hoặc SỐ (0-9).
+                // Câu rác chỉ có nguyên bộ dấu câu sẽ tự động bị bỏ qua.
+                if (!/[\p{L}0-9]/u.test(s)) {
+                    return; 
+                }
+
                 while (s.length > 0) {
                     if (s.length <= 150) {
                         chunks.push(s);
@@ -329,8 +350,10 @@
                 }
             });
             
-            return chunks.filter(c => c.length > 0);
+            return chunks;
         }
+        
+        // --- KẾT THÚC BỘ LỌC WHITELIST ---
 
         btnRun.addEventListener('click', async () => {
             if(!currentFile) return alert('Vui lòng kéo thả hoặc chọn tệp trước khi xử lý!');
@@ -378,7 +401,9 @@
                 
                 textChunks = secureChunkerForCloudAPI(extractedText);
 
-                addLog(`Xử lý hoàn tất! Đã phân tách dữ liệu thành ${textChunks.length} câu nhỏ.`);
+                if (textChunks.length === 0) throw new Error("Không có dữ liệu đọc được sau khi làm sạch các ký tự rác.");
+
+                addLog(`Xử lý hoàn tất! Đã phân tách dữ liệu sạch thành ${textChunks.length} câu.`);
                 
                 currentChunkIndex = 0;
                 playButton.disabled = false;
@@ -420,7 +445,7 @@
             
             currentAudio.src = url;
             currentAudio.playbackRate = parseFloat(rateSlider.value);
-            currentAudio.volume = parseFloat(volumeSlider.value); // Áp dụng âm lượng
+            currentAudio.volume = parseFloat(volumeSlider.value); 
             
             currentAudio.oncanplay = () => {
                 currentAudio.play();
