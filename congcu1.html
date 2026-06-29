@@ -368,13 +368,7 @@
         // API Keys từ Placeholder được tiêm vào qua GitHub Actions
         const secretsPlaceholder = "{{INJECT_API_KEYS_HERE}}"; 
         let API_KEYS = [];
-        if (secretsPlaceholder !== "{{INJECT_API_KEYS_HERE}}") {
             API_KEYS = secretsPlaceholder.split(',').map(k => k.trim());
-        } else {
-            // Placeholder cho dev mode
-            API_KEYS = ["DUMMY_KEY_FOR_DEV"];
-        }
-
         const EXTRACT_SERVER_URL = 'https://pandoc-export-server.onrender.com/extract-text'; 
         const PANDOC_SERVER_URL = 'https://pandoc-export-server.onrender.com/api/export-docx'; 
         const RENDER_SERVER_URL = 'https://chuyen-doi-wayground.onrender.com';
