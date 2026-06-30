@@ -457,12 +457,9 @@ QUY TẮC TUYỆT ĐỐI VỀ FORMAT CÔNG THỨC (QUAN TRỌNG NHẤT):
     * Không dùng lệnh LaTeX định dạng văn bản như \`\textbf\`, \`\textit\`, \`\text{}\` bên trong công thức nếu không cần thiết.
     * Không dùng \`\boxed{}\`.
     * Không dùng các môi trường liệt kê như \`\begin{enumerate}\`...
-5. **ĐỐI VỚI MÔN TIN HỌC / LẬP TRÌNH (QUAN TRỌNG):**
-    * TUYỆT ĐỐI KHÔNG dùng block '$ ... $' để bọc các đoạn code, từ khóa, tên biến (như my_variable, print, type, class...) hoặc ký tự đặc biệt của ngôn ngữ lập trình.
-    * CẤM KỴ: Tuyệt đối không bao giờ cho ký tự '#' (dấu thăng) lọt vào bên trong cặp dấu '$...$' vì sẽ gây lỗi sập MathJax. 
-    * BẮT BUỘC phải dùng Markdown backtick để bọc code.
-6. **ĐỐI VỚI MÔN VĂN, SỬ, ĐỊA:** 
-    * Không cần đặt các block '$ ... $' cho các con số đứng một mình (ví dụ: năm 1980, 5000 người).
+5. **ĐỐI VỚI MÔN TIN:**
+    * Không cần đặt các block \'$ ... $\' để render các code để tránh bị Mathjax render.
+6. **ĐỐI VỚI MÔN VĂN,SỬ,ĐỊA:** * Không cần đặt các block \'$ ... $\' trong các số đứng một mình ví dụ như năm 1980.
 ---
 CẤU TRÚC ĐỀ THI (Output Template):
 # ĐỀ KIỂM TRA [MÔN hoặc KHÔNG GHI MÔN]
@@ -528,9 +525,9 @@ d) [Phát biểu 4]
 
 Lưu ý đối với AI:Yêu cầu bạn trả về 2 kết quả phải giống nhau giống với Promt và ngăn cách giữa 2 kết quả là "1e9658952":
 1. Đối với kết quả 2 thì
-- Xóa ** ở các câu, VD: **Câu 1:** thành Câu 1:
-- Xoá # và ## ở đầu các tiêu đề, VD: ##ĐỀ KIỂM TRA TOÁN thành ĐỀ KIỂM TRA TOÁN
-- Thay \- đầu câu thành -,VD: \- Xin chào thành - Xin chào
+- Xóa **
+- Xoá # và ## ở đầu các tiêu đề
+- Thay \- đầu câu thành -
 - Giữ nguyên LaTeX
 2.Đối với cả 2 kết quả thì
 - Trước khi trả lời mỗi dòng phải xuống dòng một cái trừ
