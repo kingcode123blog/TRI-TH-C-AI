@@ -315,13 +315,13 @@
             </div>
         </div>
         
-        <div class="glass-panel p-4 md:p-5 flex flex-col w-full lg:flex-1 min-h-[75vh] lg:h-auto lg:min-h-0 relative gap-3">
+        <div class="glass-panel p-4 md:p-5 flex flex-col w-full lg:flex-1 h-[85vh] lg:h-auto lg:min-h-0 relative gap-3">
             
             <div class="flex items-center gap-2 text-cyan-400 font-bold text-sm md:text-base uppercase tracking-wider pb-2 border-b border-slate-700/50">
                 <i class="fa-solid fa-wand-magic-sparkles"></i> Khung Chat
             </div>
 
-            <div id="chatBox" class="custom-scroll flex-1 chat-container rounded-xl overflow-y-auto p-4 space-y-4 min-h-[400px] lg:min-h-[500px]">
+            <div id="chatBox" class="custom-scroll flex-1 chat-container rounded-xl overflow-y-auto p-4 space-y-4 min-h-0">
                 <div class="flex justify-start">
                     <div class="ai-msg p-3 md:p-4 text-base md:text-lg max-w-[90%] md:max-w-[80%] leading-relaxed font-medium">
                         Xin chào! Hãy nhập yêu cầu trực tiếp xuống ô bên dưới, hoặc tải file tài liệu ở ô bên trái để tôi hỗ trợ bạn soạn đề thi nhé!
@@ -437,69 +437,95 @@ NHIỆM VỤ:
 QUY TẮC TUYỆT ĐỐI VỀ FORMAT CÔNG THỨC (QUAN TRỌNG NHẤT):
 Để bộ chuyển đổi hoạt động, bạn PHẢI tuân thủ cú pháp LaTeX sau:
 1. **CÚ PHÁP BAO BỌC:**
-* Mọi công thức Toán, Lý, Hóa, biến số ($x, y, t, m$), số mũ, đơn vị phức tạp đều PHẢI đặt trong cặp dấu \`$\`.
-* Ví dụ: $y = ax^2 + bx + c$, $v = 30 m/s$.
-* KHÔNG dùng block math \`$$\` hoặc \`\[...\]\`, chỉ dùng inline math \`$ ... $\`.
+    * Mọi công thức Toán, Lý, Hóa, biến số ($x, y, t, m$), số mũ, đơn vị phức tạp đều PHẢI đặt trong cặp dấu \`$\`.
+    * Ví dụ: $y = ax^2 + bx + c$, $v = 30 m/s$.
+    * KHÔNG dùng block math \`$$\` hoặc \`\[...\]\`, chỉ dùng inline math \`$ ... $\`.
+
 2. **PHÂN SỐ & CĂN THỨC (Bắt buộc cho Word):**
-* Tuyệt đối KHÔNG viết phân số kiểu text như: 1/2, a/b.
-* BẮT BUỘC dùng lệnh \`\frac{...}{...}\`.
-* Sai: $a/b$, $x/2$.
-* Đúng: $\frac{a}{b}$, $\frac{x}{2}$.
-* Căn thức: Dùng $\sqrt{...}$ hoặc $\sqrt[n]{...}$.
+    * Tuyệt đối KHÔNG viết phân số kiểu text như: 1/2, a/b.
+    * BẮT BUỘC dùng lệnh \`\frac{...}{...}\`.
+        * Sai: $a/b$, $x/2$.
+        * Đúng: $\frac{a}{b}$, $\frac{x}{2}$.
+    * Căn thức: Dùng $\sqrt{...}$ hoặc $\sqrt[n]{...}$.
 3. **HÓA HỌC & VẬT LÝ:**
-* Chỉ số trên/dưới phải dùng ngoặc nhọn \`{}\` nếu có nhiều ký tự.
-* Hóa học: $H_2SO_4$, $Fe^{3+}$, $SO_4^{2-}$. (Không viết H2SO4).
-* Mũi tên phản ứng: Dùng $\rightarrow$ hoặc $\xrightarrow{t^o}$.
-* Vật lý: Vector $\vec{v}$, $\vec{F}$.
-* Góc: $60^\circ$ (dùng \`^\circ\`), $\alpha, \pi, \Omega$.
+    * Chỉ số trên/dưới phải dùng ngoặc nhọn \`{}\` nếu có nhiều ký tự.
+    * Hóa học: $H_2SO_4$, $Fe^{3+}$, $SO_4^{2-}$. (Không viết H2SO4).
+    * Mũi tên phản ứng: Dùng $\rightarrow$ hoặc $\xrightarrow{t^o}$.
+    * Vật lý: Vector $\vec{v}$, $\vec{F}$.
+    * Góc: $60^\circ$ (dùng \`^\circ\`), $\alpha, \pi, \Omega$.
 4. **LÀM SẠCH VĂN BẢN:**
-* Không dùng lệnh LaTeX định dạng văn bản như \`\textbf\`, \`\textit\`, \`\text{}\` bên trong công thức nếu không cần thiết.
-* Không dùng \`\boxed{}\`.
-* Không dùng các môi trường liệt kê như \`\begin{enumerate}\`...
+    * Không dùng lệnh LaTeX định dạng văn bản như \`\textbf\`, \`\textit\`, \`\text{}\` bên trong công thức nếu không cần thiết.
+    * Không dùng \`\boxed{}\`.
+    * Không dùng các môi trường liệt kê như \`\begin{enumerate}\`...
 5. **ĐỐI VỚI MÔN TIN HỌC / LẬP TRÌNH (QUAN TRỌNG):**
-* TUYỆT ĐỐI KHÔNG dùng block '$ ... $' để bọc các đoạn code, từ khóa, tên biến (như my_variable, print, type, class...) hoặc ký tự đặc biệt của ngôn ngữ lập trình.
-* CẤM KỴ: Tuyệt đối không bao giờ cho ký tự '#' (dấu thăng) lọt vào bên trong cặp dấu '$...$' vì sẽ gây lỗi sập MathJax. 
-* BẮT BUỘC phải dùng Markdown backtick để bọc code.
+    * TUYỆT ĐỐI KHÔNG dùng block '$ ... $' để bọc các đoạn code, từ khóa, tên biến (như my_variable, print, type, class...) hoặc ký tự đặc biệt của ngôn ngữ lập trình.
+    * CẤM KỴ: Tuyệt đối không bao giờ cho ký tự '#' (dấu thăng) lọt vào bên trong cặp dấu '$...$' vì sẽ gây lỗi sập MathJax. 
+    * BẮT BUỘC phải dùng Markdown backtick để bọc code.
 6. **ĐỐI VỚI MÔN VĂN, SỬ, ĐỊA:** 
-* Không cần đặt các block '$ ... $' cho các con số đứng một mình (ví dụ: năm 1980, 5000 người).
+    * Không cần đặt các block '$ ... $' cho các con số đứng một mình (ví dụ: năm 1980, 5000 người).
 ---
 CẤU TRÚC ĐỀ THI (Output Template):
 # ĐỀ KIỂM TRA [MÔN hoặc KHÔNG GHI MÔN]
 ## PHẦN 1: [Số câu trắc nghiệm theo yêu cầu người dùng hoặc 20] CÂU TRẮC NGHIỆM KHÁCH QUAN
 **Câu 1:** [Nội dung câu hỏi, công thức kẹp trong $...$]
+
 A. [Nội dung A]
+
 B. [Nội dung B]
+
 C. [Nội dung C]
+
 D. [Nội dung D]
 ... (Tiếp tục đến câu 20 hoặc theo yêu cầu người dùng)
+
 Lưu ý trắc nghiệm khách quan: Tỉ lệ đáp án A B C D tương đối đều nhau không cho 1 đáp án xảy ra nhiều lần
 ## PHẦN 2: [Số câu đúng sai theo yêu cầu người dùng hoặc 4 ] CÂU ĐÚNG SAI
 **Câu [ Tiếp tục theo số câu trắc nghiệm]:** [Nội dung ngữ cảnh]
+
 a) [Phát biểu 1]
+
 b) [Phát biểu 2]
+
 c) [Phát biểu 3]
+
 d) [Phát biểu 4]
 ... (Tiếp tục thêm 4 câu hoặc theo yêu cầu người dùng)
+
 ## PHẦN 3: [Số câu tự luận theo yêu cầu người dùng hoặc 3] CÂU TỰ LUẬN
 **Câu [Tiếp tục theo câu đúng sai]:** [Câu hỏi]
+
 ... (Tiếp tục thêm 3 câu hoặc theo yêu cầu người dùng)
+
+		
 # ĐÁP ÁN VÀ GIẢI THÍCH CHI TIẾT
 ## PHẦN 1: TRẮC NGHIỆM KHÁCH QUAN
 **Câu 1:**
+
 \- Đáp án: [A/B/C/D]
+
 \- Giải thích: [Giải thích ngắn gọn bằng tiếng việt, công thức dùng LaTeX $...$].Các suy luận khi giải bài bắt buộc bằng tiếng việt
+
 ## PHẦN 2: ĐÚNG SAI
 **Câu [bắt đầu của câu đúng sai]:**
 - Đáp án: a) [Đ/S], b) [Đ/S], c) [Đ/S], d) [Đ/S]
+
 - Giải thích:
- a) [Giải thích ngắn gọn bằng tiếng việt]
- b) [Giải thích ngắn gọn bằng tiếng việt]
- c) [Giải thích ngắn gọn bằng tiếng việt]
- d) [Giải thích ngắn gọn bằng tiếng việt]. Các suy luận khi giải bài bắt buộc bằng tiếng việt và chỉ giải thích tại sao chọn Đ hoặc S chỉ nói liên quan đến đề bài 
+
+    a) [Giải thích ngắn gọn bằng tiếng việt]
+
+    b) [Giải thích ngắn gọn bằng tiếng việt]
+
+    c) [Giải thích ngắn gọn bằng tiếng việt]
+
+    d) [Giải thích ngắn gọn bằng tiếng việt]. Các suy luận khi giải bài bắt buộc bằng tiếng việt và chỉ giải thích tại sao chọn Đ hoặc S chỉ nói liên quan đến đề bài 
+
 ## PHẦN 3: TỰ LUẬN
 **Câu [bắt đầu của câu tự luận]:**
+
 \- Đáp án: [Bằng ngôn ngữ tiếng việt]
+
 \- Giải thích: [Hướng dẫn giải vắn tắt].Các suy luận khi giải bài bắt buộc bằng tiếng việt.
+
 Lưu ý đối với AI:Yêu cầu bạn trả về 2 kết quả phải giống nhau giống với Promt và ngăn cách giữa 2 kết quả là "1e9658952":
 1. Đối với kết quả 2 thì
 - Xóa **
@@ -508,11 +534,13 @@ Lưu ý đối với AI:Yêu cầu bạn trả về 2 kết quả phải giống
 - Giữ nguyên LaTeX
 2.Đối với cả 2 kết quả thì
 - Trước khi trả lời mỗi dòng phải xuống dòng một cái trừ
--Với mỗi ý trả lời cũng vậy
+-Với mỗi ý trả lời cũng vậy 
 ví dụ:
 +[ý 1]
+
 +[ý 2]
 `;
+
 
         function isValidFileType(file) {
             const validMimeTypes = [
@@ -791,36 +819,20 @@ ví dụ:
                 
                 const fileList = document.getElementById("fileList");
                 fileList.innerHTML = `
-                    <a href="${RENDER_SERVER_URL}${data.excel_url}" class="file-card flex items-center justify-between p-3 rounded-xl text-slate-200 no-underline group">
-                        <div class="flex items-center gap-3 truncate pr-2">
-                            <div class="bg-emerald-500/20 p-2 rounded-lg">
-                                <i class="fa-solid fa-file-excel text-emerald-400 text-xl"></i>
-                            </div>
-                            <span class="font-medium truncate">Excel Wayground</span>
-                        </div>
-                        <span class="text-emerald-400 font-bold bg-emerald-500/10 px-3 py-1.5 rounded-lg border border-emerald-500/30 whitespace-nowrap group-hover:bg-emerald-500 group-hover:text-white transition-all"><i class="fa-solid fa-download mr-1"></i> Tải</span>
+                    <a href="${RENDER_SERVER_URL}${data.excel_url}" class="flex items-center justify-between p-2 md:p-3 bg-[#0f141b] border border-[#1e293b] rounded-lg hover:border-cyan-500 hover:shadow-[0_0_10px_rgba(6,182,212,0.2)] transition-all text-xs md:text-sm text-gray-100">
+                        <span class="truncate pr-2"><i class="fa-solid fa-file-excel text-cyan-500 mr-1 md:text-lg"></i> Excel Wayground</span>
+                        <span class="text-cyan-400 font-bold bg-cyan-500/10 px-2 py-1 md:px-3 md:py-1.5 rounded-lg border border-cyan-500/30 whitespace-nowrap"><i class="fa-solid fa-download"></i> Tải</span>
                     </a>
-                    
-                    <a href="${RENDER_SERVER_URL}${data.word_bold_url}" class="file-card flex items-center justify-between p-3 rounded-xl text-slate-200 no-underline group">
-                        <div class="flex items-center gap-3 truncate pr-2">
-                            <div class="bg-blue-500/20 p-2 rounded-lg">
-                                <i class="fa-solid fa-file-word text-blue-400 text-xl"></i>
-                            </div>
-                            <span class="font-medium truncate">Đề + Đáp Án Đỏ</span>
-                        </div>
-                        <span class="text-blue-400 font-bold bg-blue-500/10 px-3 py-1.5 rounded-lg border border-blue-500/30 whitespace-nowrap group-hover:bg-blue-500 group-hover:text-white transition-all"><i class="fa-solid fa-download mr-1"></i> Tải</span>
+                    <a href="${RENDER_SERVER_URL}${data.word_bold_url}" class="flex items-center justify-between p-2 md:p-3 bg-[#0f141b] border border-[#1e293b] rounded-lg hover:border-blue-500 hover:shadow-[0_0_10px_rgba(59,130,246,0.2)] transition-all text-xs md:text-sm text-gray-100">
+                        <span class="truncate pr-2"><i class="fa-solid fa-file-word text-blue-500 mr-1 md:text-lg"></i> Đề + Đáp Án Đỏ</span>
+                        <span class="text-blue-400 font-bold bg-blue-500/10 px-2 py-1 md:px-3 md:py-1.5 rounded-lg border border-blue-500/30 whitespace-nowrap"><i class="fa-solid fa-download"></i> Tải</span>
                     </a>
-                    
-                    <a href="${RENDER_SERVER_URL}${data.word_std_url}" class="file-card flex items-center justify-between p-3 rounded-xl text-slate-200 no-underline group">
-                        <div class="flex items-center gap-3 truncate pr-2">
-                            <div class="bg-sky-500/20 p-2 rounded-lg">
-                                <i class="fa-solid fa-file-word text-sky-400 text-xl"></i>
-                            </div>
-                            <span class="font-medium truncate">Đề & Giải Riêng</span>
-                        </div>
-                        <span class="text-sky-400 font-bold bg-sky-500/10 px-3 py-1.5 rounded-lg border border-sky-500/30 whitespace-nowrap group-hover:bg-sky-500 group-hover:text-white transition-all"><i class="fa-solid fa-download mr-1"></i> Tải</span>
+                    <a href="${RENDER_SERVER_URL}${data.word_std_url}" class="flex items-center justify-between p-2 md:p-3 bg-[#0f141b] border border-[#1e293b] rounded-lg hover:border-sky-500 hover:shadow-[0_0_10px_rgba(14,165,233,0.2)] transition-all text-xs md:text-sm text-gray-100">
+                        <span class="truncate pr-2"><i class="fa-solid fa-file-word text-sky-500 mr-1 md:text-lg"></i> Đề & Giải Riêng</span>
+                        <span class="text-sky-400 font-bold bg-sky-500/10 px-2 py-1 md:px-3 md:py-1.5 rounded-lg border border-sky-500/30 whitespace-nowrap"><i class="fa-solid fa-download"></i> Tải</span>
                     </a>
                 `;
+
                 document.getElementById('resultZone').classList.remove('hidden');
                 showStatus("Xử lý thành công!", "success");
                 setTimeout(() => showStatus(""), 3000);
