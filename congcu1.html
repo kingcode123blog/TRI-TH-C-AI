@@ -524,7 +524,7 @@ d) [Phát biểu 4]
 
 \- Giải thích: [Hướng dẫn giải vắn tắt].Các suy luận khi giải bài bắt buộc bằng tiếng việt.
 
-Lưu ý đối với AI:Yêu cầu bạn trả về 2 kết quả phải giống nhau giống với Promt và ngăn cách giữa 2 kết quả là "1e9658952":
+Lưu ý đối với AI:Yêu cầu bạn trả về 2 kết quả phải giống nhau kết quả 1 bao gồm đề và đáp án và kết quả 2 cũng vậy và ngăn cách giữa 2 kết quả là "1e9658952":
 1. Đối với kết quả 2 thì
 - Xóa **
 - Xoá # và ## ở đầu các tiêu đề
@@ -724,7 +724,7 @@ ví dụ:
             for (let i = 0; i < API_KEYS.length; i++) {
                 const currentKey = API_KEYS[i];
                 try {
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${currentKey}`, {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.0-flash:generateContent?key=${currentKey}`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -752,7 +752,7 @@ ví dụ:
                 currentAIContent = responseData.candidates[0].content.parts[0].text;
                 mảng_nội_dung = currentAIContent.split("1e9658952");
                 
-                const displayHTML = mảng_nội_dung.length > 1 ? mảng_nội_dung[0].trim()+"\n"+mảng_nội_dung[1].trim() : currentAIContent;
+                const displayHTML =  currentAIContent;
                 
                 const loadingBubble = document.getElementById('ai-loading-bubble');
                 if (loadingBubble) { loadingBubble.remove(); }
