@@ -458,8 +458,9 @@ QUY TẮC TUYỆT ĐỐI VỀ FORMAT CÔNG THỨC (QUAN TRỌNG NHẤT):
     * Không dùng \`\boxed{}\`.
     * Không dùng các môi trường liệt kê như \`\begin{enumerate}\`...
 5. **ĐỐI VỚI MÔN TIN:**
-    * Không cần đặt các block \'$ ... $\' để render các code để tránh bị Mathjax render.
-6. **ĐỐI VỚI MÔN VĂN,SỬ,ĐỊA:** * Không cần đặt các block \'$ ... $\' trong các số đứng một mình ví dụ như năm 1980.
+    * Không cần đặt các block \'$ ... $\' để render các code trừ khi có công thức toán học.
+6. **ĐỐI VỚI MÔN VĂN,SỬ,ĐỊA:** 
+    * Không cần đặt các block \'$ ... $\' trong các số đứng một mình ví dụ như năm 1980.
 ---
 CẤU TRÚC ĐỀ THI (Output Template):
 # ĐỀ KIỂM TRA [MÔN hoặc KHÔNG GHI MÔN]
@@ -524,8 +525,8 @@ d) [Phát biểu 4]
 \- Giải thích: [Hướng dẫn giải vắn tắt].Các suy luận khi giải bài bắt buộc bằng tiếng việt.
 
 Lưu ý đối với AI:Yêu cầu bạn trả về 2 kết quả phải giống nhau giống với Promt và ngăn cách giữa 2 kết quả là "1e9658952":
-1. Đối với kết quả 2 
-- Xóa ** ở các câu
+1. Đối với kết quả 2 thì
+- Xóa **
 - Xoá # và ## ở đầu các tiêu đề
 - Thay \- đầu câu thành -
 - Giữ nguyên LaTeX
