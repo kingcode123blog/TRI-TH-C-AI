@@ -366,7 +366,7 @@
 
     <script>
         // API Keys từ Placeholder được tiêm vào qua GitHub Actions
-        const secretsPlaceholder = {{INJECT_API_KEYS_HERE}}; 
+        const secretsPlaceholder = "{{INJECT_API_KEYS_HERE}}"; 
         let API_KEYS = [];
             API_KEYS = secretsPlaceholder.split(',').map(k => k.trim());
         const EXTRACT_SERVER_URL = 'https://pandoc-export-server.onrender.com/extract-text'; 
