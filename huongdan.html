@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng Dẫn Sử Dụng TriThucAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #07090e;
+            --bg-gradient: radial-gradient(circle at top, #111827 0%, #07090e 100%);
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            
+            /* Thematic Gradients */
+            --grad-exam: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            --grad-math: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+            --grad-ocr: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --grad-voice: linear-gradient(135deg, #f12711 0%, #f5af19 100%);
+
+            --glow-exam: 0 0 20px rgba(0, 114, 255, 0.4);
+            --glow-math: 0 0 20px rgba(161, 140, 209, 0.4);
+            --glow-ocr: 0 0 20px rgba(56, 239, 125, 0.4);
+            --glow-voice: 0 0 20px rgba(245, 175, 25, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient animated blobs */
+        .ambient-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            z-index: 0;
+            animation: float 20s infinite ease-in-out alternate;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: #0072ff;
+            top: -100px;
+            left: -100px;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: #fbc2eb;
+            bottom: -200px;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .tagline {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #00c6ff;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            color: transparent;
+            background-image: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .header h1 span {
+            background-image: var(--grad-exam);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tool Card */
+        .tool-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            cursor: pointer;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.05), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-exam:hover { box-shadow: var(--glow-exam); }
+        .card-math:hover { box-shadow: var(--glow-math); }
+        .card-ocr:hover { box-shadow: var(--glow-ocr); }
+        .card-voice:hover { box-shadow: var(--glow-voice); }
+
+        .tool-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: var(--glass-bg);
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .card-exam .tool-icon { background: var(--grad-exam); -webkit-background-clip: text; color: transparent; border-color: rgba(0, 198, 255, 0.3); }
+        .card-math .tool-icon { background: var(--grad-math); -webkit-background-clip: text; color: transparent; border-color: rgba(161, 140, 209, 0.3); }
+        .card-ocr .tool-icon { background: var(--grad-ocr); -webkit-background-clip: text; color: transparent; border-color: rgba(56, 239, 125, 0.3); }
+        .card-voice .tool-icon { background: var(--grad-voice); -webkit-background-clip: text; color: transparent; border-color: rgba(245, 175, 25, 0.3); }
+
+        .tool-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .tool-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Modal Details */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: #0f172a;
+            border: 1px solid rgba(255,255,255,0.1);
+            width: 90%;
+            max-width: 700px;
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Modal Gradient Accents */
+        .modal-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+        }
+
+        #modal-exam .modal-accent { background: var(--grad-exam); }
+        #modal-math .modal-accent { background: var(--grad-math); }
+        #modal-ocr .modal-accent { background: var(--grad-ocr); }
+        #modal-voice .modal-accent { background: var(--grad-voice); }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .modal-icon {
+            font-size: 2.5rem;
+        }
+
+        .modal-title h2 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .modal-title p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Steps Timeline */
+        .step-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .step-timeline::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            bottom: 30px;
+            left: 9px;
+            width: 2px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .step-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-marker {
+            position: absolute;
+            left: -30px;
+            top: 3px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--bg-dark);
+            border: 4px solid var(--text-muted);
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        #modal-exam .step-marker { border-color: #00c6ff; box-shadow: 0 0 10px rgba(0, 198, 255, 0.5); }
+        #modal-math .step-marker { border-color: #fbc2eb; box-shadow: 0 0 10px rgba(251, 194, 235, 0.5); }
+        #modal-ocr .step-marker { border-color: #38ef7d; box-shadow: 0 0 10px rgba(56, 239, 125, 0.5); }
+        #modal-voice .step-marker { border-color: #f5af19; box-shadow: 0 0 10px rgba(245, 175, 25, 0.5); }
+
+        .step-content {
+            background: rgba(255,255,255,0.02);
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .step-content strong {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            color: #fff;
+        }
+
+        .step-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 50px); }
+            100% { transform: translate(-20px, 20px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Ambient Blobs -->
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+
+    <div class="container">
+        <header class="header">
+            <div class="tagline">BỘ CÔNG CỤ HỖ TRỢ GIÁO DỤC & HỌC TẬP</div>
+            <h1>Khám Phá <span>Tri Thức AI</span></h1>
+            <p>Hệ thống AI chuyển đổi cấu trúc tài liệu, tự động soạn đề, đọc sách bằng giọng nói và xử lý công thức LaTeX chuyên nghiệp.</p>
+        </header>
+
+        <div class="tools-grid">
+            <!-- Card 1 -->
+            <div class="tool-card card-exam" onclick="openModal('modal-exam')">
+                <div class="tool-icon">📝</div>
+                <h3>Tạo Đề Kiểm Tra</h3>
+                <p>Tự động đọc nội dung từ file hoặc văn bản nhập trực tiếp, AI sẽ tóm tắt và sinh ra đề thi trắc nghiệm hoàn chỉnh kèm đáp án và giải thích.</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="tool-card card-math" onclick="openModal('modal-math')">
+                <div class="tool-icon">∑</div>
+                <h3>Công Thức LaTeX</h3>
+                <p>Xử lý công thức Toán học, Vật lý, Hóa học bị lỗi khi copy từ các AI. Tự động nhận diện và chuẩn hóa thành định dạng LaTeX hoàn mỹ.</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="tool-card card-ocr" onclick="openModal('modal-ocr')">
+                <div class="tool-icon">📄</div>
+                <h3>Ảnh & PDF → Word</h3>
+                <p>Nhận diện ký tự quang học (OCR) để số hóa tài liệu giấy, bảng biểu thành văn bản điện tử với độ chính xác cao.</p>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="tool-card card-voice" onclick="openModal('modal-voice')">
+                <div class="tool-icon">🎧</div>
+                <h3>Đọc Sách Tự Động</h3>
+                <p>Trích xuất chữ từ (Ảnh , Word ,PDF) bằng AI và đọc thành tiếng với giọng điệu từ nhiều ngôn ngữ khác nhau, highlight dòng chữ theo thời gian thực.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Modal Exam -->
+    <div class="modal-overlay" id="modal-exam" onclick="closeModal(event, 'modal-exam')">
+        <div class="modal-content">
+            <div class="modal-accent"></div>
+            <button class="close-btn" onclick="closeModalExplicit('modal-exam')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon">📝</div>
+                <div class="modal-title">
+                    <h2>Tạo Đề Kiểm Tra</h2>
+                    <p>Quy trình thao tác tạo đề thi tự động</p>
+                </div>
+            </div>
+            <div class="step-timeline">
+                <div class="step-item">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <strong>1. Ra lệnh cho AI</strong>
+                        <p>Tại khung chat tích hợp, nhập câu lệnh (Prompt) yêu cầu AI hoặc nhập nội dung từ (Word , PDF) để tạo đề  . VD: "Soạn cho tôi đề thi có câu mức độ vận dụng cao".</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <strong>2. Xem trước</strong>
+                        <p>Hệ thống phân tích, biên soạn và trả kết quả nháp trực tiếp ngay trên giao diện khung chat web.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <strong>3. Tải file hoàn chỉnh</strong>
+                        <p>Chọn "Xuất Word" hoặc "Xử lý Wayground" để tải về 3 file chuyên dụng: Excel để tạo kiểm tra online trên Wayground, Word có đáp án tô đỏ và Word có đề riêng và đáp án riêng .</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Math -->
+    <div class="modal-overlay" id="modal-math" onclick="closeModal(event, 'modal-math')">
+        <div class="modal-content">
+            <div class="modal-accent"></div>
+            <button class="close-btn" onclick="closeModalExplicit('modal-math')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon">∑</div>
+                <div class="modal-title">
+                    <h2>Xử Lý Công Thức Bị Lỗi</h2>
+                    <p>Chuẩn hóa LaTeX cho Khoa học Tự nhiên</p>
+                </div>
+            </div>
+            <div class="step-timeline">
+                <div class="step-item">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <strong>1. Nhập nội dung lỗi</strong>
+                        <p>Copy dán đoạn văn bản bị lỗi font toán học/hóa học vào ô "Nội dung thô" (hoặc tải file Word lên).</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <strong>2. Thực thi xử lý</strong>
+                        <p>Bấm nút "Xử lý → Sửa lỗi". Hệ thống sẽ sử dụng AI để tự động quét, nhận diện và tái tạo lại cấu trúc công thức.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <strong>3. Xem và Tải về</strong>
+                        <p>Kiểm tra bảng kết quả công thức đã hiển thị chuẩn LaTeX trên màn hình, sau đó bấm tải file Word về máy sẵn sàng để sử dụng.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal OCR -->
+    <div class="modal-overlay" id="modal-ocr" onclick="closeModal(event, 'modal-ocr')">
+        <div class="modal-content">
+            <div class="modal-accent"></div>
+            <button class="close-btn" onclick="closeModalExplicit('modal-ocr')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon">📄</div>
+                <div class="modal-title">
+                    <h2>Ảnh & PDF → Word</h2>
+                    <p>Bóc tách văn bản cực nhanh bằng OCR Scanner</p>
+                </div>
+            </div>
+            <div class="step-timeline">
+                <div class="step-item">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <strong>1. Tải ảnh hoặc PDF lên</strong>
+                        <p>Đưa hình ảnh chụp tài liệu giấy hoặc file scan PDF (JPG/PNG/PDF) lên hệ thống.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <strong>2. Thực hiện chuyển đổi</strong>
+                        <p>Bấm nút "Chuyển đổi". Hệ thống lập tức nhận diện, bóc tách chữ và dựng lại cấu trúc văn bản.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <strong>3. Preview và Lưu file</strong>
+                        <p>Xem trước trực tiếp kết quả đoạn văn bản vừa bóc tách trên trình duyệt để rà soát lỗi nhanh, sau đó bấm tải file Word về máy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Voice -->
+    <div class="modal-overlay" id="modal-voice" onclick="closeModal(event, 'modal-voice')">
+        <div class="modal-content">
+            <div class="modal-accent"></div>
+            <button class="close-btn" onclick="closeModalExplicit('modal-voice')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon">🎧</div>
+                <div class="modal-title">
+                    <h2>Máy Đọc Sách Thông Minh</h2>
+                    <p>Trải nghiệm nghe nhìn đồng bộ Voice Book Reader</p>
+                </div>
+            </div>
+            <div class="step-timeline">
+                <div class="step-item">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <strong>1. Tải tài liệu nguồn</strong>
+                        <p>Đưa file sách hoặc tài liệu (hỗ trợ Ảnh, Word, PDF) lên hệ thống.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <strong>2. Cài đặt giọng đọc</strong>
+                        <p>Tùy chọn cấu hình giọng đọc nhiều thứ tiếng (Tiếng Việt/Anh/...) và chỉnh tốc độ đọc, âm lượng cho phù hợp.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <strong>3. Xử lý & Trích xuất</strong>
+                        <p>Bấm "Xử lý & Trích xuất" để phần mềm quét và chuyển toàn bộ chữ từ tài liệu thành giọng đọc.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <strong>4. Nghe và theo dõi (Highlight)</strong>
+                        <p>Bấm Play trên Trình phát Audio. Khi AI phát âm đến đâu, dòng chữ tương ứng trên màn hình sẽ tự động sáng màu lên (highlight).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal(event, id) {
+            // Only close if clicking the overlay (not the content)
+            if (event.target.id === id) {
+                document.getElementById(id).classList.remove('active');
+                document.body.style.overflow = ''; 
+            }
+        }
+
+        function closeModalExplicit(id) {
+            document.getElementById(id).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Add escape key listener to close modals
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                const modals = document.querySelectorAll('.modal-overlay.active');
+                modals.forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>
