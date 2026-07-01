@@ -80,7 +80,6 @@
             box-shadow: 0 0 10px #a855f7;
         }
         
-        /* Chỉnh lại style hiển thị cho công thức sau khi render */
         .katex-display { margin: 1em 0; overflow-x: auto; overflow-y: hidden; }
     </style>
 </head>
@@ -91,7 +90,7 @@
     <div class="absolute bottom-[-10%] left-[15%] w-[45vw] h-[45vw] bg-indigo-900/5 blur-[150px] pointer-events-none rounded-full z-0"></div>
 
     <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#05030b]/80 border-b border-purple-950/30 transition-all">
-        <div class="max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+       <div class="max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
             
             <div class="flex items-center gap-2.5 shrink-0">
                 <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center shadow-md shadow-purple-500/20">
@@ -103,24 +102,38 @@
                 </div>
             </div>
 
-            <div class="flex items-center gap-3">
-                <div class="flex items-center gap-2 text-xs font-semibold text-purple-400 bg-purple-950/40 px-3 py-1.5 rounded-full border border-purple-900/40">
+            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                <div class="flex items-center gap-2 text-xs font-semibold text-purple-400 sm:bg-purple-950/40 sm:px-3 py-1.5 rounded-full sm:border sm:border-purple-900/40">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>Hệ Thống Đang Kích Hoạt</span>
+                    <span class="hidden sm:inline">Hệ Thống Đang Kích Hoạt</span>
                 </div>
                 
-                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-950 to-slate-900 border border-purple-500/20 flex items-center justify-center text-xs font-bold text-purple-300 shadow-sm select-none">
+                <div class="hidden sm:flex w-8 h-8 rounded-lg bg-gradient-to-br from-purple-950 to-slate-900 border border-purple-500/20 items-center justify-center text-xs font-bold text-purple-300 shadow-sm select-none">
                     AI
                 </div>
+
+                <a href="index.html" class="group relative flex shrink-0 items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-lg bg-slate-900 border border-slate-700/50 text-slate-400 transition-all duration-300 hover:text-purple-400 hover:border-purple-500/50 hover:bg-purple-500/10 hover:shadow-[0_0_12px_rgba(168,85,247,0.25)] active:scale-95 cursor-pointer z-20">
+                    <div class="absolute top-[130%] right-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50 pointer-events-none flex flex-col items-end">
+                        <div class="w-2 h-2 bg-slate-900 border-t border-l border-purple-500/40 rotate-45 -mb-1 z-10 relative mt-0.5 mr-3 md:mr-4"></div>
+                        <div class="bg-slate-900 border border-purple-500/40 text-purple-400 text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-md shadow-[0_4px_15px_rgba(168,85,247,0.2)] whitespace-nowrap">Trang Chủ</div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 md:w-5 md:h-5 relative z-10 transition-transform duration-300 group-hover:-translate-y-0.5 pointer-events-none">
+                        <path d="M12 3.5L3 10.5v8.5a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8.5L12 3.5z" />
+                        <circle cx="12" cy="13.5" r="2" class="group-hover:fill-[#a855f7] group-hover:stroke-[#a855f7] transition-colors duration-300" />
+                        <path d="M12 15.5v4.5" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75" />
+                        <path d="M8 13.5h2" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150" />
+                        <path d="M14 13.5h2" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200" />
+                    </svg>
+                </a>
             </div>
         </div>
     </header>
 
-    <main class="flex-1 max-w-[1550px] w-full mx-auto p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10">
+    <main class="flex-1 max-w-[1550px] w-full mx-auto p-3 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 relative z-10">
         
-        <section class="lg:col-span-5 flex flex-col gap-5">
+        <section class="lg:col-span-5 flex flex-col gap-4 lg:gap-5">
             
-            <div class="cyber-card rounded-2xl p-5 shadow-2xl flex flex-col gap-3.5 transition-all">
+            <div class="cyber-card rounded-2xl p-4 sm:p-5 shadow-2xl flex flex-col gap-3.5 transition-all">
                 <div class="flex items-center justify-between">
                     <h2 class="text-[11px] font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
                         <i class="fa-solid fa-folder-open text-pink-500"></i> Nạp đề thi / tài liệu gốc
@@ -139,8 +152,8 @@
                         <p class="text-[10px] text-purple-400/40">Hỗ trợ phân tích dữ liệu lớn</p>
                     </div>
 
-                    <div id="uploadFileActiveState" class="hidden flex items-center gap-4 text-left bg-[#0c081c] p-3 rounded-xl border border-purple-500/30 shadow-xl relative z-30">
-                        <div class="w-9 h-9 rounded-lg bg-purple-950 text-purple-400 border border-purple-500/20 flex items-center justify-center text-base shrink-0" id="fileTypeIcon">
+                    <div id="uploadFileActiveState" class="hidden flex items-center gap-3 sm:gap-4 text-left bg-[#0c081c] p-3 rounded-xl border border-purple-500/30 shadow-xl relative z-30">
+                        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-purple-950 text-purple-400 border border-purple-500/20 flex items-center justify-center text-sm sm:text-base shrink-0" id="fileTypeIcon">
                             <i class="fa-solid fa-file-word"></i>
                         </div>
                         <div class="flex-1 min-w-0">
@@ -149,29 +162,29 @@
                                 <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-full w-full rounded-full"></div>
                             </div>
                         </div>
-                        <button id="removeFileBtn" class="w-6 h-6 rounded-md text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 flex items-center justify-center transition-colors cursor-pointer" title="Hủy file">
+                        <button id="removeFileBtn" class="w-6 h-6 rounded-md text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 flex items-center justify-center transition-colors cursor-pointer shrink-0" title="Hủy file">
                             <i class="fa-solid fa-xmark text-xs"></i>
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div class="cyber-card rounded-2xl p-5 shadow-2xl flex-1 flex flex-col gap-4 min-h-[440px]">
+            <div class="cyber-card rounded-2xl p-4 sm:p-5 shadow-2xl flex-1 flex flex-col gap-4 min-h-[440px]">
                 <div class="flex items-center justify-between">
                     <h2 class="text-[11px] font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
                         <i class="fa-solid fa-keyboard text-indigo-400"></i> Nội dung thô
                     </h2>
                     <div class="flex items-center gap-1.5">
-                        <button id="pasteClipboardBtn" class="text-[11px] font-bold text-purple-300 hover:text-white px-2.5 py-1 rounded-lg bg-purple-950/40 border border-purple-900/50 hover:border-purple-500/40 cursor-pointer transition-colors">
-                            <i class="fa-solid fa-clipboard mr-1 text-purple-400"></i> Dán nhanh
+                        <button id="pasteClipboardBtn" class="text-[10px] sm:text-[11px] font-bold text-purple-300 hover:text-white px-2 sm:px-2.5 py-1 rounded-lg bg-purple-950/40 border border-purple-900/50 hover:border-purple-500/40 cursor-pointer transition-colors">
+                            <i class="fa-solid fa-clipboard mr-1 text-purple-400"></i> Dán
                         </button>
-                        <button id="clearEditorBtn" class="text-[11px] font-bold text-slate-400 hover:text-rose-400 px-2.5 py-1 rounded-lg bg-slate-900/40 border border-purple-950/30 cursor-pointer transition-colors">
+                        <button id="clearEditorBtn" class="text-[10px] sm:text-[11px] font-bold text-slate-400 hover:text-rose-400 px-2 sm:px-2.5 py-1 rounded-lg bg-slate-900/40 border border-purple-950/30 cursor-pointer transition-colors">
                             Xóa sạch
                         </button>
                     </div>
                 </div>
 
-                <div class="flex-1 flex border border-purple-950/60 rounded-xl overflow-hidden bg-[#070412]/50 focus-within:ring-1 focus-within:ring-purple-500/30 focus-within:border-purple-500/40 transition-all">
+                 <div class="flex-1 flex border border-purple-950/60 rounded-xl overflow-hidden bg-[#070412]/50 focus-within:ring-1 focus-within:ring-purple-500/30 focus-within:border-purple-500/40 transition-all">
                     <div class="w-9 bg-purple-950/10 border-r border-purple-950/50 py-3 text-right pr-2 select-none text-[11px] font-mono text-purple-950 font-extrabold leading-6">
                         1<br>2<br>3<br>4<br>5
                     </div>
@@ -183,7 +196,7 @@
                     <span class="text-[11px] text-purple-400/30 hidden sm:inline-flex items-center gap-1.5">
                         <kbd class="px-1.5 py-0.5 rounded border border-purple-900/60 bg-purple-950/40 font-mono text-[9px] text-purple-400">Ctrl</kbd> + <kbd class="px-1.5 py-0.5 rounded border border-purple-900/60 bg-purple-950/40 font-mono text-[9px] text-purple-400">Enter</kbd>
                     </span>
-                    <button id="processBtn" class="flex-1 sm:flex-initial bg-gradient-to-r from-purple-600 via-purple-700 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-bold px-5 py-3.5 rounded-xl shadow-lg shadow-purple-500/5 transition-all flex items-center justify-center gap-2 cursor-pointer group tracking-wider">
+                    <button id="processBtn" class="flex-1 sm:flex-initial bg-gradient-to-r from-purple-600 via-purple-700 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-bold px-4 py-3 sm:px-5 sm:py-3.5 rounded-xl shadow-lg shadow-purple-500/5 transition-all flex items-center justify-center gap-2 cursor-pointer group tracking-wider">
                         <span>XỬ LÝ ➔ SỬA LỖI</span>
                         <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-0.5 transition-transform"></i>
                     </button>
@@ -201,38 +214,38 @@
         <section class="lg:col-span-7 flex flex-col" id="outputPanelSection">
             <div class="cyber-card rounded-2xl shadow-2xl flex flex-col h-full overflow-hidden min-h-[600px]">
                 
-                <div class="px-4 py-3 bg-purple-950/10 border-b border-purple-950/30 flex flex-wrap items-center justify-between gap-3">
-                    <div class="flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-md shadow-purple-400" id="statusDotIndicator"></span>
-                        <h3 id="panelOutputTitle" class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Kết quả trực quan</h3>
+                <div class="px-3 sm:px-4 py-3 bg-purple-950/10 border-b border-purple-950/30 flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center gap-2 min-w-0">
+                        <span class="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-md shadow-purple-400 shrink-0" id="statusDotIndicator"></span>
+                        <h3 id="panelOutputTitle" class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-widest truncate">Kết quả trực quan</h3>
                     </div>
                     
-                    <div class="flex items-center gap-1.5">
-                        <button id="zoomOutBtn" class="w-7 h-7 rounded-lg text-purple-400 hover:text-white hover:bg-purple-950/50 border border-transparent hover:border-purple-900/60 flex items-center justify-center transition-colors cursor-pointer" title="Thu nhỏ">
-                            <i class="fa-solid fa-magnifying-glass-minus text-xs"></i>
+                    <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
+                        <button id="zoomOutBtn" class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg text-purple-400 hover:text-white hover:bg-purple-950/50 border border-transparent hover:border-purple-900/60 flex items-center justify-center transition-colors cursor-pointer" title="Thu nhỏ">
+                            <i class="fa-solid fa-magnifying-glass-minus text-[10px] sm:text-xs"></i>
                         </button>
-                        <button id="zoomInBtn" class="w-7 h-7 rounded-lg text-purple-400 hover:text-white hover:bg-purple-950/50 border border-transparent hover:border-purple-900/60 flex items-center justify-center transition-colors cursor-pointer" title="Phóng to">
-                            <i class="fa-solid fa-magnifying-glass-plus text-xs"></i>
+                        <button id="zoomInBtn" class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg text-purple-400 hover:text-white hover:bg-purple-950/50 border border-transparent hover:border-purple-900/60 flex items-center justify-center transition-colors cursor-pointer" title="Phóng to">
+                            <i class="fa-solid fa-magnifying-glass-plus text-[10px] sm:text-xs"></i>
                         </button>
                         <div class="w-px h-4 bg-purple-950/60 mx-1"></div>
-                        <button id="copyAllOutputBtn" disabled class="text-[11px] font-bold px-3 h-7 rounded-lg border border-purple-900/40 bg-purple-950/10 text-purple-300 hover:text-white hover:border-purple-500/40 disabled:opacity-20 disabled:cursor-not-allowed transition-colors flex items-center gap-1.5 cursor-pointer">
-                            <i class="fa-solid fa-copy text-[10px]"></i> Sao chép
+                        <button id="copyAllOutputBtn" disabled class="text-[10px] sm:text-[11px] font-bold px-2 sm:px-3 h-6 sm:h-7 rounded-lg border border-purple-900/40 bg-purple-950/10 text-purple-300 hover:text-white hover:border-purple-500/40 disabled:opacity-20 disabled:cursor-not-allowed transition-colors flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-copy text-[10px]"></i> <span class="hidden sm:inline">Sao chép</span>
                         </button>
-                        <button id="fullscreenToggleBtn" class="w-7 h-7 rounded-lg text-purple-400 hover:text-white hover:bg-purple-950/50 border border-transparent hover:border-purple-900/60 flex items-center justify-center transition-colors cursor-pointer" title="Toàn màn hình">
-                            <i class="fa-solid fa-expand text-xs"></i>
+                        <button id="fullscreenToggleBtn" class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg text-purple-400 hover:text-white hover:bg-purple-950/50 border border-transparent hover:border-purple-900/60 flex items-center justify-center transition-colors cursor-pointer" title="Toàn màn hình">
+                            <i class="fa-solid fa-expand text-[10px] sm:text-xs"></i>
                         </button>
                     </div>
                 </div>
 
-                <div class="flex-1 p-6 overflow-y-auto relative bg-[#06040f]/40" id="previewAreaScrollParent">
-                    <div id="textOutputPreview" class="text-slate-200 leading-relaxed max-w-none transition-all text-sm space-y-4">
-                        <div id="emptyStateContainer" class="py-32 flex flex-col items-center text-center max-w-xs mx-auto gap-3.5">
-                            <div class="w-14 h-14 rounded-full bg-purple-950/20 border border-dashed border-purple-500/10 flex items-center justify-center text-purple-400/30">
-                                <i class="fa-solid fa-chart-simple text-lg"></i>
+                <div class="flex-1 p-4 sm:p-6 overflow-y-auto relative bg-[#06040f]/40" id="previewAreaScrollParent">
+                    <div id="textOutputPreview" class="text-slate-200 leading-relaxed max-w-none transition-all text-xs sm:text-sm space-y-4">
+                        <div id="emptyStateContainer" class="py-16 sm:py-32 flex flex-col items-center text-center max-w-xs mx-auto gap-3.5">
+                            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-purple-950/20 border border-dashed border-purple-500/10 flex items-center justify-center text-purple-400/30">
+                                <i class="fa-solid fa-chart-simple text-base sm:text-lg"></i>
                             </div>
                             <div>
                                 <p class="text-xs font-bold text-slate-400">Chưa tìm thấy dữ liệu xuất bản</p>
-                                <p class="text-[11px] text-purple-400/30 mt-1 leading-relaxed">Hãy tải tệp hoặc điền cấu trúc mã lỗi ở bảng bên trái.</p>
+                                <p class="text-[10px] sm:text-[11px] text-purple-400/30 mt-1 leading-relaxed">Hãy tải tệp hoặc điền cấu trúc mã lỗi ở bảng bên trái.</p>
                             </div>
                         </div>
                     </div>
@@ -240,19 +253,19 @@
                     <div id="loadingOverlay" class="absolute inset-0 bg-[#05030b]/95 backdrop-blur-md flex flex-col items-center justify-center gap-4 hidden z-50">
                         <div class="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin shadow-lg"></div>
                         <div class="space-y-2 text-center max-w-xs">
-                            <p class="text-xs font-bold text-purple-300 tracking-wide">Hệ thống đang gọi AI xử lý...</p>
-                            <div class="w-40 h-1 shimmer rounded-full mx-auto opacity-50"></div>
+                            <p class="text-xs font-bold text-purple-300 tracking-wide">Hệ thống đang xử lý...</p>
+                            <div class="w-32 sm:w-40 h-1 shimmer rounded-full mx-auto opacity-50"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="px-5 py-3 bg-purple-950/10 border-t border-purple-950/30 flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <span class="text-[11px] font-semibold text-purple-400/40" id="executionTimerLabel">Trạng thái: Sẵn sàng</span>
+                <div class="px-4 sm:px-5 py-3 bg-purple-950/10 border-t border-purple-950/30 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <span class="text-[10px] sm:text-[11px] font-semibold text-purple-400/40" id="executionTimerLabel">Trạng thái: Sẵn sàng</span>
                     <div class="flex items-center gap-2 w-full sm:w-auto">
-                        <button id="downloadMDBtn" disabled class="flex-1 sm:flex-initial text-[11px] font-bold px-3.5 py-2.5 rounded-xl border border-purple-900/40 bg-purple-950/10 text-slate-400 hover:text-purple-400 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer transition-colors flex items-center justify-center gap-1.5">
+                        <button id="downloadMDBtn" disabled class="flex-1 sm:flex-initial text-[10px] sm:text-[11px] font-bold px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl border border-purple-900/40 bg-purple-950/10 text-slate-400 hover:text-purple-400 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer transition-colors flex items-center justify-center gap-1.5">
                             <i class="fa-solid fa-file-code text-[10px]"></i> Tải (.md)
                         </button>
-                        <button id="downloadWordBtn" disabled class="flex-1 sm:flex-initial bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white text-[11px] font-bold px-4 py-2.5 rounded-xl shadow-lg disabled:opacity-20 disabled:pointer-events-none cursor-pointer transition-all flex items-center justify-center gap-1.5">
+                        <button id="downloadWordBtn" disabled class="flex-1 sm:flex-initial bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white text-[10px] sm:text-[11px] font-bold px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl shadow-lg disabled:opacity-20 disabled:pointer-events-none cursor-pointer transition-all flex items-center justify-center gap-1.5">
                             <i class="fa-solid fa-file-word text-[10px]"></i> Tải Word (.docx)
                         </button>
                     </div>
@@ -263,17 +276,12 @@
 
     </main>
 
-    <footer class="mt-auto py-3.5 px-8 border-t border-purple-950/30 bg-[#04020a]/60 text-center text-[10px] font-semibold text-purple-400/20 tracking-wider">
+    <footer class="mt-auto py-3 sm:py-3.5 px-4 sm:px-8 border-t border-purple-950/30 bg-[#04020a]/60 text-center text-[9px] sm:text-[10px] font-semibold text-purple-400/20 tracking-wider">
         © 2026 Trí Thức AI • Giao diện chuẩn Cyber Dark SaaS UI Độc Quyền
     </footer>
 
     <script>
-        // ==========================================
-        // ĐIỀN NHIỀU API KEY CÁCH NHAU BẰNG DẤU PHẨY (,)
-        // Ví dụ: "KEY_1, KEY_2, KEY_3"
-        // ==========================================
         const GEMINI_API_KEYS="{{INJECT_API_KEYS_HERE2}}";
-        
         const PANDOC_API_URL = "https://pandoc-export-server.onrender.com/api/export-docx";
 
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
@@ -386,7 +394,7 @@
 
             const outputConfig = exportMode === 'word' ? 'mathml' : 'htmlAndMathml';
 
-            processedText = processedText.replace(/\$\$([\s\S]+?)\$\$/g, (match, formula) => {
+            processedText = processedText.replace(/\$\$( [\s\S]+?)\$\$/g, (match, formula) => {
                 const token = `KtxMathBlockToken${tokenCount++}End`; 
                 try {
                     const rendered = katex.renderToString(formula.trim(), { 
@@ -431,23 +439,19 @@
         }
 
         processBtn.addEventListener('click', async () => {
-            // Xử lý chuỗi API Keys
             let keysArray = GEMINI_API_KEYS.split(',').map(k => k.trim());
-            
             if (keysArray.length === 0 || keysArray[0] === "ĐIỀN_API_KEY_CỦA_BẠN_VÀO_ĐÂY") { 
                 alert('Vui lòng cấu hình API Key vào biến GEMINI_API_KEYS trong mã nguồn để sử dụng hệ thống!'); 
                 return; 
             }
 
-            // Chọn ngẫu nhiên 1 API Key để tránh lỗi giới hạn tốc độ (Rate Limit 429)
             const apiKey = keysArray[Math.floor(Math.random() * keysArray.length)];
-
             let targetPayloadText = extractedFileText ? extractedFileText : textInput.value.trim();
             if (!targetPayloadText) { alert('Dữ liệu thô rỗng! Hãy tải file hoặc dán đề bài.'); return; }
 
             loadingOverlay.classList.remove('hidden');
             statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-md shadow-amber-400/50";
-            panelOutputTitle.innerText = "Hệ thống AI đang tính toán...";
+            panelOutputTitle.innerText = "Đang xử lý...";
             const startTime = performance.now();
 
             const promptRules = `Bạn là chuyên gia chuyển hóa tài liệu đề thi hóa học, toán học, vật lý học cao cấp. Hãy dịch văn bản được gửi thành cấu trúc đề bài Markdown sạch.
@@ -477,28 +481,26 @@ QUY TẮC:
                 }
                 
                 let cleanMarkdownResult = rawText.trim();
-                
                 cleanMarkdownResult = cleanMarkdownResult
                     .replace(/\\\[\s*([\s\S]*?)\s*\\\]/g, '$$\n$1\n$$')
                     .replace(/\\\(\s*([\s\S]*?)\s*\\\)/g, '$$$1$');
                 
                 globalFinalMarkdown = cleanMarkdownResult;
-                
                 textOutputPreview.innerHTML = parseMarkdownAndMath(cleanMarkdownResult, 'web');
 
                 downloadWordBtn.disabled = false;
                 downloadMDBtn.disabled = false;
                 copyAllOutputBtn.disabled = false;
                 statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-md shadow-emerald-400/50";
-                panelOutputTitle.innerText = "Đã kết xuất dữ liệu thành công!";
+                panelOutputTitle.innerText = "Thành công!";
                 
                 const endTime = performance.now();
-                executionTimerLabel.innerHTML = `Hoàn thành trong: <span class="text-emerald-400 font-bold">${((endTime - startTime) / 1000).toFixed(2)}s</span>`;
+                executionTimerLabel.innerHTML = `Hoàn thành: <span class="text-emerald-400 font-bold">${((endTime - startTime) / 1000).toFixed(2)}s</span>`;
                 if (!extractedFileText) updateHistoryListLog("Văn bản dán thô từ Editor");
 
             } catch (err) {
                 statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-rose-500 shadow-md shadow-rose-500/50";
-                panelOutputTitle.innerText = "Xảy ra sự cố lỗi biên dịch!";
+                panelOutputTitle.innerText = "Lỗi biên dịch!";
                 executionTimerLabel.innerText = "Trạng thái: Thất bại";
                 alert('Có lỗi trong quá trình kết nối API. Vui lòng kiểm tra lại API Key đã nhập trong mã nguồn.');
                 console.error(err);
@@ -507,9 +509,6 @@ QUY TẮC:
             }
         });
 
-        // ========================================================
-        // KẾT NỐI PANDOC BACKEND ĐỂ XUẤT FILE DOCX CHUẨN
-        // ========================================================
         downloadWordBtn.addEventListener('click', async () => {
             if (!globalFinalMarkdown) return;
             const originalBtnContent = downloadWordBtn.innerHTML;
@@ -521,21 +520,13 @@ QUY TẮC:
 
                 const response = await fetch(PANDOC_API_URL, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        markdown: globalFinalMarkdown
-                    })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ markdown: globalFinalMarkdown })
                 });
 
-                if (!response.ok) {
-                    throw new Error(`Mã lỗi HTTP Backend: ${response.status}`);
-                }
+                if (!response.ok) throw new Error(`Mã lỗi HTTP Backend: ${response.status}`);
 
                 const blob = await response.blob();
-                
-                // ĐÃ CẬP NHẬT TÊN FILE TẠI ĐÂY
                 triggerDirectDownload(blob, 'Cong_Thuc_Chuan.docx');
 
             } catch (error) {
