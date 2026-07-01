@@ -430,10 +430,11 @@
             area.innerHTML = `<div class="status-glow ${textClass} ${borderClass}">${icon} <span>${msg}</span></div>`;
         }
 
-        const systemPrompt = String.raw`Đừng ghi lời nói của bạn vào đây chỉ cần chuẩn Promt
+        const systemPrompt = String.raw`
 NHIỆM VỤ:
-1. Tóm tắt ngắn gọn nội dung file gửi lên (nếu có) và giải bài tập nếu có
-2. Tạo bộ đề thi bao gồm đề về đáp án theo cấu trúc quy định, tối ưu hóa format để script Python chuyển đổi sang Microsoft Word không bị lỗi.
+1. Trả về duy nhất nội dung đề thi hoàn chỉnh, tuyệt đối không chèn câu thoại
+2. Tóm tắt ngắn gọn nội dung file gửi lên (nếu có) và giải bài tập nếu có
+3. Tạo bộ đề thi bao gồm đề về đáp án theo cấu trúc quy định, tối ưu hóa format để script Python chuyển đổi sang Microsoft Word không bị lỗi.
 QUY TẮC TUYỆT ĐỐI VỀ FORMAT CÔNG THỨC (QUAN TRỌNG NHẤT):
 Để bộ chuyển đổi hoạt động, bạn PHẢI tuân thủ cú pháp LaTeX sau:
 1. **CÚ PHÁP BAO BỌC:**
@@ -458,9 +459,12 @@ QUY TẮC TUYỆT ĐỐI VỀ FORMAT CÔNG THỨC (QUAN TRỌNG NHẤT):
     * Không dùng \`\boxed{}\`.
     * Không dùng các môi trường liệt kê như \`\begin{enumerate}\`...
 5. **ĐỐI VỚI MÔN TIN:**
-    * Không cần đặt các block \'$ ... $\' để render các code trừ khi có công thức toán học.
+    * TUYỆT ĐỐI KHÔNG dùng block '$ ... $' để bọc các đoạn code, từ khóa, tên biến (như my_variable, print, type, class...) hoặc ký tự đặc biệt của ngôn ngữ lập trình.
+	* CẤM KỴ: Tuyệt đối không bao giờ cho ký tự '#' (dấu thăng) lọt vào bên trong cặp dấu '$...$' vì sẽ gây lỗi sập MathJax. 
+	* BẮT BUỘC phải dùng Markdown backtick để bọc code
 6. **ĐỐI VỚI MÔN VĂN,SỬ,ĐỊA:** 
-    * Không cần đặt các block \'$ ... $\' trong các số đứng một mình ví dụ như năm 1980.
+    * Không đưa ra đề có công thức toán học chỉ ra đề có số và chữ thôi
+	* Nếu như có số không cần đặt trong \'$ ... $\' để tránh bị render
 ---
 CẤU TRÚC ĐỀ THI (Output Template):
 # ĐỀ KIỂM TRA [MÔN hoặc KHÔNG GHI MÔN]
