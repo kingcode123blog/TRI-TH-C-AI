@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi" class="dark">
 <head>
@@ -80,32 +79,31 @@
             box-shadow: inset 0 0 10px rgba(0, 230, 118, 0.2), 0 0 15px rgba(0, 230, 118, 0.3) !important;
         }
 
-        /* Tối ưu hóa thanh cuộn danh sách tệp */
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #00E676; }
     </style>
 </head>
-<body class="text-slate-200 h-screen flex overflow-hidden selection:bg-primary/30 selection:text-primary">
+<body class="text-slate-200 h-screen flex flex-col md:flex-row overflow-hidden selection:bg-primary/30 selection:text-primary">
 
-    <aside class="w-16 flex flex-col items-center py-6 border-r border-slate-800 bg-darkCard/80 backdrop-blur-md z-30 gap-5">
+    <aside class="order-2 md:order-1 w-full md:w-16 h-16 md:h-full flex flex-row md:flex-col items-center justify-around md:justify-start py-0 md:py-6 px-2 md:px-0 border-t md:border-t-0 md:border-r border-slate-800 bg-darkCard/95 backdrop-blur-md z-40 gap-2 md:gap-5 shrink-0">
         
         <button id="nav-main" class="nav-btn group relative flex shrink-0 items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary text-darkBg shadow-[0_0_15px_rgba(0,230,118,0.4)] cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95 z-30">
-            <div class="absolute left-[130%] top-1/2 -translate-y-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 -translate-x-2 group-hover:translate-x-0 z-50 pointer-events-none flex items-center">
+            <div class="hidden md:flex absolute left-[130%] top-1/2 -translate-y-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 -translate-x-2 group-hover:translate-x-0 z-50 pointer-events-none items-center">
                 <div class="w-2 h-2 bg-[#111827] border-b border-l border-[#00E676]/40 rotate-45 -mr-1 z-10 relative"></div>
                 <div class="bg-[#111827] border border-[#00E676]/40 text-[#00E676] text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-md shadow-[0_4px_15px_rgba(0,230,118,0.2)] whitespace-nowrap">
-                    Công Cụ Chuyển Đổi
+                    Công Cụ
                 </div>
             </div>
             <i class="ph-bold ph-scan text-xl"></i>
         </button>
 
-        <div class="w-8 h-px bg-slate-800/60 my-1"></div>
+        <div class="w-px h-8 md:w-8 md:h-px bg-slate-800/60 mx-1 md:my-1 md:mx-0 shrink-0"></div>
 
-        <nav class="flex flex-col gap-5 w-full items-center">
+        <nav class="flex flex-row md:flex-col gap-3 md:gap-5 flex-1 md:flex-none md:w-full items-center justify-around md:justify-center">
             
             <button id="nav-upload" class="group relative flex shrink-0 items-center justify-center w-10 h-10 rounded-lg bg-[#111827] border border-gray-700/50 text-gray-400 transition-all duration-300 hover:text-[#00E676] hover:border-[#00E676]/50 hover:bg-[#00E676]/10 hover:shadow-[0_0_12px_rgba(0,230,118,0.25)] active:scale-95 cursor-pointer z-20">
-                <div class="absolute left-[130%] top-1/2 -translate-y-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 -translate-x-2 group-hover:translate-x-0 z-50 pointer-events-none flex items-center">
+                <div class="hidden md:flex absolute left-[130%] top-1/2 -translate-y-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 -translate-x-2 group-hover:translate-x-0 z-50 pointer-events-none items-center">
                     <div class="w-2 h-2 bg-[#111827] border-b border-l border-[#00E676]/40 rotate-45 -mr-1 z-10 relative"></div>
                     <div class="bg-[#111827] border border-[#00E676]/40 text-[#00E676] text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-md shadow-[0_4px_15px_rgba(0,230,118,0.2)] whitespace-nowrap">
                         Tải hình ảnh
@@ -115,10 +113,10 @@
             </button>
 
             <button id="nav-history" class="nav-btn group relative flex shrink-0 items-center justify-center w-10 h-10 rounded-lg bg-[#111827] border border-gray-700/50 text-gray-400 transition-all duration-300 hover:text-[#00E676] hover:border-[#00E676]/50 hover:bg-[#00E676]/10 hover:shadow-[0_0_12px_rgba(0,230,118,0.25)] active:scale-95 cursor-pointer z-20">
-                <div class="absolute left-[130%] top-1/2 -translate-y-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 -translate-x-2 group-hover:translate-x-0 z-50 pointer-events-none flex items-center">
+                <div class="hidden md:flex absolute left-[130%] top-1/2 -translate-y-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 -translate-x-2 group-hover:translate-x-0 z-50 pointer-events-none items-center">
                     <div class="w-2 h-2 bg-[#111827] border-b border-l border-[#00E676]/40 rotate-45 -mr-1 z-10 relative"></div>
                     <div class="bg-[#111827] border border-[#00E676]/40 text-[#00E676] text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-md shadow-[0_4px_15px_rgba(0,230,118,0.2)] whitespace-nowrap">
-                        Lịch sử chuyển đổi
+                        Lịch sử
                     </div>
                 </div>
                 <i class="ph ph-clock-counter-clockwise text-2xl relative z-10"></i>
@@ -126,10 +124,10 @@
             </button>
 
             <button id="nav-documents" class="nav-btn group relative flex shrink-0 items-center justify-center w-10 h-10 rounded-lg bg-[#111827] border border-gray-700/50 text-gray-400 transition-all duration-300 hover:text-[#00E676] hover:border-[#00E676]/50 hover:bg-[#00E676]/10 hover:shadow-[0_0_12px_rgba(0,230,118,0.25)] active:scale-95 cursor-pointer z-20">
-                <div class="absolute left-[130%] top-1/2 -translate-y-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 -translate-x-2 group-hover:translate-x-0 z-50 pointer-events-none flex items-center">
+                <div class="hidden md:flex absolute left-[130%] top-1/2 -translate-y-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 -translate-x-2 group-hover:translate-x-0 z-50 pointer-events-none items-center">
                     <div class="w-2 h-2 bg-[#111827] border-b border-l border-[#00E676]/40 rotate-45 -mr-1 z-10 relative"></div>
                     <div class="bg-[#111827] border border-[#00E676]/40 text-[#00E676] text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-md shadow-[0_4px_15px_rgba(0,230,118,0.2)] whitespace-nowrap">
-                        Tài liệu đã chuyển đổi
+                        Đã lưu
                     </div>
                 </div>
                 <i class="ph ph-files text-2xl relative z-10"></i>
@@ -139,319 +137,240 @@
         </nav>
     </aside>
 
-    <div class="flex-1 flex flex-col h-full overflow-hidden relative">
+    <div class="order-1 md:order-2 flex-1 flex flex-col h-full overflow-hidden relative">
         <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
         <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
 
-        <header class="h-20 flex items-center justify-between px-8 border-b border-slate-800/50 glass z-20 relative">
+        <header class="h-16 md:h-20 flex items-center justify-between px-4 md:px-8 border-b border-slate-800/50 glass z-20 relative shrink-0">
             <div class="flex flex-col">
-                <div class="flex items-center gap-3">
-                    <h1 class="font-bold text-2xl tracking-tight text-white flex items-center gap-2">
-                        Chuyển Ảnh <span class="text-primary glow-text">Sang Word</span>
+                <div class="flex items-center gap-2 md:gap-3">
+                    <h1 class="font-bold text-lg md:text-2xl tracking-tight text-white flex items-center gap-1 md:gap-2">
+                        <span class="truncate max-w-[150px] sm:max-w-none">Chuyển Ảnh</span> <span class="text-primary glow-text">Word</span>
                     </h1>
-                    <span class="px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/30 text-[10px] font-bold uppercase tracking-wider">AI OCR BATCH</span>
+                    <span class="hidden sm:inline-block px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/30 text-[10px] font-bold uppercase tracking-wider">AI OCR</span>
                 </div>
-                <p class="text-xs text-slate-400 mt-1" id="headerSubtitle">Hệ thống xử lý hàng loạt tài liệu, chữ viết tay và công thức.</p>
+                <p class="text-xs text-slate-400 mt-1 hidden md:block" id="headerSubtitle">Hệ thống xử lý hàng loạt tài liệu, chữ viết tay và công thức.</p>
             </div>
             
-            <div class="flex items-center gap-4">
-                <a href="/" class="group relative flex shrink-0 items-center justify-center w-9 h-9 rounded-lg bg-[#111827] border border-gray-700/50 text-gray-400 transition-all duration-300 hover:text-[#00E676] hover:border-[#00E676]/50 hover:bg-[#00E676]/10 hover:shadow-[0_0_12px_rgba(0,230,118,0.25)] active:scale-95 cursor-pointer z-20">
-                    <div class="absolute top-[130%] left-1/2 -translate-x-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50 pointer-events-none flex flex-col items-center">
+            <div class="flex items-center gap-3 md:gap-4">
+                <a href="/" class="group relative flex shrink-0 items-center justify-center w-8 h-8 md:w-9 md:h-9 rounded-lg bg-[#111827] border border-gray-700/50 text-gray-400 transition-all duration-300 hover:text-[#00E676] hover:border-[#00E676]/50 hover:bg-[#00E676]/10 hover:shadow-[0_0_12px_rgba(0,230,118,0.25)] active:scale-95 cursor-pointer z-20">
+                    <div class="hidden md:flex absolute top-[130%] left-1/2 -translate-x-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50 pointer-events-none flex-col items-center">
                         <div class="w-2 h-2 bg-[#111827] border-t border-l border-[#00E676]/40 rotate-45 -mb-1 z-10 relative mt-0.5"></div>
                         <div class="bg-[#111827] border border-[#00E676]/40 text-[#00E676] text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-md shadow-[0_4px_15px_rgba(0,230,118,0.2)] whitespace-nowrap">Trang Chủ</div>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:-translate-y-0.5 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 md:w-5 md:h-5 relative z-10 transition-transform duration-300 group-hover:-translate-y-0.5 pointer-events-none">
                         <path d="M12 3.5L3 10.5v8.5a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8.5L12 3.5z" />
                         <circle cx="12" cy="13.5" r="2" class="group-hover:fill-[#00E676] group-hover:stroke-[#00E676] transition-colors duration-300" />
-                        <path d="M12 15.5v4.5" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75" />
-                        <path d="M8 13.5h2" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150" />
-                        <path d="M14 13.5h2" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200" />
                     </svg>
                 </a>
-                <div class="flex shrink-0 items-center gap-2 text-xs font-medium text-[#00E676] bg-[#00E676]/10 px-3 py-1.5 rounded-full border border-[#00E676]/20 z-10">
+                <div class="hidden sm:flex shrink-0 items-center gap-1.5 text-[10px] md:text-xs font-medium text-[#00E676] bg-[#00E676]/10 px-2.5 py-1.5 rounded-full border border-[#00E676]/20 z-10">
                     <span class="relative flex h-2 w-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00E676] opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-[#00E676]"></span>
                     </span>
-                    System Online
+                    Online
                 </div>
             </div>
         </header>
 
-        <div class="flex-1 relative w-full h-full p-6 overflow-hidden">
+        <div class="flex-1 relative w-full h-full p-4 md:p-6 overflow-hidden">
             
-            <div id="view-main" class="view-transition view-active w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <section class="flex flex-col gap-4 h-full">
-                    <div class="flex items-center justify-between">
+            <div id="view-main" class="view-transition view-active w-full h-full flex flex-col lg:grid lg:grid-cols-2 gap-4 md:gap-6 overflow-y-auto lg:overflow-hidden custom-scrollbar pb-10 lg:pb-0">
+                
+                <section class="flex flex-col gap-3 md:gap-4 min-h-[450px] lg:min-h-0 lg:h-full">
+                    <div class="flex items-center justify-between shrink-0">
                         <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
                             <i class="ph-fill ph-image text-primary"></i> Tệp Đầu Vào
                         </h2>
                     </div>
                     
-                    <div id="dropzone" class="flex-1 border-2 border-dashed border-slate-700 hover:border-primary/60 rounded-2xl bg-darkCard/40 flex flex-col items-center justify-center transition-all duration-300 relative overflow-hidden group/dropzone cursor-pointer">
+                    <div id="dropzone" class="flex-1 border-2 border-dashed border-slate-700 hover:border-primary/60 rounded-2xl bg-darkCard/40 flex flex-col items-center justify-center transition-all duration-300 relative overflow-hidden group/dropzone cursor-pointer min-h-[200px]">
                         <div class="absolute inset-0 bg-[linear-gradient(rgba(0,230,118,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,230,118,0.03)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none opacity-50"></div>
                         
                         <input type="file" id="fileInput" class="hidden" accept=".pdf,.png,.jpg,.jpeg" multiple>
                         
-                        <div id="uploadContent" class="flex flex-col items-center justify-center p-6 text-center pointer-events-none z-10">
-                            <div class="w-16 h-16 rounded-2xl bg-darkBg border border-primary/20 flex items-center justify-center text-primary mb-4 group-hover/dropzone:scale-110 group-hover/dropzone:shadow-[0_0_20px_rgba(0,230,118,0.2)] transition-all duration-300 relative">
-                                <i class="ph ph-stack text-3xl"></i>
+                        <div id="uploadContent" class="flex flex-col items-center justify-center p-6 text-center pointer-events-none z-10 w-full h-full">
+                            <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-darkBg border border-primary/20 flex items-center justify-center text-primary mb-3 md:mb-4 group-hover/dropzone:scale-110 group-hover/dropzone:shadow-[0_0_20px_rgba(0,230,118,0.2)] transition-all duration-300 relative">
+                                <i class="ph ph-stack text-2xl md:text-3xl"></i>
                                 <div class="absolute top-0 left-0 w-full h-0.5 bg-primary opacity-0 group-hover/dropzone:opacity-100 group-hover/dropzone:animate-[scan_2s_ease-in-out_infinite]"></div>
                             </div>
-                            <p class="text-sm font-medium mb-1 text-slate-300">Nhấp hoặc kéo thả nhiều tệp vào đây</p>
-                            <p class="text-xs text-slate-500">Hỗ trợ chọn hàng loạt PDF, PNG, JPG</p>
+                            <p class="text-sm md:text-base font-medium mb-1 text-slate-300">Chạm hoặc kéo thả tệp</p>
+                            <p class="text-[10px] md:text-xs text-slate-500">Hỗ trợ PDF, PNG, JPG</p>
                         </div>
                         
-                        <div id="fileInfo" class="hidden flex-col w-full h-full p-5 z-10 text-left cursor-default">
+                        <div id="fileInfo" class="hidden flex-col w-full h-full p-4 md:p-5 z-10 text-left cursor-default">
                             <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3 shrink-0">
-                                <div class="flex items-center gap-2.5 truncate mr-3">
-                                    <i class="ph-fill ph-files text-2xl text-primary drop-shadow-[0_0_5px_rgba(0,230,118,0.4)]"></i>
+                                <div class="flex items-center gap-2 md:gap-2.5 truncate mr-2 md:mr-3">
+                                    <i class="ph-fill ph-files text-xl md:text-2xl text-primary drop-shadow-[0_0_5px_rgba(0,230,118,0.4)]"></i>
                                     <div>
-                                        <p id="fileName" class="font-semibold text-sm text-white">0 tệp được chọn</p>
-                                        <p id="fileSize" class="text-xs text-primary font-mono">0 MB</p>
+                                        <p id="fileName" class="font-semibold text-xs md:text-sm text-white">0 tệp</p>
+                                        <p id="fileSize" class="text-[10px] md:text-xs text-primary font-mono">0 MB</p>
                                     </div>
                                 </div>
-                                <div class="flex gap-2 shrink-0">
-                                    <button type="button" id="addMoreFilesBtn" class="group relative p-2 text-primary border border-primary/30 bg-primary/5 hover:bg-primary/20 rounded-md transition-all duration-200 hover:scale-110 active:scale-95 shadow-sm hover:shadow-[0_0_10px_rgba(0,230,118,0.25)]">
-                                        <div class="absolute top-[130%] left-1/2 -translate-x-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50 pointer-events-none flex flex-col items-center">
-                                            <div class="w-2 h-2 bg-[#111827] border-t border-l border-[#00E676]/40 rotate-45 -mb-1 z-10 relative mt-0.5"></div>
-                                            <div class="bg-[#111827] border border-[#00E676]/40 text-[#00E676] text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-md shadow-[0_4px_15px_rgba(0,230,118,0.2)] whitespace-nowrap">Thêm tệp</div>
-                                        </div>
-                                        <i class="ph ph-file-plus text-lg"></i>
+                                <div class="flex gap-1 md:gap-2 shrink-0">
+                                    <button type="button" id="addMoreFilesBtn" class="p-1.5 md:p-2 text-primary border border-primary/30 bg-primary/5 hover:bg-primary/20 rounded-md transition-all duration-200 active:scale-95 shadow-sm">
+                                        <i class="ph ph-file-plus text-base md:text-lg"></i>
                                     </button>
-                                    
-                                    <button type="button" id="removeFileBtn" class="group relative p-2 text-red-400 border border-red-500/30 hover:bg-red-500/10 rounded-md transition-all duration-200 hover:scale-110 active:scale-95 shadow-sm hover:shadow-[0_0_10px_rgba(239,68,68,0.25)]">
-                                        <div class="absolute top-[130%] right-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50 pointer-events-none flex flex-col items-end">
-                                            <div class="w-2 h-2 bg-[#111827] border-t border-l border-red-500/40 rotate-45 -mb-1 z-10 relative mt-0.5 mr-3"></div>
-                                            <div class="bg-[#111827] border border-red-500/40 text-red-400 text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-md shadow-[0_4px_15px_rgba(239,68,68,0.2)] whitespace-nowrap">Xóa tất cả</div>
-                                        </div>
-                                        <i class="ph ph-trash text-lg"></i>
+                                    <button type="button" id="removeFileBtn" class="p-1.5 md:p-2 text-red-400 border border-red-500/30 hover:bg-red-500/10 rounded-md transition-all duration-200 active:scale-95 shadow-sm">
+                                        <i class="ph ph-trash text-base md:text-lg"></i>
                                     </button>
                                 </div>
                             </div>
-                            <div id="fileListContainer" class="flex-1 overflow-y-auto pr-1 flex flex-col gap-2 max-h-[calc(100%-10px)] custom-scrollbar">
-                            </div>
+                            <div id="fileListContainer" class="flex-1 overflow-y-auto pr-1 flex flex-col gap-2 h-full custom-scrollbar"></div>
                         </div>
                     </div>
 
-                    <div class="glass p-4 rounded-xl flex items-center justify-between border border-slate-700/50">
-                        <div class="flex-1 mr-6">
-                            <div class="flex justify-between text-xs mb-2">
-                                <span class="font-medium text-slate-400 uppercase tracking-wider text-[10px]" id="statusText">Trạng thái: Chờ</span>
-                                <span id="progressText" class="text-primary font-bold font-mono">0%</span>
+                    <div class="glass p-3 md:p-4 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between border border-slate-700/50 shrink-0 gap-3">
+                        <div class="flex-1 w-full sm:mr-6">
+                            <div class="flex justify-between text-xs mb-1.5 md:mb-2">
+                                <span class="font-medium text-slate-400 uppercase tracking-wider text-[9px] md:text-[10px]" id="statusText">Trạng thái: Chờ</span>
+                                <span id="progressText" class="text-primary font-bold font-mono text-xs">0%</span>
                             </div>
                             <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
                                 <div id="progressBar" class="h-full bg-primary shadow-[0_0_10px_rgba(0,230,118,0.8)] w-0 transition-all duration-300 ease-out"></div>
                             </div>
                         </div>
-                        <button id="convertBtn" class="px-6 py-2.5 bg-primary hover:bg-primary/90 text-darkBg rounded-lg font-bold shadow-[0_0_15px_rgba(0,230,118,0.4)] transition-all duration-200 flex items-center gap-2 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <button id="convertBtn" class="w-full sm:w-auto px-4 md:px-6 py-2.5 bg-primary hover:bg-primary/90 text-darkBg rounded-lg font-bold shadow-[0_0_15px_rgba(0,230,118,0.4)] transition-all duration-200 flex justify-center items-center gap-2 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
                             <i class="ph-bold ph-magic-wand"></i>
-                            <span>Bắt Đầu Quét</span>
+                            <span class="text-sm md:text-base">Quét Ngay</span>
                         </button>
                     </div>
                 </section>
 
-                <section class="flex flex-col gap-4 h-full overflow-hidden">
-                    <div class="flex items-center justify-between gap-4">
+                <section class="flex flex-col gap-3 md:gap-4 min-h-[500px] lg:min-h-0 lg:h-full mt-4 lg:mt-0">
+                    <div class="flex items-center justify-between gap-2 shrink-0">
                         <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2 min-w-0">
-                            <i class="ph-fill ph-file-text text-primary shrink-0"></i> <span class="truncate">Kết Quả Chuyển Đổi</span>
+                            <i class="ph-fill ph-file-text text-primary shrink-0"></i> <span class="truncate">Kết Quả</span>
                         </h2>
                         <div class="flex items-center gap-1 bg-darkCard/80 p-1 rounded-lg border border-slate-700/50 shadow-inner shrink-0">
-                            
-                            <button id="copyBtn" class="group relative p-2 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-md transition-all duration-200 hover:scale-110 active:scale-95 hover:shadow-[0_0_10px_rgba(0,230,118,0.2)]">
-                                <div class="absolute top-[130%] left-1/2 -translate-x-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50 pointer-events-none flex flex-col items-center">
-                                    <div class="w-2 h-2 bg-[#111827] border-t border-l border-[#00E676]/40 rotate-45 -mb-1 z-10 relative mt-0.5"></div>
-                                    <div class="bg-[#111827] border border-[#00E676]/40 text-[#00E676] text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-md shadow-[0_4px_15px_rgba(0,230,118,0.2)] whitespace-nowrap">Sao Chép HTML</div>
-                                </div>
-                                <i class="ph ph-copy text-lg"></i>
+                            <button id="copyBtn" class="p-1.5 md:p-2 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-md transition-all active:scale-95">
+                                <i class="ph ph-copy text-base md:text-lg"></i>
                             </button>
-                            
-                            <div class="w-px h-4 bg-slate-700 mx-1"></div>
-                            
-                            <button id="downloadWordBtn" class="group relative p-2 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-md transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-[0_0_10px_rgba(0,230,118,0.2)] flex items-center gap-1">
-                                <div class="absolute top-[130%] left-1/2 -translate-x-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50 pointer-events-none flex flex-col items-center">
-                                    <div class="w-2 h-2 bg-[#111827] border-t border-l border-[#00E676]/40 rotate-45 -mb-1 z-10 relative mt-0.5"></div>
-                                    <div class="bg-[#111827] border border-[#00E676]/40 text-[#00E676] text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-md shadow-[0_4px_15px_rgba(0,230,118,0.2)] whitespace-nowrap">Tải File Word</div>
-                                </div>
-                                <i class="ph ph-download-simple text-lg"></i>
-                                <span class="text-xs font-medium pr-1">.DOCX</span>
+                            <div class="w-px h-3 md:h-4 bg-slate-700 mx-0.5 md:mx-1"></div>
+                            <button id="downloadWordBtn" class="p-1.5 md:p-2 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-md transition-all active:scale-95 flex items-center gap-1">
+                                <i class="ph ph-download-simple text-base md:text-lg"></i>
+                                <span class="text-[10px] md:text-xs font-medium pr-1">.DOCX</span>
                             </button>
-                            
-                            <div class="w-px h-4 bg-slate-700 mx-1"></div>
-                            
-                            <button id="clearBtn" class="group relative p-2 text-slate-400 hover:text-red-400 hover:bg-red-400/10 rounded-md transition-all duration-200 hover:scale-110 active:scale-95 hover:shadow-[0_0_10px_rgba(239,68,68,0.2)]">
-                                <div class="absolute top-[130%] right-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50 pointer-events-none flex flex-col items-end">
-                                    <div class="w-2 h-2 bg-[#111827] border-t border-l border-red-500/40 rotate-45 -mb-1 z-10 relative mt-0.5 mr-3"></div>
-                                    <div class="bg-[#111827] border border-red-500/40 text-red-400 text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-md shadow-[0_4px_15px_rgba(239,68,68,0.2)] whitespace-nowrap">Xóa Nội Dung</div>
-                                </div>
-                                <i class="ph ph-trash text-lg"></i>
+                            <div class="w-px h-3 md:h-4 bg-slate-700 mx-0.5 md:mx-1"></div>
+                            <button id="clearBtn" class="p-1.5 md:p-2 text-slate-400 hover:text-red-400 hover:bg-red-400/10 rounded-md transition-all active:scale-95">
+                                <i class="ph ph-trash text-base md:text-lg"></i>
                             </button>
-                            
                         </div>
                     </div>
-                    <div class="flex-1 bg-darkCard/50 border border-slate-700/50 rounded-2xl p-6 overflow-y-auto relative group glow-box" id="outputContainerBox">
+                    <div class="flex-1 bg-darkCard/50 border border-slate-700/50 rounded-2xl p-4 md:p-6 overflow-y-auto relative group glow-box" id="outputContainerBox">
                         <div id="emptyState" class="absolute inset-0 flex flex-col items-center justify-center text-slate-600">
-                            <i class="ph-thin ph-code-block text-6xl mb-3 opacity-30"></i>
-                            <p class="text-sm font-mono tracking-tight">>> OUTPUT_WILL_RENDER_HERE</p>
+                            <i class="ph-thin ph-code-block text-4xl md:text-6xl mb-2 md:mb-3 opacity-30"></i>
+                            <p class="text-xs md:text-sm font-mono tracking-tight px-4 text-center">>> OUTPUT_WILL_RENDER_HERE</p>
                         </div>
-                        <div id="loadingSkeleton" class="hidden h-full flex-col gap-4 mb-4">
-                            <div class="skeleton h-8 w-3/4 rounded-md"></div>
-                            <div class="skeleton h-4 w-1/2 rounded-md mb-4"></div>
-                            <div class="skeleton h-4 w-full rounded-md"></div>
-                            <div class="skeleton h-4 w-full rounded-md"></div>
-                            <div class="skeleton h-4 w-1/2 rounded-md mb-4"></div>
+                        <div id="loadingSkeleton" class="hidden h-full flex-col gap-3 md:gap-4 mb-4">
+                            <div class="skeleton h-6 md:h-8 w-3/4 rounded-md"></div>
+                            <div class="skeleton h-3 md:h-4 w-1/2 rounded-md mb-2 md:mb-4"></div>
+                            <div class="skeleton h-3 md:h-4 w-full rounded-md"></div>
+                            <div class="skeleton h-3 md:h-4 w-full rounded-md"></div>
+                            <div class="skeleton h-3 md:h-4 w-1/2 rounded-md mb-2 md:mb-4"></div>
                         </div>
-                        <div id="outputContent" class="hidden prose prose-invert max-w-none w-full outline-none font-sans flex-col gap-6" contenteditable="true"></div>
+                        <div id="outputContent" class="hidden prose prose-sm md:prose-base prose-invert max-w-none w-full outline-none font-sans flex-col gap-4 md:gap-6" contenteditable="true"></div>
                     </div>
                 </section>
             </div>
 
-            <div id="view-history" class="view-transition view-hidden flex flex-col h-full w-full">
-                
-                <div class="flex items-center justify-between mb-6 glass p-4 rounded-xl border border-slate-700/50">
-                    <div class="flex items-center gap-4">
-                        <button onclick="switchView('main')" class="p-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 hover:text-white transition-all duration-200 hover:scale-105 active:scale-95 flex items-center justify-center">
+            <div id="view-history" class="view-transition view-hidden flex flex-col h-full w-full absolute inset-0 bg-[#0B1120] p-4 md:p-6 z-20">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 md:mb-6 glass p-3 md:p-4 rounded-xl border border-slate-700/50 shrink-0">
+                    <div class="flex items-start md:items-center gap-3 md:gap-4">
+                        <button onclick="switchView('main')" class="p-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 hover:text-white transition-all active:scale-95">
                             <i class="ph-bold ph-caret-left"></i>
                         </button>
                         <div>
-                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
-                                <i class="ph-fill ph-clock-counter-clockwise text-primary"></i> Phiên Làm Việc Hiện Tại
+                            <h2 class="text-base md:text-lg font-bold text-white flex items-center gap-2">
+                                <i class="ph-fill ph-clock-counter-clockwise text-primary"></i> Phiên Làm Việc
                             </h2>
-                            <p class="text-xs text-slate-400 mt-0.5">Dữ liệu lưu tạm thời, sẽ biến mất khi tải lại trang web.</p>
+                            <p class="text-[10px] md:text-xs text-slate-400 mt-0.5">Dữ liệu lưu tạm thời, sẽ biến mất khi tải lại trang.</p>
                         </div>
                     </div>
-                    
-                    <button id="clearHistoryDataBtn" class="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/30 rounded-lg hover:bg-red-500/20 hover:text-red-300 transition-colors duration-200 hover:scale-105 active:scale-95 text-sm font-medium flex items-center gap-2 shadow-sm">
+                    <button id="clearHistoryDataBtn" class="self-end sm:self-auto px-3 py-1.5 md:px-4 md:py-2 bg-red-500/10 text-red-400 border border-red-500/30 rounded-lg hover:bg-red-500/20 active:scale-95 text-xs md:text-sm font-medium flex items-center gap-1.5">
                         <i class="ph ph-trash"></i> Xóa lịch sử
                     </button>
                 </div>
-
-                <div id="historyGrid" class="flex-1 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 overflow-y-auto pb-4 pr-2 content-start"></div>
-
-                <div id="historyEmptyState" class="hidden flex-col items-center justify-center h-full text-slate-500 mt-10">
-                    <div class="w-24 h-24 bg-slate-800/50 rounded-full flex items-center justify-center mb-4">
-                        <i class="ph-thin ph-ghost text-5xl"></i>
-                    </div>
-                    <p class="text-lg font-medium text-slate-300">Trống rỗng!</p>
-                    <p class="text-sm">Bạn chưa thực hiện chuyển đổi tệp nào trong phiên này.</p>
-                    <button onclick="switchView('main')" class="mt-6 px-6 py-2 bg-primary/10 text-primary border border-primary/30 rounded-lg hover:bg-primary/20 transition-colors duration-200 hover:scale-105 active:scale-95 text-sm font-bold shadow-md">
-                        Bắt đầu chuyển đổi ngay
-                    </button>
+                <div id="historyGrid" class="flex-1 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 overflow-y-auto pb-4 pr-1 md:pr-2 content-start custom-scrollbar"></div>
+                <div id="historyEmptyState" class="hidden flex-col items-center justify-center h-full text-slate-500 pb-10">
+                    <div class="w-20 h-20 bg-slate-800/50 rounded-full flex items-center justify-center mb-3"><i class="ph-thin ph-ghost text-4xl"></i></div>
+                    <p class="text-base font-medium text-slate-300">Trống rỗng!</p>
+                    <button onclick="switchView('main')" class="mt-4 px-4 py-2 bg-primary/10 text-primary border border-primary/30 rounded-lg text-xs font-bold shadow-md">Bắt đầu quét ngay</button>
                 </div>
             </div>
 
-            <div id="view-documents" class="view-transition view-hidden flex flex-col h-full w-full">
-                
-                <div class="flex items-center justify-between mb-6 glass p-4 rounded-xl border border-slate-700/50">
-                    <div class="flex items-center gap-4">
-                        <button onclick="switchView('main')" class="p-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 hover:text-white transition-all duration-200 hover:scale-105 active:scale-95 flex items-center justify-center">
+            <div id="view-documents" class="view-transition view-hidden flex flex-col h-full w-full absolute inset-0 bg-[#0B1120] p-4 md:p-6 z-20">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 md:mb-6 glass p-3 md:p-4 rounded-xl border border-slate-700/50 shrink-0">
+                    <div class="flex items-start md:items-center gap-3 md:gap-4">
+                        <button onclick="switchView('main')" class="p-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 hover:text-white transition-all active:scale-95">
                             <i class="ph-bold ph-caret-left"></i>
                         </button>
                         <div>
-                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
-                                <i class="ph-fill ph-files text-blue-400"></i> Kho Tài Liệu Word Đã Lưu
+                            <h2 class="text-base md:text-lg font-bold text-white flex items-center gap-2">
+                                <i class="ph-fill ph-files text-blue-400"></i> File Word Đã Lưu
                             </h2>
-                            <p class="text-xs text-slate-400 mt-0.5">Danh sách các tệp Word đã được tải xuống máy tính của bạn.</p>
+                            <p class="text-[10px] md:text-xs text-slate-400 mt-0.5">Các tệp đã được tải xuống máy tính.</p>
                         </div>
                     </div>
-                    
-                    <button id="clearDocumentsDataBtn" class="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/30 rounded-lg hover:bg-red-500/20 hover:text-red-300 transition-colors duration-200 hover:scale-105 active:scale-95 text-sm font-medium flex items-center gap-2 shadow-sm">
+                    <button id="clearDocumentsDataBtn" class="self-end sm:self-auto px-3 py-1.5 md:px-4 md:py-2 bg-red-500/10 text-red-400 border border-red-500/30 rounded-lg hover:bg-red-500/20 active:scale-95 text-xs md:text-sm font-medium flex items-center gap-1.5">
                         <i class="ph ph-trash"></i> Xóa tất cả
                     </button>
                 </div>
-
-                <div id="documentsGrid" class="flex-1 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 overflow-y-auto pb-4 pr-2 content-start"></div>
-
-                <div id="documentsEmptyState" class="hidden flex-col items-center justify-center h-full text-slate-500 mt-10">
-                    <div class="w-24 h-24 bg-slate-800/50 rounded-full flex items-center justify-center mb-4">
-                        <i class="ph-thin ph-file-dashed text-5xl text-blue-500/30"></i>
-                    </div>
-                    <p class="text-lg font-medium text-slate-300">Chưa có tài liệu nào!</p>
-                    <p class="text-sm">Sau khi quét ảnh, hãy nhấn "Tải xuống Word" để lưu tệp vào đây.</p>
+                <div id="documentsGrid" class="flex-1 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 overflow-y-auto pb-4 pr-1 md:pr-2 content-start custom-scrollbar"></div>
+                <div id="documentsEmptyState" class="hidden flex-col items-center justify-center h-full text-slate-500 pb-10">
+                    <div class="w-20 h-20 bg-slate-800/50 rounded-full flex items-center justify-center mb-3"><i class="ph-thin ph-file-dashed text-4xl text-blue-500/30"></i></div>
+                    <p class="text-base font-medium text-slate-300">Chưa có tài liệu nào!</p>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <div id="toast" class="fixed top-6 right-6 translate-x-10 opacity-0 invisible bg-darkCard border border-primary/30 text-slate-200 px-5 py-3.5 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.5)] flex items-center gap-3 transition-all duration-300 z-50">
-        <i class="ph-fill ph-check-circle text-primary text-xl drop-shadow-[0_0_5px_rgba(0,230,118,0.8)]" id="toastIcon"></i>
-        <span id="toastMsg" class="text-sm font-medium">Thao tác thành công!</span>
+    <div id="toast" class="fixed top-4 right-4 md:top-6 md:right-6 translate-x-[150%] opacity-0 invisible bg-darkCard border border-primary/30 text-slate-200 px-4 py-3 md:px-5 md:py-3.5 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.5)] flex items-center gap-2 md:gap-3 transition-all duration-300 z-[60]">
+        <i class="ph-fill ph-check-circle text-primary text-lg md:text-xl drop-shadow-[0_0_5px_rgba(0,230,118,0.8)]" id="toastIcon"></i>
+        <span id="toastMsg" class="text-xs md:text-sm font-medium">Thao tác thành công!</span>
     </div>
 
     <script>
-        const API_KEYS_CONFIG = "{{INJECT_API_KEYS_HERE3}}"; 
-        const apiKeys = API_KEYS_CONFIG.split(',').map(k => k.trim()).filter(k => k !== '');
+        const BACKEND_URL = "https://desktop-tutorial-tu2z.onrender.com/api/scan";
 
-        function getApiKey() {
-            if (apiKeys.length === 0) return null; 
-            return apiKeys[Math.floor(Math.random() * apiKeys.length)];
-        }
-
-        // --- BIẾN QUẢN LÝ TRẠNG THÁI ---
         const dropzone = document.getElementById('dropzone');
         const fileInput = document.getElementById('fileInput');
         let currentFiles = []; 
         let conversionHistory = []; 
         let savedDocuments = []; 
 
-        // --- CÁC NÚT ĐIỀU HƯỚNG ---
-        const viewMain = document.getElementById('view-main');
-        const viewHistory = document.getElementById('view-history');
-        const viewDocuments = document.getElementById('view-documents');
-        
-        const navMainBtn = document.getElementById('nav-main');
-        const navHistoryBtn = document.getElementById('nav-history');
-        const navDocumentsBtn = document.getElementById('nav-documents');
-
         function switchView(viewName) {
-            ['view-main', 'view-history', 'view-documents'].forEach(v => {
-                document.getElementById(v).classList.remove('view-active');
-                document.getElementById(v).classList.add('view-hidden');
-            });
-            
-            navMainBtn.classList.replace('bg-gradient-to-br', 'bg-[#111827]');
-            navMainBtn.className = "nav-btn group relative flex shrink-0 items-center justify-center w-10 h-10 rounded-lg bg-[#111827] border border-gray-700/50 text-gray-400 transition-all duration-300 hover:text-[#00E676] hover:border-[#00E676]/50 hover:bg-[#00E676]/10 active:scale-95 cursor-pointer z-30";
-            navHistoryBtn.classList.remove('tab-active');
-            navDocumentsBtn.classList.remove('tab-active');
+            ['view-main', 'view-history', 'view-documents'].forEach(v => document.getElementById(v).classList.replace('view-active', 'view-hidden'));
+            document.getElementById('nav-main').classList.replace('bg-gradient-to-br', 'bg-[#111827]');
+            document.getElementById('nav-history').classList.remove('tab-active');
+            document.getElementById('nav-documents').classList.remove('tab-active');
 
             setTimeout(() => {
                 if (viewName === 'main') {
-                    viewMain.classList.remove('view-hidden');
-                    viewMain.classList.add('view-active');
-                    navMainBtn.className = "nav-btn group relative flex shrink-0 items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary text-darkBg shadow-[0_0_15px_rgba(0,230,118,0.4)] cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95 z-30";
-                    document.getElementById('headerSubtitle').textContent = "Hệ thống xử lý hàng loạt tài liệu, chữ viết tay và công thức.";
-                } 
-                else if (viewName === 'history') {
-                    viewHistory.classList.remove('view-hidden');
-                    viewHistory.classList.add('view-active');
-                    navHistoryBtn.classList.add('tab-active');
+                    document.getElementById('view-main').classList.replace('view-hidden', 'view-active');
+                    document.getElementById('nav-main').classList.replace('bg-[#111827]', 'bg-gradient-to-br');
+                } else if (viewName === 'history') {
+                    document.getElementById('view-history').classList.replace('view-hidden', 'view-active');
+                    document.getElementById('nav-history').classList.add('tab-active');
                     renderHistoryCards(); 
-                    document.getElementById('headerSubtitle').textContent = "Quản lý dữ liệu đã quét trong phiên làm việc hiện tại.";
                     document.getElementById('historyBadge').classList.add('hidden'); 
-                }
-                else if (viewName === 'documents') {
-                    viewDocuments.classList.remove('view-hidden');
-                    viewDocuments.classList.add('view-active');
-                    navDocumentsBtn.classList.add('tab-active');
+                } else if (viewName === 'documents') {
+                    document.getElementById('view-documents').classList.replace('view-hidden', 'view-active');
+                    document.getElementById('nav-documents').classList.add('tab-active');
                     renderDocumentCards(); 
-                    document.getElementById('headerSubtitle').textContent = "Kho lưu trữ các tài liệu Word đã tải xuống trong phiên làm việc.";
                     document.getElementById('documentsBadge').classList.add('hidden'); 
                 }
             }, 100);
         }
 
-        navMainBtn.addEventListener('click', () => switchView('main'));
-        navHistoryBtn.addEventListener('click', () => switchView('history'));
-        navDocumentsBtn.addEventListener('click', () => switchView('documents'));
+        document.getElementById('nav-main').addEventListener('click', () => switchView('main'));
+        document.getElementById('nav-history').addEventListener('click', () => switchView('history'));
+        document.getElementById('nav-documents').addEventListener('click', () => switchView('documents'));
 
-
-        // --- LOGIC KÉO THẢ VÀ CHỌN FILE ---
         dropzone.addEventListener('click', (e) => { 
             if (document.getElementById('fileInfo').contains(e.target)) {
-                if (e.target.id === 'addMoreFilesBtn' || e.target.closest('#addMoreFilesBtn')) {
-                    fileInput.click();
-                }
+                if (e.target.id === 'addMoreFilesBtn' || e.target.closest('#addMoreFilesBtn')) fileInput.click();
                 return;
             }
             fileInput.click(); 
@@ -460,73 +379,49 @@
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(evt => dropzone.addEventListener(evt, (e) => { e.preventDefault(); e.stopPropagation(); }, false));
         ['dragenter', 'dragover'].forEach(evt => dropzone.addEventListener(evt, () => dropzone.classList.add('drag-active'), false));
         ['dragleave', 'drop'].forEach(evt => dropzone.addEventListener(evt, () => dropzone.classList.remove('drag-active'), false));
-
         dropzone.addEventListener('drop', (e) => handleFiles(e.dataTransfer.files));
         fileInput.addEventListener('change', function() { handleFiles(this.files); });
         document.getElementById('nav-upload').addEventListener('click', () => { switchView('main'); fileInput.click(); });
 
         function handleFiles(files) {
-            if (files.length > 0) {
-                currentFiles = [...currentFiles, ...Array.from(files)]; 
-            }
+            if (files.length > 0) currentFiles = [...currentFiles, ...Array.from(files)]; 
             renderSelectedFiles();
         }
 
-        // HÀM HIỂN THỊ DANH SÁCH TỆP ĐÃ CHỌN KÈM THANH CUỘN VÀ NÚT XÓA ĐƠN LẺ
         function renderSelectedFiles() {
             if (currentFiles.length === 0) {
                 fileInput.value = '';
                 document.getElementById('uploadContent').classList.remove('hidden');
-                document.getElementById('fileInfo').classList.add('hidden');
-                document.getElementById('fileInfo').classList.remove('flex');
+                document.getElementById('fileInfo').classList.replace('flex', 'hidden');
                 resetProgress();
                 return;
             }
-
             document.getElementById('uploadContent').classList.add('hidden');
-            document.getElementById('fileInfo').classList.remove('hidden');
-            document.getElementById('fileInfo').classList.add('flex');
-            
+            document.getElementById('fileInfo').classList.replace('hidden', 'flex');
             document.getElementById('fileName').textContent = `${currentFiles.length} tệp đã chọn`;
             const totalSize = currentFiles.reduce((acc, file) => acc + file.size, 0);
             document.getElementById('fileSize').textContent = (totalSize / (1024 * 1024)).toFixed(2) + ' MB tổng cộng';
 
             const listContainer = document.getElementById('fileListContainer');
             listContainer.innerHTML = '';
-            
             currentFiles.forEach((file, index) => {
-                const fileRow = `
-                    <div class="flex items-center justify-between bg-darkBg/80 border border-slate-800/80 px-3 py-2 rounded-xl text-xs hover:border-primary/40 hover:bg-darkBg transition-all duration-200 group/item">
-                        <div class="flex items-center gap-2.5 truncate mr-3">
-                            <i class="ph-bold ph-file-image text-primary/70 text-base shrink-0 group-hover/item:text-primary transition-colors"></i>
-                            <span class="text-slate-300 truncate font-medium" title="${file.name}">${file.name}</span>
+                listContainer.insertAdjacentHTML('beforeend', `
+                    <div class="flex items-center justify-between bg-darkBg/80 border border-slate-800/80 px-3 py-2 rounded-xl text-xs hover:border-primary/40 transition-all">
+                        <div class="flex items-center gap-2 truncate mr-2">
+                            <i class="ph-bold ph-file-image text-primary/70 text-base shrink-0"></i>
+                            <span class="text-slate-300 truncate font-medium">${file.name}</span>
                         </div>
-                        <div class="flex items-center gap-3 shrink-0 font-mono text-slate-500">
+                        <div class="flex items-center gap-2 shrink-0 font-mono text-slate-500 text-[10px] md:text-xs">
                             <span>${(file.size / 1024).toFixed(1)} KB</span>
-                            <button type="button" onclick="removeSingleFile(${index}, event)" class="text-slate-500 hover:text-red-400 p-1 rounded-md hover:bg-red-500/10 transition-all duration-150 hover:scale-110 active:scale-95" title="Xóa tệp này">
-                                <i class="ph ph-x text-sm"></i>
-                            </button>
+                            <button type="button" onclick="removeSingleFile(${index}, event)" class="text-slate-500 hover:text-red-400 p-1 rounded-md hover:bg-red-500/10"><i class="ph ph-x text-sm"></i></button>
                         </div>
                     </div>
-                `;
-                listContainer.insertAdjacentHTML('beforeend', fileRow);
+                `);
             });
         }
 
-        window.removeSingleFile = function(index, e) {
-            e.stopPropagation();
-            currentFiles.splice(index, 1);
-            renderSelectedFiles();
-        };
-
-        document.getElementById('removeFileBtn').addEventListener('click', (e) => {
-            e.stopPropagation();
-            currentFiles = []; 
-            renderSelectedFiles();
-            document.getElementById('emptyState').classList.remove('hidden');
-            document.getElementById('outputContent').classList.add('hidden');
-            document.getElementById('outputContent').innerHTML = '';
-        });
+        window.removeSingleFile = function(index, e) { e.stopPropagation(); currentFiles.splice(index, 1); renderSelectedFiles(); };
+        document.getElementById('removeFileBtn').addEventListener('click', (e) => { e.stopPropagation(); currentFiles = []; renderSelectedFiles(); document.getElementById('emptyState').classList.remove('hidden'); document.getElementById('outputContent').classList.add('hidden'); document.getElementById('outputContent').innerHTML = ''; });
 
         function resetProgress() {
             document.getElementById('progressBar').style.width = '0%';
@@ -537,159 +432,75 @@
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
             document.getElementById('toastMsg').textContent = message;
-            document.getElementById('toastIcon').className = type === 'error' ? 'ph-fill ph-warning-circle text-red-500 text-xl' : 'ph-fill ph-check-circle text-primary text-xl drop-shadow-[0_0_5px_rgba(0,230,118,0.8)]';
-            toast.classList.remove('translate-x-10', 'opacity-0', 'invisible');
-            setTimeout(() => toast.classList.add('translate-x-10', 'opacity-0', 'invisible'), 3000);
+            document.getElementById('toastIcon').className = type === 'error' ? 'ph-fill ph-warning-circle text-red-500 text-lg md:text-xl' : 'ph-fill ph-check-circle text-primary text-lg md:text-xl drop-shadow-[0_0_5px_rgba(0,230,118,0.8)]';
+            toast.classList.remove('translate-x-[150%]', 'opacity-0', 'invisible');
+            setTimeout(() => toast.classList.add('translate-x-[150%]', 'opacity-0', 'invisible'), 3000);
         }
 
-        // --- XỬ LÝ AI ---
-        async function processSingleFile(file, index, totalFiles, apiKey) {
-            return new Promise((resolve, reject) => {
+        async function processSingleFile(file, index, totalFiles) {
+            return new Promise((resolve) => {
                 const outputBox = document.getElementById('outputContent');
                 const containerBox = document.getElementById('outputContainerBox');
-                
                 const fileBlockId = `output-file-${index}`;
-                const fileDivider = `<div id="${fileBlockId}" class="pb-6 border-b border-slate-700/50 mb-6 w-full">
-                    <div class="text-[10px] text-accent uppercase font-bold tracking-widest mb-3 flex items-center gap-2">
-                        <i class="ph-bold ph-spinner animate-spin text-lg"></i> Đang đọc Tệp ${index}/${totalFiles}: ${file.name}
+                
+                outputBox.insertAdjacentHTML('beforeend', `
+                    <div id="${fileBlockId}" class="pb-4 md:pb-6 border-b border-slate-700/50 mb-4 md:mb-6 w-full">
+                        <div class="text-[10px] text-accent uppercase font-bold tracking-widest mb-2 flex items-center gap-1.5">
+                            <i class="ph-bold ph-spinner animate-spin text-sm md:text-lg"></i> Quét Tệp ${index}/${totalFiles}: ${file.name}...
+                        </div>
                     </div>
-                    <pre id="streamBuffer-${index}" class="whitespace-pre-wrap font-mono text-sm text-slate-400">Đang khởi tạo...</pre>
-                </div>`;
-                outputBox.insertAdjacentHTML('beforeend', fileDivider);
+                `);
                 containerBox.scrollTop = containerBox.scrollHeight;
 
                 const reader = new FileReader();
                 reader.onload = async function(e) {
                     const base64Data = e.target.result.split(',')[1];
                     const mimeType = file.type || "image/jpeg"; 
-                    
-                    document.getElementById('statusText').textContent = `Đang xử lý ảnh ${index}/${totalFiles}...`;
-                    const streamBuffer = document.getElementById(`streamBuffer-${index}`);
-                    streamBuffer.textContent = "AI đang phân tích dữ liệu...";
+                    document.getElementById('statusText').textContent = `Đang xử lý ${index}/${totalFiles}...`;
 
-                    // PROMPT MỚI: TẬP TRUNG TỐI ƯU HÓA CẤU TRÚC CHO MICROSOFT WORD
-                    const promptText = `Bạn là chuyên gia OCR. Nhiệm vụ: Chuyển đổi chính xác 100% nội dung và bố cục hình ảnh/PDF sang mã HTML ĐỂ XUẤT SANG MS WORD.
-
-QUY TẮC BẮT BUỘC MỚI (TƯƠNG THÍCH MS WORD):
-1. BỐ CỤC (CĂN LỀ, CHIA CỘT, TRÁI/PHẢI):
-   - TUYỆT ĐỐI KHÔNG sử dụng thuộc tính CSS: display: flex, display: grid, float, position: absolute. MS Word không thể đọc được các CSS này và sẽ đẩy mọi thứ sang bên trái.
-   - BẮT BUỘC dùng thẻ <table> để dàn trang cho mọi bố cục nằm ngang (như tiêu đề góc trái/góc phải, chia 2 cột). Ví dụ: <table style="width: 100%; border-collapse: collapse; border: none;"><tr><td style="text-align: left; border: none; padding: 0;">Bên Trái</td><td style="text-align: right; border: none; padding: 0;">Bên Phải</td></tr></table>.
-   - Các đoạn văn bản thông thường, mục lục phải có thuộc tính style="text-align: justify; margin-bottom: 10px;" để căn đều 2 bên giống hệt như ảnh gốc.
-   - Khi tạo sơ đồ hay luồng nhánh: Cũng dùng thẻ <table> lồng nhau, tuyệt đối không dùng <div> + css flex.
-
-2. BẢNG BIỂU THẬT SỰ (Có kẻ khung):
-   - Dùng <table>, <tr>, <th>, <td> kết hợp style="border: 1px solid black; border-collapse: collapse; text-align: center; padding: 5px;".
-
-3. CÔNG THỨC TOÁN & HÓA HỌC:
-   - Công thức đơn giản (H2O, ion): Dùng thẻ <sub> và <sup>.
-   - Phương trình phức tạp (Toán/Hóa): Dùng cấu trúc LaTeX bọc trong \\( ... \\) cho cùng dòng và $$ ... $$ cho độc lập. 
-
-4. CHỐNG LỖI LẶP DẤU CHẤM:
-   - Tuyệt đối không sinh ra chuỗi dấu chấm vô hạn. Chỉ dùng đúng 10 dấu "..........".
-   - Nếu ảnh có code, bọc trong <pre><code>...</code></pre> và giữ nguyên code.
-
-5. ĐẦU RA:
-   - CHỈ trả về các thẻ HTML bên trong <body>. Không bọc markdown (không dùng \`\`\`html).`;           
                     try {
-                        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${apiKey}`, {
+                        const response = await fetch(BACKEND_URL, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                contents: [{ parts: [{ text: promptText }, { inline_data: { mime_type: mimeType, data: base64Data } }] }],
-                                generationConfig: { temperature: 0.1, maxOutputTokens: 8192 },
-                                safetySettings: [
-                                    { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
-                                    { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
-                                    { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
-                                    { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
-                                ]
-                            })
+                            body: JSON.stringify({ mime_type: mimeType, base64_data: base64Data })
                         });
-                        if (!response.ok) throw new Error("Lỗi máy chủ AI / Quá tải Request");
 
-                        // ====== ĐOẠN CODE ĐÃ ĐƯỢC FIX LỖI STREAMING ĐỨT MẠNG ======
-                        let resultHtml = "";
-                        const readerStream = response.body.getReader();
-                        const decoder = new TextDecoder("utf-8");
-                        let buffer = ""; 
-
-                        while (true) {
-                            const { value, done } = await readerStream.read();
-                            if (done) {
-                                if (buffer.startsWith("data: ")) {
-                                    try {
-                                        const data = JSON.parse(buffer.replace("data: ", "").trim());
-                                        if (data.candidates && data.candidates[0].content) {
-                                            resultHtml += data.candidates[0].content.parts[0].text;
-                                        }
-                                    } catch(e) {}
-                                }
-                                break;
-                            }
-                            
-                            buffer += decoder.decode(value, { stream: true });
-                            const lines = buffer.split("\n");
-                            
-                            buffer = lines.pop(); 
-
-                            for (const line of lines) {
-                                if (line.startsWith("data: ")) {
-                                    const dataStr = line.replace("data: ", "").trim();
-                                    if (!dataStr) continue;
-                                    try {
-                                        const data = JSON.parse(dataStr);
-                                        if (data.candidates && data.candidates[0].content) {
-                                            const text = data.candidates[0].content.parts[0].text;
-                                            resultHtml += text;
-                                            streamBuffer.textContent = resultHtml.replace(/```html|```markdown|```/g, '');
-                                            containerBox.scrollTop = containerBox.scrollHeight;
-                                        }
-                                    } catch(e) {
-                                        console.warn("Mạng chậm, đang nối dữ liệu...");
-                                    }
-                                }
-                            }
+                        if (!response.ok) {
+                            const errData = await response.json();
+                            throw new Error(errData.detail || "Lỗi máy chủ nội bộ");
                         }
-                        // ==========================================================
 
-                        resultHtml = resultHtml.replace(/```html|```markdown|```/g, '').trim();
-                        
-                        const historyItem = {
+                        const data = await response.json();
+                        const resultHtml = data.html_content;
+
+                        conversionHistory.unshift({
                             id: Date.now() + index,
                             fileName: file.name,
                             timestamp: new Date().toLocaleTimeString('vi-VN') + ' - ' + new Date().toLocaleDateString('vi-VN'),
                             content: resultHtml
-                        };
-                        conversionHistory.unshift(historyItem); 
+                        }); 
                         document.getElementById('historyBadge').classList.remove('hidden'); 
 
-                        const finalContainer = document.getElementById(fileBlockId);
-                        finalContainer.innerHTML = `
-                            <div class="text-[10px] text-primary uppercase font-bold tracking-widest mb-3 flex items-center gap-2">
-                                <i class="ph-fill ph-check-circle text-lg"></i> Hoàn tất Tệp ${index}: ${file.name}
+                        document.getElementById(fileBlockId).innerHTML = `
+                            <div class="text-[10px] text-primary uppercase font-bold tracking-widest mb-2 flex items-center gap-1.5">
+                                <i class="ph-fill ph-check-circle text-sm md:text-lg"></i> Xong Tệp ${index}: ${file.name}
                             </div>
-                            <div class="ocr-result-content">${resultHtml}</div>
+                            <div class="ocr-result-content break-words">${resultHtml}</div>
                         `; 
-                        
-                        updateProgress(index, totalFiles);
-                        resolve();
-
                     } catch (err) {
-                        showToast(`Lỗi quét tệp ${index}: Rate Limit`, 'error');
-                        const finalContainer = document.getElementById(fileBlockId);
-                        if (finalContainer) {
-                            finalContainer.innerHTML = `
-                                <div class="text-[10px] text-red-400 uppercase font-bold tracking-widest mb-3 flex items-center gap-2">
-                                    <i class="ph-fill ph-warning-circle text-lg"></i> Bỏ qua Tệp ${index}: ${file.name}
-                                </div>
-                                <div class="p-4 bg-red-500/10 border border-red-500/30 text-red-400 rounded-lg text-sm">Lỗi AI: ${err.message}</div>
-                            `;
-                        }
-                        updateProgress(index, totalFiles);
-                        resolve(); 
+                        showToast(`Lỗi tệp ${index}`, 'error');
+                        document.getElementById(fileBlockId).innerHTML = `
+                            <div class="text-[10px] text-red-400 uppercase font-bold tracking-widest mb-2 flex items-center gap-1.5">
+                                <i class="ph-fill ph-warning-circle text-sm md:text-lg"></i> Lỗi Tệp ${index}: ${file.name}
+                            </div>
+                            <div class="p-3 bg-red-500/10 border border-red-500/30 text-red-400 rounded-lg text-xs md:text-sm">Lỗi Backend: ${err.message}</div>
+                        `;
                     }
+                    
+                    updateProgress(index, totalFiles);
+                    resolve();
                 };
-                reader.onerror = () => { showToast(`Không thể đọc tệp ${file.name}`, 'error'); resolve(); };
+                reader.onerror = () => { showToast(`Lỗi đọc tệp ${file.name}`, 'error'); resolve(); };
                 reader.readAsDataURL(file);
             });
         }
@@ -702,12 +513,10 @@ QUY TẮC BẮT BUỘC MỚI (TƯƠNG THÍCH MS WORD):
 
         document.getElementById('convertBtn').addEventListener('click', async () => {
             if (currentFiles.length === 0) return showToast('Vui lòng chọn ít nhất một tệp!', 'error');
-            const apiKey = getApiKey();
-            if (!apiKey) return showToast('Vui lòng cấu hình API Key!', 'error'); 
 
             const convertBtn = document.getElementById('convertBtn');
             convertBtn.disabled = true;
-            convertBtn.innerHTML = '<i class="ph ph-spinner animate-spin"></i><span>Đang Quét Hệ Thống...</span>';
+            convertBtn.innerHTML = '<i class="ph ph-spinner animate-spin"></i><span>Đang Quét...</span>';
             
             document.getElementById('emptyState').classList.add('hidden');
             const outputBox = document.getElementById('outputContent');
@@ -717,14 +526,10 @@ QUY TẮC BẮT BUỘC MỚI (TƯƠNG THÍCH MS WORD):
 
             const totalCount = currentFiles.length;
             for (let i = 0; i < totalCount; i++) {
-                await processSingleFile(currentFiles[i], i + 1, totalCount, apiKey);
-                if (i < totalCount - 1) {
-                    document.getElementById('statusText').textContent = 'Đang nghỉ 2s tránh quá tải API...';
-                    await new Promise(res => setTimeout(res, 2000));
-                }
+                await processSingleFile(currentFiles[i], i + 1, totalCount);
             }
 
-            document.getElementById('statusText').textContent = 'Hoàn tất toàn bộ tệp!';
+            document.getElementById('statusText').textContent = 'Hoàn tất toàn bộ!';
             showToast(`Đã quét xong ${totalCount} tệp!`);
 
             if (window.MathJax) MathJax.typesetPromise([outputBox]);
@@ -734,44 +539,32 @@ QUY TẮC BẮT BUỘC MỚI (TƯƠNG THÍCH MS WORD):
             currentFiles = [];
             renderSelectedFiles();
         });
-          // ================= XUẤT WORD VÀ LƯU VÀO KHO TÀI LIỆU =================
-         function saveToDocumentsLibrary(fileName, htmlContent) {
-            const docItem = {
+
+        function saveToDocumentsLibrary(fileName, htmlContent) {
+            savedDocuments.unshift({
                 id: Date.now() + Math.random(),
-                fileName: fileName.replace('.docx', '') + '.docx', // Ensure it ends with .docx
+                fileName: fileName.replace('.docx', '') + '.docx',
                 timestamp: new Date().toLocaleTimeString('vi-VN') + ' - ' + new Date().toLocaleDateString('vi-VN'),
                 content: htmlContent
-            };
-            savedDocuments.unshift(docItem); // Đưa lên đầu danh sách
-            document.getElementById('documentsBadge').classList.remove('hidden'); // Bật chấm xanh báo hiệu
+            });
+            document.getElementById('documentsBadge').classList.remove('hidden'); 
         }
 
         async function exportToWord(fileName, htmlContent) {
-            showToast('Đang tạo file Word, vui lòng đợi...');
+            showToast('Đang tạo file Word...');
             try {
                 const response = await fetch('https://pandoc-export-server.onrender.com/api/export-docx-from-html', {
                     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ html: htmlContent })
                 });
-                if (!response.ok) throw new Error('Lỗi từ server');
+                if (!response.ok) throw new Error('Lỗi server Pandoc');
                 
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);
-                const link = document.createElement("a"); 
-                link.href = url; 
-                link.download = fileName; 
-                document.body.appendChild(link); 
-                link.click(); 
-                document.body.removeChild(link); 
-                window.URL.revokeObjectURL(url);
-                
-                showToast('Đã tải Word thành công!');
-                
-                // Lưu vào kho Tài Liệu Đã Chuyển Đổi
+                const link = document.createElement("a"); link.href = url; link.download = fileName; 
+                document.body.appendChild(link); link.click(); document.body.removeChild(link); window.URL.revokeObjectURL(url);
+                showToast('Tải Word thành công!');
                 saveToDocumentsLibrary(fileName, htmlContent);
-
-            } catch (error) { 
-                showToast('Có lỗi xảy ra khi tải file Word!', 'error'); 
-            }
+            } catch (error) { showToast('Có lỗi tải file Word!', 'error'); }
         }
 
         document.getElementById('downloadWordBtn').addEventListener('click', () => {
@@ -780,185 +573,73 @@ QUY TẮC BẮT BUỘC MỚI (TƯƠNG THÍCH MS WORD):
             exportToWord('KetQua_AI_HangLoat.docx', content);
         });
 
-
- 
-
-        // ================= GIAO DIỆN QUẢN LÝ LỊCH SỬ =================
         function renderHistoryCards() {
             const grid = document.getElementById('historyGrid');
             const emptyState = document.getElementById('historyEmptyState');
-
-            if (conversionHistory.length === 0) {
-                grid.classList.add('hidden');
-                emptyState.classList.remove('hidden');
-                emptyState.classList.add('flex');
-                return;
-            }
-
-            emptyState.classList.add('hidden');
-            emptyState.classList.remove('flex');
-            grid.classList.remove('hidden');
-            grid.innerHTML = '';
+            if (conversionHistory.length === 0) { grid.classList.add('hidden'); emptyState.classList.replace('hidden', 'flex'); return; }
+            emptyState.classList.replace('flex', 'hidden'); grid.classList.remove('hidden'); grid.innerHTML = '';
 
             conversionHistory.forEach(item => {
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = item.content;
-                const snippet = tempDiv.textContent.substring(0, 150) + '...';
-
-                const cardHTML = `
-                    <div class="bg-darkCard border border-slate-700/50 hover:border-primary/50 rounded-xl p-5 flex flex-col gap-3 group transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,230,118,0.15)] relative overflow-hidden h-48">
-                        <div class="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-bl-full pointer-events-none group-hover:bg-primary/10 transition-colors"></div>
+                const tempDiv = document.createElement('div'); tempDiv.innerHTML = item.content;
+                const snippet = tempDiv.textContent.substring(0, 100) + '...';
+                grid.insertAdjacentHTML('beforeend', `
+                    <div class="bg-darkCard border border-slate-700/50 hover:border-primary/50 rounded-xl p-4 md:p-5 flex flex-col gap-3 group transition-all relative h-40 md:h-48">
                         <div class="flex justify-between items-start gap-2 relative z-10">
-                            <h3 class="font-bold text-slate-200 truncate pr-2 text-sm flex-1" title="${item.fileName}">
-                                <i class="ph-fill ph-file-text text-primary mr-1.5"></i>${item.fileName}
-                            </h3>
-                            <span class="text-[9px] text-slate-400 bg-slate-800/80 px-2 py-1 rounded border border-slate-700 shrink-0">${item.timestamp}</span>
+                            <h3 class="font-bold text-slate-200 truncate pr-2 text-xs md:text-sm flex-1"><i class="ph-fill ph-file-text text-primary mr-1.5"></i>${item.fileName}</h3>
+                            <span class="text-[8px] md:text-[9px] text-slate-400 bg-slate-800/80 px-1.5 py-1 rounded border border-slate-700 shrink-0">${item.timestamp.split(' - ')[0]}</span>
                         </div>
-                        <div class="text-xs text-slate-400 line-clamp-3 bg-[#0B1120] p-2.5 rounded-lg border border-slate-800 flex-1 relative z-10 font-mono leading-relaxed">
-                            ${snippet}
-                        </div>
-                        <div class="flex items-center justify-between mt-1 relative z-10">
-                            <div class="flex gap-1">
-                                <button onclick="copyFromData(${item.id}, 'history')" class="p-1.5 text-slate-400 hover:text-primary hover:bg-primary/10 rounded transition-all duration-200 hover:scale-110 active:scale-95" title="Copy Text"><i class="ph ph-copy"></i></button>
-                                <button onclick="downloadFromHistory(${item.id})" class="p-1.5 text-slate-400 hover:text-primary hover:bg-primary/10 rounded transition-all duration-200 hover:scale-110 active:scale-95" title="Tải File Word"><i class="ph ph-download-simple"></i></button>
-                            </div>
-                            <button onclick="restoreToMainView(${item.id})" class="px-3 py-1.5 bg-primary/10 text-primary border border-primary/30 rounded-lg hover:bg-primary hover:text-darkBg transition-all duration-200 text-xs font-bold shadow-sm hover:scale-105 active:scale-95 hover:shadow-[0_0_12px_rgba(0,230,118,0.3)]">
-                                Khôi phục & Xem lại
-                            </button>
-                        </div>
+                        <div class="text-[10px] md:text-xs text-slate-400 line-clamp-3 bg-[#0B1120] p-2 rounded-lg border border-slate-800 flex-1 relative z-10 font-mono">${snippet}</div>
+                        <button onclick="restoreToMainView(${item.id})" class="mt-1 px-3 py-1.5 bg-primary/10 text-primary border border-primary/30 rounded-lg text-xs font-bold w-full active:scale-95">Khôi phục</button>
                     </div>
-                `;
-                grid.insertAdjacentHTML('beforeend', cardHTML);
+                `);
             });
         }
 
         window.restoreToMainView = function(id) {
             const item = conversionHistory.find(i => i.id === id);
             if (!item) return;
-
             switchView('main');
-            
             const outputBox = document.getElementById('outputContent');
             document.getElementById('emptyState').classList.add('hidden');
-            outputBox.classList.remove('hidden');
-            outputBox.classList.add('flex');
-            
+            outputBox.classList.replace('hidden', 'flex');
             outputBox.innerHTML = `
-                <div class="pb-6 border-b border-slate-700/50 mb-6 w-full relative">
-                    <div class="absolute top-0 right-0 bg-accent/20 text-accent text-[10px] px-2 py-1 rounded font-bold">KHÔI PHỤC TỪ LỊCH SỬ</div>
-                    <div class="text-[10px] text-primary uppercase font-bold tracking-widest mb-3 flex items-center gap-2">
-                        <i class="ph-fill ph-clock-counter-clockwise text-lg"></i> Xem lại Tệp: ${item.fileName}
-                    </div>
-                    <div class="ocr-result-content">${item.content}</div>
+                <div class="pb-4 md:pb-6 border-b border-slate-700/50 mb-4 md:mb-6 w-full relative">
+                    <div class="text-[10px] text-primary uppercase font-bold tracking-widest mb-2 flex items-center gap-1.5"><i class="ph-fill ph-clock-counter-clockwise text-sm md:text-lg"></i> Xem lại: ${item.fileName}</div>
+                    <div class="ocr-result-content break-words">${item.content}</div>
                 </div>
             `;
             if (window.MathJax) MathJax.typesetPromise([outputBox]);
-            showToast('Đã khôi phục dữ liệu ra màn hình chính!');
+            showToast('Đã khôi phục ra màn hình chính!');
         };
 
-        document.getElementById('clearHistoryDataBtn').addEventListener('click', () => {
-            if (confirm('Bạn có chắc chắn muốn xóa toàn bộ lịch sử trong phiên này?')) {
-                conversionHistory = [];
-                renderHistoryCards();
-                showToast('Đã dọn dẹp lịch sử!');
-            }
-        });
-
-        // ================= GIAO DIỆN TÀI LIỆU ĐÃ LƯU =================
         function renderDocumentCards() {
             const grid = document.getElementById('documentsGrid');
             const emptyState = document.getElementById('documentsEmptyState');
-
-            if (savedDocuments.length === 0) {
-                grid.classList.add('hidden');
-                emptyState.classList.remove('hidden');
-                emptyState.classList.add('flex');
-                return;
-            }
-
-            emptyState.classList.add('hidden');
-            emptyState.classList.remove('flex');
-            grid.classList.remove('hidden');
-            grid.innerHTML = '';
+            if (savedDocuments.length === 0) { grid.classList.add('hidden'); emptyState.classList.replace('hidden', 'flex'); return; }
+            emptyState.classList.replace('flex', 'hidden'); grid.classList.remove('hidden'); grid.innerHTML = '';
 
             savedDocuments.forEach(item => {
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = item.content;
-                const snippet = tempDiv.textContent.substring(0, 150) + '...';
-
-                const cardHTML = `
-                    <div class="bg-darkCard border border-slate-700/50 hover:border-blue-500/50 	rounded-xl p-5 flex flex-col gap-3 group transition-all duration-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.15)] relative overflow-hidden h-48">
-                        <div class="absolute top-0 right-0 w-16 h-16 bg-blue-500/5 rounded-bl-full pointer-events-none group-hover:bg-blue-500/10 transition-colors"></div>
+                grid.insertAdjacentHTML('beforeend', `
+                    <div class="bg-darkCard border border-slate-700/50 hover:border-blue-500/50 rounded-xl p-4 md:p-5 flex flex-col gap-3 group transition-all relative h-32 md:h-36">
                         <div class="flex justify-between items-start gap-2 relative z-10">
-                            <h3 class="font-bold text-slate-200 truncate pr-2 text-sm flex-1" title="${item.fileName}">
-                                <i class="ph-fill ph-file-doc text-blue-400 mr-1.5"></i>${item.fileName}
-                            </h3>
-                            <span class="text-[9px] text-blue-300 bg-blue-900/30 px-2 py-1 rounded border border-blue-500/30 shrink-0">${item.timestamp}</span>
+                            <h3 class="font-bold text-slate-200 truncate pr-2 text-xs md:text-sm flex-1"><i class="ph-fill ph-file-doc text-blue-400 mr-1.5"></i>${item.fileName}</h3>
                         </div>
-                        <div class="text-xs text-slate-400 line-clamp-3 bg-[#0B1120] p-2.5 rounded-lg border border-slate-800 flex-1 relative z-10 font-mono leading-relaxed">
-                            ${snippet}
-                        </div>
-                        <div class="flex items-center justify-between mt-1 relative z-10">
-                            <div class="flex gap-1">
-                                <button onclick="copyFromData(${item.id}, 'docs')" class="p-1.5 text-slate-400 hover:text-primary hover:bg-primary/10 rounded transition-all duration-200 hover:scale-110 active:scale-95" title="Copy Text"><i class="ph ph-copy"></i></button>
-                            </div>
-                            <div class="flex gap-2">
-                                <button onclick="deleteSavedDocument(${item.id})" class="px-3 py-1.5 bg-red-500/10 text-red-400 border border-red-500/30 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-xs font-bold shadow-sm hover:scale-105 active:scale-95 hover:shadow-[0_0_12px_rgba(239,68,68,0.3)]" title="Xóa tệp">
-                                    <i class="ph-bold ph-trash"></i>
-                                </button>
-                                <button onclick="reDownloadDocument(${item.id})" class="px-3 py-1.5 bg-blue-500/10 text-blue-400 border border-blue-500/30 rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-200 text-xs font-bold shadow-sm flex items-center gap-1 hover:scale-105 active:scale-95 hover:shadow-[0_0_12px_rgba(59,130,246,0.3)]">
-                                    <i class="ph-bold ph-download-simple"></i> Tải lại
-                                </button>
-                            </div>
+                        <div class="flex items-center gap-2 mt-auto relative z-10">
+                            <button onclick="deleteSavedDocument(${item.id})" class="px-2 py-1.5 bg-red-500/10 text-red-400 border border-red-500/30 rounded-lg text-[10px] md:text-xs font-bold active:scale-95"><i class="ph-bold ph-trash"></i> Xóa</button>
+                            <button onclick="reDownloadDocument(${item.id})" class="flex-1 py-1.5 bg-blue-500/10 text-blue-400 border border-blue-500/30 rounded-lg text-[10px] md:text-xs font-bold active:scale-95"><i class="ph-bold ph-download-simple"></i> Tải lại</button>
                         </div>
                     </div>
-                `;
-                grid.insertAdjacentHTML('beforeend', cardHTML);
+                `);
             });
         }
 
-        window.reDownloadDocument = function(id) {
-            const item = savedDocuments.find(i => i.id === id);
-            if (!item) return;
-            exportToWord(item.fileName, item.content);
-        };
-
-        window.deleteSavedDocument = function(id) {
-            if (confirm('Xóa bản lưu này khỏi danh sách?')) {
-                savedDocuments = savedDocuments.filter(i => i.id !== id);
-                renderDocumentCards();
-                showToast('Đã xóa tệp lưu!');
-            }
-        };
-
-        document.getElementById('clearDocumentsDataBtn').addEventListener('click', () => {
-            if (confirm('Xóa toàn bộ danh sách tài liệu đã xuất?')) {
-                savedDocuments = [];
-                renderDocumentCards();
-                showToast('Đã dọn dẹp kho tài liệu!');
-            }
-        });
-
-        window.copyFromData = function(id, source) {
-            const arr = source === 'history' ? conversionHistory : savedDocuments;
-            const item = arr.find(i => i.id === id);
-            if (item) { navigator.clipboard.writeText(item.content).then(() => showToast('Đã copy mã HTML!')); }
-        };
-
-        document.getElementById('copyBtn').addEventListener('click', () => {
-            const content = document.getElementById('outputContent').innerHTML;
-            if (content.trim() === '') return showToast('Chưa có nội dung', 'error');
-            navigator.clipboard.writeText(content).then(() => showToast('Đã copy mã HTML!'));
-        });
-
-        document.getElementById('clearBtn').addEventListener('click', () => {
-            document.getElementById('outputContent').innerHTML = '';
-            document.getElementById('outputContent').classList.remove('flex');
-            document.getElementById('outputContent').classList.add('hidden');
-            document.getElementById('emptyState').classList.remove('hidden');
-            resetProgress();
-        });
-
+        window.reDownloadDocument = function(id) { const item = savedDocuments.find(i => i.id === id); if (item) exportToWord(item.fileName, item.content); };
+        window.deleteSavedDocument = function(id) { if (confirm('Xóa bản lưu này khỏi danh sách?')) { savedDocuments = savedDocuments.filter(i => i.id !== id); renderDocumentCards(); showToast('Đã xóa tệp lưu!'); } };
+        
+        document.getElementById('clearHistoryDataBtn').addEventListener('click', () => { if (confirm('Xóa lịch sử?')) { conversionHistory = []; renderHistoryCards(); } });
+        document.getElementById('clearDocumentsDataBtn').addEventListener('click', () => { if (confirm('Xóa toàn bộ tài liệu đã xuất?')) { savedDocuments = []; renderDocumentCards(); } });
+        document.getElementById('copyBtn').addEventListener('click', () => { const content = document.getElementById('outputContent').innerHTML; if (content.trim()) navigator.clipboard.writeText(content).then(() => showToast('Đã copy mã HTML!')); else showToast('Chưa có nội dung', 'error'); });
+        document.getElementById('clearBtn').addEventListener('click', () => { document.getElementById('outputContent').innerHTML = ''; document.getElementById('outputContent').classList.replace('flex', 'hidden'); document.getElementById('emptyState').classList.remove('hidden'); resetProgress(); });
     </script>
 </body>
 </html>
