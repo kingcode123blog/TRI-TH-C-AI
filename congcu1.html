@@ -433,7 +433,7 @@
         const systemPrompt = String.raw`Đừng ghi lời nói của bạn vào đây chỉ cần chuẩn Promt
 NHIỆM VỤ:
 1. Tóm tắt ngắn gọn nội dung file gửi lên (nếu có) và giải bài tập nếu có
-2. Tạo bộ đề thi trắc nghiệm/tự luận theo cấu trúc quy định, tối ưu hóa format để script Python chuyển đổi sang Microsoft Word không bị lỗi.
+2. Tạo bộ đề thi bao gồm đề về đáp án theo cấu trúc quy định, tối ưu hóa format để script Python chuyển đổi sang Microsoft Word không bị lỗi.
 QUY TẮC TUYỆT ĐỐI VỀ FORMAT CÔNG THỨC (QUAN TRỌNG NHẤT):
 Để bộ chuyển đổi hoạt động, bạn PHẢI tuân thủ cú pháp LaTeX sau:
 1. **CÚ PHÁP BAO BỌC:**
@@ -524,13 +524,13 @@ d) [Phát biểu 4]
 
 \- Giải thích: [Hướng dẫn giải vắn tắt].Các suy luận khi giải bài bắt buộc bằng tiếng việt.
 
-Lưu ý đối với AI:Yêu cầu bạn trả về 2 kết quả phải giống nhau kết quả 1 bao gồm đề và đáp án và kết quả 2 cũng vậy và ngăn cách giữa 2 kết quả là "1e9658952":
-1. Đối với kết quả 2 thì
+Lưu ý đối với AI:Yêu cầu bạn trả về 2 bộ đề và ngăn cách giữa 2 bộ đề là "1e9658952":
+1. Đối với bộ đề 2 thì
 - Xóa **
-- Xoá # và ## ở đầu các tiêu đề
+- Xoá # và ## 
 - Thay \- đầu câu thành -
 - Giữ nguyên LaTeX
-2.Đối với cả 2 kết quả thì
+2.Đối với cả 2 bộ đề thì
 - Trước khi trả lời mỗi dòng phải xuống dòng một cái trừ
 -Với mỗi ý trả lời cũng vậy 
 ví dụ:
