@@ -37,7 +37,6 @@
 
         .header-actions { margin-left: auto; display: flex; align-items: center; gap: 16px; }
         
-        /* BỔ SUNG CSS CHO NÚT TRANG CHỦ VÀ HIỆU ỨNG HOVER */
         .top-right-home { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-primary); font-weight: 600; padding: 10px 16px; background: rgba(255,255,255,0.05); border-radius: var(--radius-md); border: 1px solid rgba(255,122,0,0.2); transition: var(--transition); font-size: 0.9rem; }
         .top-right-home:hover { background: rgba(255,122,0,0.15); border-color: var(--accent-color); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,122,0,0.2); }
 
@@ -115,7 +114,34 @@
         .empty-history { text-align: center; color: var(--text-muted); padding: 20px; font-style: italic; }
 
         @keyframes spin { 100% { transform: rotate(360deg); } } .spin { animation: spin 1s linear infinite; }
-        @media (max-width: 900px) { .main-layout { grid-template-columns: 1fr; } }
+        
+        /* --- RESPONSIVE CSS (MOBILE FIXES) --- */
+        @media (max-width: 900px) { 
+            .main-layout { grid-template-columns: 1fr; } 
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 16px 12px; }
+            header { 
+                flex-direction: column; 
+                text-align: center; 
+                gap: 16px; 
+                align-items: center; 
+            }
+            .header-actions { 
+                margin-left: 0; 
+                width: 100%; 
+                justify-content: center; 
+            }
+            .header-text h1 { font-size: 1.4rem; }
+            .card { padding: 16px; margin-bottom: 16px; }
+            .controls-group { flex-direction: column; gap: 10px; }
+            .btn { width: 100%; }
+            .player-header { flex-direction: column; text-align: center; gap: 12px; }
+            .full-text-box { height: 350px; padding: 16px; font-size: 0.95rem; }
+            .modal-content { width: 95%; padding: 16px; }
+            .dropzone-area { padding: 20px 10px; }
+        }
     </style>
 </head>
 <body>
@@ -134,12 +160,11 @@
                 <button class="history-btn" id="btn-history" data-tooltip="Xem & Khôi phục Lịch sử OCR">
                     <i data-lucide="history" style="width: 22px;"></i>
                 </button>
-                <a href="index.html" class="top-right-home" data-tooltip="Trở về Trang chủ Chính">
+                <a href="/" class="top-right-home" data-tooltip="Trở về Trang chủ Chính">
                     <i data-lucide="home" style="width: 20px;"></i> Trang Chủ
                 </a>
             </div>
         </header>
-
 
         <div class="main-layout">
             <div class="column-left">
@@ -270,7 +295,6 @@
         
         let ocrHistory = JSON.parse(localStorage.getItem('ocrHistory') || '[]');
 
-        // Trả về Base URL đã được cấu hình cố định
         function getBackendUrl() {
             return "https://my-ai-ocr-hmbv.onrender.com";
         }
@@ -375,11 +399,7 @@
                     
                     let ext = file.name.split('.').pop().toLowerCase();
                     let parsedChunks = [];
-                    textChunks.push({ visual: `
-
-[=== Tài liệu ${i+1}: ${file.name} ===]
-
-`, spoken: `Tài liệu số ${i+1}`, isDivider: true });
+                    textChunks.push({ visual: `\n\n[=== Tài liệu ${i+1}: ${file.name} ===]\n\n`, spoken: `Tài liệu số ${i+1}`, isDivider: true });
 
                     if (['jpg', 'jpeg', 'png', 'pdf'].includes(ext)) {
                         let base64 = await fileToBase64(file);
