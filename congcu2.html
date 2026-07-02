@@ -507,6 +507,11 @@ QUY TẮC:
                     // Đã xử lý thành công, thoát ngay khỏi vòng lặp
                     isSuccess = true;
                     break; 
+
+                } catch (err) {
+                    continue;
+                    // Bắt lỗi mạng hoặc API sập để vòng lặp tự chạy tiếp tục với key kế tiếp
+                }
             }
 
             // Nếu đã chạy hết mảng Key mà vẫn không có key nào phản hồi thành công
@@ -514,7 +519,7 @@ QUY TẮC:
                 statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-rose-500 shadow-md shadow-rose-500/50";
                 panelOutputTitle.innerText = "Lỗi biên dịch!";
                 executionTimerLabel.innerText = "Trạng thái: Thất bại";
-                alert('Tất cả API Key hiện có đều bị lỗi hoặc đã sử dụng hết hạn mức !');
+                alert('Tất cả API Key hiện có đều bị lỗi hoặc đã sử dụng hết hạn mức (Quota). Vui lòng thêm key mới!');
             }
             
             // Tắt giao diện tải
