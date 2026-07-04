@@ -72,10 +72,10 @@
     <div class="absolute bottom-[-10%] left-[15%] w-[45vw] h-[45vw] bg-indigo-900/5 blur-[150px] pointer-events-none rounded-full z-0"></div>
 
     <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#05030b]/80 border-b border-purple-950/30 transition-all">
-        <div class="max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+       <div class="max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
             
-            <div class="flex items-center gap-2.5 shrink-0 group">
-                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center shadow-md shadow-purple-500/20 transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_20px_#a855f7] group-hover:brightness-110 cursor-pointer">
+            <div class="flex items-center gap-2.5 shrink-0">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center shadow-md shadow-purple-500/20">
                     <i class="fa-solid fa-cube text-white text-xs"></i>
                 </div>
                 <div>
@@ -84,18 +84,29 @@
                 </div>
             </div>
 
-            <div class="flex items-center gap-3">
-                <div class="flex items-center gap-2 text-xs font-semibold text-purple-400 bg-purple-950/40 px-3 py-1.5 rounded-full border border-purple-900/40">
+            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                <div class="flex items-center gap-2 text-xs font-semibold text-purple-400 sm:bg-purple-950/40 sm:px-3 py-1.5 rounded-full sm:border sm:border-purple-900/40">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>Hệ Thống Đang Kích Hoạt</span>
+                    <span class="hidden sm:inline">Hệ Thống Đang Kích Hoạt</span>
                 </div>
                 
-                <div class="relative group">
-                    <a href="/" class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-950 to-slate-900 border border-purple-500/20 flex items-center justify-center text-xs font-bold text-purple-300 shadow-sm transition-all duration-300 hover:bg-purple-600 hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-purple-500/40 cursor-pointer relative z-10">
-                        <i class="fa-solid fa-house"></i>
-                    </a>
-                    <span class="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 invisible opacity-0 scale-95 -translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 transition-all duration-300 ease-out bg-[#0d0921] text-purple-200 text-[10px] font-bold px-2.5 py-1.5 rounded-md whitespace-nowrap border border-purple-500/40 shadow-[0_8px_25px_rgba(147,51,234,0.3)] pointer-events-none">Về trang chủ</span>
+                <div class="hidden sm:flex w-8 h-8 rounded-lg bg-gradient-to-br from-purple-950 to-slate-900 border border-purple-500/20 items-center justify-center text-xs font-bold text-purple-300 shadow-sm select-none">
+                    AI
                 </div>
+
+                <a href="index.html" class="group relative flex shrink-0 items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-lg bg-slate-900 border border-slate-700/50 text-slate-400 transition-all duration-300 hover:text-purple-400 hover:border-purple-500/50 hover:bg-purple-500/10 hover:shadow-[0_0_12px_rgba(168,85,247,0.25)] active:scale-95 cursor-pointer z-20">
+                    <div class="absolute top-[130%] right-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50 pointer-events-none flex flex-col items-end">
+                        <div class="w-2 h-2 bg-slate-900 border-t border-l border-purple-500/40 rotate-45 -mb-1 z-10 relative mt-0.5 mr-3 md:mr-4"></div>
+                        <div class="bg-slate-900 border border-purple-500/40 text-purple-400 text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-md shadow-[0_4px_15px_rgba(168,85,247,0.2)] whitespace-nowrap">Trang Chủ</div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 md:w-5 md:h-5 relative z-10 transition-transform duration-300 group-hover:-translate-y-0.5 pointer-events-none">
+                        <path d="M12 3.5L3 10.5v8.5a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8.5L12 3.5z" />
+                        <circle cx="12" cy="13.5" r="2" class="group-hover:fill-[#a855f7] group-hover:stroke-[#a855f7] transition-colors duration-300" />
+                        <path d="M12 15.5v4.5" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75" />
+                        <path d="M8 13.5h2" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150" />
+                        <path d="M14 13.5h2" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200" />
+                    </svg>
+                </a>
             </div>
         </div>
     </header>
@@ -494,46 +505,69 @@ QUY TẮC:
 - Định dạng công thức toán/hóa bắt buộc nằm trong cặp kí tự $...$ cho inline và $$...$$ cho block display.
 - Trả về duy nhất nội dung đề thi hoàn chỉnh, tuyệt đối không chèn câu thoại giải thích bên ngoài.`;
 
-            try {
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-                const res = await fetch(url, {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: targetPayloadText }] }],
-                        systemInstruction: { parts: [{ text: promptRules }] },
-                        generationConfig: { temperature: 0.1 }
-                    })
-                });
+           let isSuccess = false;
 
-                if (!res.ok) throw new Error('API Key lỗi hoặc server từ chối.');
+            // Duyệt qua từng API Key bằng vòng lặp for...of để chạy cơ chế Fallback
+            for (const apiKey of keysArray) {
+                try {
+                    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: targetPayloadText }] }],
+                            systemInstruction: { parts: [{ text: promptRules }] },
+                            generationConfig: { temperature: 0.1 }
+                        })
+                    });
 
-                const json = await res.json();
-                let rawText = json.candidates[0].content.parts[0].text.trim();
-                if (rawText.startsWith('```')) rawText = rawText.replace(/^```[a-zA-Z]*\n/, '').replace(/\n```$/, '');
-                
-                let cleanMarkdownResult = rawText.trim()
+                    // Nếu HTTP request thất bại (vd: lỗi 429 Quota), bỏ qua và thử key tiếp theo
+                    if (!res.ok) {
+                        continue; 
+                    }
+
+                    const json = await res.json();
+                    let rawText = json.candidates[0].content.parts[0].text.trim();
+                    
+                    if (rawText.startsWith('```')) rawText = rawText.replace(/^```[a-zA-Z]*\n/, '').replace(/\n```$/, '');
+                    
+                    let cleanMarkdownResult = rawText.trim()
                     .replace(/\\\[\s*([\s\S]*?)\s*\\\]/g, '$$\n$1\n$$')
                     .replace(/\\\(\s*([\s\S]*?)\s*\\\)/g, '$$$1$');
-                
-                globalFinalMarkdown = cleanMarkdownResult;
-                const renderedHtml = parseMarkdownAndMath(cleanMarkdownResult, 'web');
-                textOutputPreview.innerHTML = renderedHtml;
+                    
+                    globalFinalMarkdown = cleanMarkdownResult;
+                    textOutputPreview.innerHTML = parseMarkdownAndMath(cleanMarkdownResult, 'web');
 
-                downloadWordBtn.disabled = false; downloadMDBtn.disabled = false; copyAllOutputBtn.disabled = false;
-                statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-md shadow-emerald-400/50";
-                panelOutputTitle.innerText = "Đã kết xuất dữ liệu thành công!";
-                
-                const endTime = performance.now();
-                executionTimerLabel.innerHTML = `Hoàn thành trong: <span class="text-emerald-400 font-bold">${((endTime - startTime) / 1000).toFixed(2)}s</span>`;
-                
-                const historyName = fileInput.value ? activeFileName.innerText : (originalInputContent.substring(0, 22) + "...");
-                saveToHistoryLog(historyName, targetPayloadText, globalFinalMarkdown, renderedHtml);
+                    downloadWordBtn.disabled = false;
+                    downloadMDBtn.disabled = false;
+                    copyAllOutputBtn.disabled = false;
+                    statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-md shadow-emerald-400/50";
+                    panelOutputTitle.innerText = "Thành công!";
+                    
+                    const endTime = performance.now();
+                    executionTimerLabel.innerHTML = `Hoàn thành trong: <span class="text-emerald-400 font-bold">${((endTime - startTime) / 1000).toFixed(2)}s</span>`;
+                    if (!extractedFileText) updateHistoryListLog("Văn bản dán thô từ Editor");
 
-            } catch (err) {
+                    // Đã xử lý thành công, thoát ngay khỏi vòng lặp
+                    isSuccess = true;
+                    break; 
+
+                } catch (err) {
+                    continue;
+                    // Bắt lỗi mạng hoặc API sập để vòng lặp tự chạy tiếp tục với key kế tiếp
+                }
+            }
+
+            // Nếu đã chạy hết mảng Key mà vẫn không có key nào phản hồi thành công
+            if (!isSuccess) {
                 statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-rose-500 shadow-md shadow-rose-500/50";
-                panelOutputTitle.innerText = "Xảy ra sự cố lỗi biên dịch!"; executionTimerLabel.innerText = "Trạng thái: Thất bại";
-                alert('Có lỗi trong quá trình kết nối API.'); console.error(err);
-            } finally { loadingOverlay.classList.add('hidden'); }
+                panelOutputTitle.innerText = "Lỗi biên dịch!";
+                executionTimerLabel.innerText = "Trạng thái: Thất bại";
+                alert('Tất cả API Key hiện có đều bị lỗi hoặc đã sử dụng hết hạn mức !');
+            }
+            
+            // Tắt giao diện tải
+            loadingOverlay.classList.add('hidden');
         });
 
         downloadWordBtn.addEventListener('click', async () => {
