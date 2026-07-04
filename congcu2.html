@@ -552,7 +552,7 @@ QUY TẮC:
             if (!globalFinalMarkdown) return;
             const originalBtnContent = downloadWordBtn.innerHTML;
             try {
-                downloadWordBtn.disabled = true; downloadWordBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang gọi Backend...';
+                downloadWordBtn.disabled = true; downloadWordBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang xử lý...';
                 const response = await fetch(PANDOC_API_URL, {
                     method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ markdown: globalFinalMarkdown })
