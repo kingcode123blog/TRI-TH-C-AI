@@ -445,7 +445,6 @@
                 return; 
             }
 
-            const apiKey = keysArray[Math.floor(Math.random() * keysArray.length)];
             let targetPayloadText = extractedFileText ? extractedFileText : textInput.value.trim();
             if (!targetPayloadText) { alert('Dữ liệu thô rỗng! Hãy tải file hoặc dán đề bài.'); return; }
 
@@ -459,54 +458,67 @@ QUY TẮC:
 - Định dạng công thức toán/hóa bắt buộc nằm trong cặp kí tự $...$ cho inline và $$...$$ cho block display. (Ví dụ: $2H_2 + O_2 \\rightarrow 2H_2O$)
 - Trả về duy nhất nội dung đề thi hoàn chỉnh, tuyệt đối không chèn câu thoại giải thích bên ngoài.`;
 
-            try {
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-                const res = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: targetPayloadText }] }],
-                        systemInstruction: { parts: [{ text: promptRules }] },
-                        generationConfig: { temperature: 0.1 }
-                    })
-                });
+            let isSuccess = false;
 
-                if (!res.ok) throw new Error('API Key lỗi hoặc server từ chối.');
-
-                const json = await res.json();
-                let rawText = json.candidates[0].content.parts[0].text.trim();
-                
-                if (rawText.startsWith('```')) {
-                    rawText = rawText.replace(/^```[a-zA-Z]*\n/, '').replace(/\n```$/, '');
+            // Duyệt qua từng API Key bằng vòng lặp for...of để chạy cơ chế Fallback
+            for (const apiKey of keysArray) {
+                try {
+                    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: targetPayloadText }] }],
+                            systemInstruction: { parts: [{ text: promptRules }] },
+                            generationConfig: { temperature: 0.1 }
+                        })
+                    });
                 }
-                
-                let cleanMarkdownResult = rawText.trim();
-                cleanMarkdownResult = cleanMarkdownResult
-                    .replace(/\\\[\s*([\s\S]*?)\s*\\\]/g, '$$\n$1\n$$')
-                    .replace(/\\\(\s*([\s\S]*?)\s*\\\)/g, '$$$1$');
-                
-                globalFinalMarkdown = cleanMarkdownResult;
-                textOutputPreview.innerHTML = parseMarkdownAndMath(cleanMarkdownResult, 'web');
+                    // Nếu HTTP request thất bại (vd: lỗi 429 Quota), bỏ qua và thử key tiếp theo
+                    if (!res.ok) {
+                        continue; 
+                    }
 
-                downloadWordBtn.disabled = false;
-                downloadMDBtn.disabled = false;
-                copyAllOutputBtn.disabled = false;
-                statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-md shadow-emerald-400/50";
-                panelOutputTitle.innerText = "Thành công!";
-                
-                const endTime = performance.now();
-                executionTimerLabel.innerHTML = `Hoàn thành: <span class="text-emerald-400 font-bold">${((endTime - startTime) / 1000).toFixed(2)}s</span>`;
-                if (!extractedFileText) updateHistoryListLog("Văn bản dán thô từ Editor");
+                    const json = await res.json();
+                    let rawText = json.candidates[0].content.parts[0].text.trim();
+                    
+                    if (rawText.startsWith('```')) {
+                        rawText = rawText.replace(/^```[a-zA-Z]*\n/, '').replace(/\n```$/, '');
+                    }
+                    
+                    let cleanMarkdownResult = rawText.trim();
+                    cleanMarkdownResult = cleanMarkdownResult
+                        .replace(/\\\[\s*([\s\S]*?)\s*\\\]/g, '$$\n$1\n$$')
+                        .replace(/\\\(\s*([\s\S]*?)\s*\\\)/g, '$$$1$');
+                    
+                    globalFinalMarkdown = cleanMarkdownResult;
+                    textOutputPreview.innerHTML = parseMarkdownAndMath(cleanMarkdownResult, 'web');
 
-            } catch (err) {
+                    downloadWordBtn.disabled = false;
+                    downloadMDBtn.disabled = false;
+                    copyAllOutputBtn.disabled = false;
+                    statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-md shadow-emerald-400/50";
+                    panelOutputTitle.innerText = "Thành công!";
+                    
+                    const endTime = performance.now();
+                    executionTimerLabel.innerHTML = `Hoàn thành: <span class="text-emerald-400 font-bold">${((endTime - startTime) / 1000).toFixed(2)}s</span>`;
+                    if (!extractedFileText) updateHistoryListLog("Văn bản dán thô từ Editor");
+
+                    // Đã xử lý thành công, thoát ngay khỏi vòng lặp
+                    isSuccess = true;
+                    break; 
+            }
+
+            // Nếu đã chạy hết mảng Key mà vẫn không có key nào phản hồi thành công
+            if (!isSuccess) {
                 statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-rose-500 shadow-md shadow-rose-500/50";
                 panelOutputTitle.innerText = "Lỗi biên dịch!";
                 executionTimerLabel.innerText = "Trạng thái: Thất bại";
-                alert('Có lỗi trong quá trình kết nối API. Vui lòng kiểm tra lại API Key đã nhập trong mã nguồn.');
-                console.error(err);
-            } finally {
-                loadingOverlay.classList.add('hidden');
+                alert('Tất cả API Key hiện có đều bị lỗi hoặc đã sử dụng hết hạn mức !');
             }
+            
+            // Tắt giao diện tải
+            loadingOverlay.classList.add('hidden');
         });
 
         downloadWordBtn.addEventListener('click', async () => {
