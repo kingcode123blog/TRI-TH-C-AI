@@ -62,24 +62,6 @@
             box-shadow: 0 12px 40px -12px rgba(139, 92, 246, 0.18);
         }
         
-        /* Active Navigation Line */
-        .nav-link {
-            position: relative;
-            color: #94a3b8;
-            transition: color 0.2s ease;
-        }
-        .nav-link:hover, .nav-link.active { color: #f8fafc; }
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, #a855f7, #ec4899);
-            box-shadow: 0 0 10px #a855f7;
-        }
-        
         .katex-display { margin: 1em 0; overflow-x: auto; overflow-y: hidden; }
     </style>
 </head>
@@ -90,10 +72,10 @@
     <div class="absolute bottom-[-10%] left-[15%] w-[45vw] h-[45vw] bg-indigo-900/5 blur-[150px] pointer-events-none rounded-full z-0"></div>
 
     <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#05030b]/80 border-b border-purple-950/30 transition-all">
-       <div class="max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        <div class="max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
             
-            <div class="flex items-center gap-2.5 shrink-0">
-                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center shadow-md shadow-purple-500/20">
+            <div class="flex items-center gap-2.5 shrink-0 group">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center shadow-md shadow-purple-500/20 transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_20px_#a855f7] group-hover:brightness-110 cursor-pointer">
                     <i class="fa-solid fa-cube text-white text-xs"></i>
                 </div>
                 <div>
@@ -102,38 +84,27 @@
                 </div>
             </div>
 
-            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-                <div class="flex items-center gap-2 text-xs font-semibold text-purple-400 sm:bg-purple-950/40 sm:px-3 py-1.5 rounded-full sm:border sm:border-purple-900/40">
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 text-xs font-semibold text-purple-400 bg-purple-950/40 px-3 py-1.5 rounded-full border border-purple-900/40">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="hidden sm:inline">Hệ Thống Đang Kích Hoạt</span>
+                    <span>Hệ Thống Đang Kích Hoạt</span>
                 </div>
                 
-                <div class="hidden sm:flex w-8 h-8 rounded-lg bg-gradient-to-br from-purple-950 to-slate-900 border border-purple-500/20 items-center justify-center text-xs font-bold text-purple-300 shadow-sm select-none">
-                    AI
+                <div class="relative group">
+                    <a href="/" class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-950 to-slate-900 border border-purple-500/20 flex items-center justify-center text-xs font-bold text-purple-300 shadow-sm transition-all duration-300 hover:bg-purple-600 hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-purple-500/40 cursor-pointer relative z-10">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                    <span class="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 invisible opacity-0 scale-95 -translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 transition-all duration-300 ease-out bg-[#0d0921] text-purple-200 text-[10px] font-bold px-2.5 py-1.5 rounded-md whitespace-nowrap border border-purple-500/40 shadow-[0_8px_25px_rgba(147,51,234,0.3)] pointer-events-none">Về trang chủ</span>
                 </div>
-
-                <a href="index.html" class="group relative flex shrink-0 items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-lg bg-slate-900 border border-slate-700/50 text-slate-400 transition-all duration-300 hover:text-purple-400 hover:border-purple-500/50 hover:bg-purple-500/10 hover:shadow-[0_0_12px_rgba(168,85,247,0.25)] active:scale-95 cursor-pointer z-20">
-                    <div class="absolute top-[130%] right-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50 pointer-events-none flex flex-col items-end">
-                        <div class="w-2 h-2 bg-slate-900 border-t border-l border-purple-500/40 rotate-45 -mb-1 z-10 relative mt-0.5 mr-3 md:mr-4"></div>
-                        <div class="bg-slate-900 border border-purple-500/40 text-purple-400 text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-md shadow-[0_4px_15px_rgba(168,85,247,0.2)] whitespace-nowrap">Trang Chủ</div>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 md:w-5 md:h-5 relative z-10 transition-transform duration-300 group-hover:-translate-y-0.5 pointer-events-none">
-                        <path d="M12 3.5L3 10.5v8.5a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8.5L12 3.5z" />
-                        <circle cx="12" cy="13.5" r="2" class="group-hover:fill-[#a855f7] group-hover:stroke-[#a855f7] transition-colors duration-300" />
-                        <path d="M12 15.5v4.5" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75" />
-                        <path d="M8 13.5h2" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150" />
-                        <path d="M14 13.5h2" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200" />
-                    </svg>
-                </a>
             </div>
         </div>
     </header>
 
-    <main class="flex-1 max-w-[1550px] w-full mx-auto p-3 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 relative z-10">
+    <main class="flex-1 max-w-[1550px] w-full mx-auto p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10">
         
-        <section class="lg:col-span-5 flex flex-col gap-4 lg:gap-5">
+        <section class="lg:col-span-5 flex flex-col gap-5">
             
-            <div class="cyber-card rounded-2xl p-4 sm:p-5 shadow-2xl flex flex-col gap-3.5 transition-all">
+            <div class="cyber-card rounded-2xl p-5 shadow-2xl flex flex-col gap-3.5 transition-all">
                 <div class="flex items-center justify-between">
                     <h2 class="text-[11px] font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
                         <i class="fa-solid fa-folder-open text-pink-500"></i> Nạp đề thi / tài liệu gốc
@@ -141,19 +112,27 @@
                     <span class="text-[10px] text-slate-400 bg-purple-950/50 px-2 py-0.5 rounded border border-purple-950/60 font-mono">DOCX, PDF</span>
                 </div>
 
-                <div class="border border-dashed border-purple-900/40 hover:border-purple-500/60 rounded-xl p-5 text-center transition-all cursor-pointer relative bg-purple-950/5" id="dropZone">
-                    <input type="file" id="fileInput" accept=".docx,.pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
+                <!-- ĐÃ SỬA: Khu vực kéo thả chứa Tooltip chữ nổi đồng bộ cao cấp -->
+                <div class="border border-dashed border-purple-900/40 hover:border-purple-500/80 rounded-xl p-5 text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(168,85,247,0.15)] cursor-pointer relative bg-purple-950/5 group" id="dropZone">
                     
-                    <div id="uploadPromptState" class="flex flex-col items-center gap-2">
-                        <div class="w-10 h-10 rounded-xl bg-purple-950/50 text-purple-400 border border-purple-500/10 flex items-center justify-center shadow-md">
-                            <i class="fa-solid fa-cloud-arrow-up text-base"></i>
+                    <!-- FIX: Thêm thuộc tính title="" để tắt hoàn toàn chữ nổi mặc định của trình duyệt như trong file image_408547.png -->
+                    <input type="file" id="fileInput" accept=".docx,.pdf" title="" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
+                    
+                    <!-- NEW EFFECT: Tooltip chữ nổi thiết kế cao cấp đồng bộ chuyển động mượt mà -->
+                    <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2.5 z-50 invisible opacity-0 scale-95 translate-y-1.5 group-hover:visible group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 transition-all duration-300 ease-out bg-[#0d0921] text-purple-200 text-[10px] font-bold px-3 py-1.5 rounded-md whitespace-nowrap border border-purple-500/40 shadow-[0_8px_25px_rgba(147,51,234,0.3)] pointer-events-none">
+                        <i class="fa-solid fa-circle-info text-purple-400 mr-1.5 animate-pulse"></i> Nhấp chuột hoặc thả file để phân tích dữ liệu ngay
+                    </span>
+
+                    <div id="uploadPromptState" class="flex flex-col items-center gap-2 transition-transform duration-300 group-hover:scale-105">
+                        <div class="w-10 h-10 rounded-xl bg-purple-950/50 text-purple-400 border border-purple-500/10 flex items-center justify-center shadow-md group-hover:bg-purple-600 group-hover:text-white group-hover:shadow-purple-500/40 transition-all duration-300">
+                            <i class="fa-solid fa-cloud-arrow-up text-base group-hover:-translate-y-1 transition-transform duration-300"></i>
                         </div>
-                        <p class="text-xs font-semibold text-slate-300">Kéo thả tài liệu vào đây hoặc click để chọn file</p>
-                        <p class="text-[10px] text-purple-400/40">Hỗ trợ phân tích dữ liệu lớn</p>
+                        <p class="text-xs font-semibold text-slate-300 group-hover:text-white transition-colors duration-300">Kéo thả tài liệu vào đây hoặc click để chọn file</p>
+                        <p class="text-[10px] text-purple-400/40 group-hover:text-purple-300/80 transition-colors duration-300">Hỗ trợ phân tích dữ liệu lớn</p>
                     </div>
 
-                    <div id="uploadFileActiveState" class="hidden flex items-center gap-3 sm:gap-4 text-left bg-[#0c081c] p-3 rounded-xl border border-purple-500/30 shadow-xl relative z-30">
-                        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-purple-950 text-purple-400 border border-purple-500/20 flex items-center justify-center text-sm sm:text-base shrink-0" id="fileTypeIcon">
+                    <div id="uploadFileActiveState" class="hidden flex items-center gap-4 text-left bg-[#0c081c] p-3 rounded-xl border border-purple-500/30 shadow-xl relative z-30">
+                        <div class="w-9 h-9 rounded-lg bg-purple-950 text-purple-400 border border-purple-500/20 flex items-center justify-center text-base shrink-0" id="fileTypeIcon">
                             <i class="fa-solid fa-file-word"></i>
                         </div>
                         <div class="flex-1 min-w-0">
@@ -162,29 +141,37 @@
                                 <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-full w-full rounded-full"></div>
                             </div>
                         </div>
-                        <button id="removeFileBtn" class="w-6 h-6 rounded-md text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 flex items-center justify-center transition-colors cursor-pointer shrink-0" title="Hủy file">
+                        <button id="removeFileBtn" class="w-6 h-6 rounded-md text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 flex items-center justify-center transition-colors cursor-pointer" title="Hủy file">
                             <i class="fa-solid fa-xmark text-xs"></i>
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div class="cyber-card rounded-2xl p-4 sm:p-5 shadow-2xl flex-1 flex flex-col gap-4 min-h-[440px]">
+            <div class="cyber-card rounded-2xl p-5 shadow-2xl flex-1 flex flex-col gap-4 min-h-[420px]">
                 <div class="flex items-center justify-between">
                     <h2 class="text-[11px] font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
                         <i class="fa-solid fa-keyboard text-indigo-400"></i> Nội dung thô
                     </h2>
                     <div class="flex items-center gap-1.5">
-                        <button id="pasteClipboardBtn" class="text-[10px] sm:text-[11px] font-bold text-purple-300 hover:text-white px-2 sm:px-2.5 py-1 rounded-lg bg-purple-950/40 border border-purple-900/50 hover:border-purple-500/40 cursor-pointer transition-colors">
-                            <i class="fa-solid fa-clipboard mr-1 text-purple-400"></i> Dán
-                        </button>
-                        <button id="clearEditorBtn" class="text-[10px] sm:text-[11px] font-bold text-slate-400 hover:text-rose-400 px-2 sm:px-2.5 py-1 rounded-lg bg-slate-900/40 border border-purple-950/30 cursor-pointer transition-colors">
-                            Xóa sạch
-                        </button>
+                        
+                        <div class="relative group">
+                            <button id="pasteClipboardBtn" class="flex items-center text-[11px] font-bold text-purple-300 hover:text-white px-2.5 py-1 rounded-lg bg-purple-950/40 border border-purple-900/50 hover:bg-purple-800 hover:border-purple-400 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_5px_15px_rgba(168,85,247,0.3)] relative z-10">
+                                <i class="fa-solid fa-clipboard mr-1.5 text-purple-400 group-hover:text-white group-hover:-translate-y-0.5 transition-all duration-300"></i> Dán nhanh
+                            </button>
+                            <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2.5 z-50 invisible opacity-0 scale-95 translate-y-1.5 group-hover:visible group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 transition-all duration-300 ease-out bg-[#0d0921] text-purple-200 text-[10px] font-bold px-2.5 py-1.5 rounded-md whitespace-nowrap border border-purple-500/40 shadow-[0_8px_25px_rgba(147,51,234,0.3)] pointer-events-none">Đọc từ bộ nhớ tạm</span>
+                        </div>
+                        
+                        <div class="relative group">
+                            <button id="clearEditorBtn" class="flex items-center text-[11px] font-bold text-slate-400 hover:text-white px-2.5 py-1 rounded-lg bg-slate-900/40 border border-purple-950/30 hover:bg-rose-900 hover:border-rose-500 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_5px_15px_rgba(225,29,72,0.3)] relative z-10">
+                                <i class="fa-solid fa-eraser mr-1.5 text-slate-400 group-hover:text-rose-400 group-hover:rotate-12 transition-all duration-300"></i> Xóa sạch
+                            </button>
+                            <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2.5 z-50 invisible opacity-0 scale-95 translate-y-1.5 group-hover:visible group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 transition-all duration-300 ease-out bg-[#0d0921] text-purple-200 text-[10px] font-bold px-2.5 py-1.5 rounded-md whitespace-nowrap border border-purple-500/40 shadow-[0_8px_25px_rgba(147,51,234,0.3)] pointer-events-none">Xóa hết văn bản</span>
+                        </div>
                     </div>
                 </div>
 
-                 <div class="flex-1 flex border border-purple-950/60 rounded-xl overflow-hidden bg-[#070412]/50 focus-within:ring-1 focus-within:ring-purple-500/30 focus-within:border-purple-500/40 transition-all">
+                <div class="flex-1 flex border border-purple-950/60 rounded-xl overflow-hidden bg-[#070412]/50 focus-within:ring-1 focus-within:ring-purple-500/30 focus-within:border-purple-500/40 transition-all">
                     <div class="w-9 bg-purple-950/10 border-r border-purple-950/50 py-3 text-right pr-2 select-none text-[11px] font-mono text-purple-950 font-extrabold leading-6">
                         1<br>2<br>3<br>4<br>5
                     </div>
@@ -196,56 +183,75 @@
                     <span class="text-[11px] text-purple-400/30 hidden sm:inline-flex items-center gap-1.5">
                         <kbd class="px-1.5 py-0.5 rounded border border-purple-900/60 bg-purple-950/40 font-mono text-[9px] text-purple-400">Ctrl</kbd> + <kbd class="px-1.5 py-0.5 rounded border border-purple-900/60 bg-purple-950/40 font-mono text-[9px] text-purple-400">Enter</kbd>
                     </span>
-                    <button id="processBtn" class="flex-1 sm:flex-initial bg-gradient-to-r from-purple-600 via-purple-700 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-bold px-4 py-3 sm:px-5 sm:py-3.5 rounded-xl shadow-lg shadow-purple-500/5 transition-all flex items-center justify-center gap-2 cursor-pointer group tracking-wider">
+                    <button id="processBtn" class="flex-1 sm:flex-initial bg-gradient-to-r from-purple-600 via-purple-700 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-bold px-5 py-3.5 rounded-xl shadow-lg shadow-purple-500/5 transition-all flex items-center justify-center gap-2 cursor-pointer group tracking-wider">
                         <span>XỬ LÝ ➔ SỬA LỖI</span>
                         <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-0.5 transition-transform"></i>
                     </button>
                 </div>
             </div>
 
-            <div class="cyber-card rounded-2xl p-4 shadow-2xl">
-                <p class="text-[10px] font-bold text-purple-400/40 uppercase tracking-widest mb-2">Lịch sử tiến trình</p>
-                <div id="recentHistoryContainer" class="flex flex-col gap-1.5 text-xs font-medium text-slate-500">
-                    <span class="text-purple-400/20 italic text-center py-1">Chưa lưu lịch sử làm việc.</span>
+            <div class="cyber-card rounded-2xl p-4 shadow-2xl flex flex-col gap-2">
+                <p class="text-[10px] font-bold text-purple-400/50 uppercase tracking-widest flex items-center justify-between">
+                    <span>Lịch sử lưu trữ offline</span>
+                    <i class="fa-solid fa-database text-purple-500/60"></i>
+                </p>
+                <div id="recentHistoryContainer" class="flex flex-col gap-2 max-h-[160px] overflow-y-auto pr-1">
+                    <span class="text-purple-400/20 italic text-center py-1 text-xs block w-full">Chưa lưu lịch sử làm việc.</span>
                 </div>
             </div>
         </section>
 
         <section class="lg:col-span-7 flex flex-col" id="outputPanelSection">
-            <div class="cyber-card rounded-2xl shadow-2xl flex flex-col h-full overflow-hidden min-h-[600px]">
+            <div class="cyber-card rounded-2xl shadow-2xl flex flex-col h-full min-h-[600px] relative">
                 
-                <div class="px-3 sm:px-4 py-3 bg-purple-950/10 border-b border-purple-950/30 flex flex-wrap items-center justify-between gap-3">
-                    <div class="flex items-center gap-2 min-w-0">
-                        <span class="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-md shadow-purple-400 shrink-0" id="statusDotIndicator"></span>
-                        <h3 id="panelOutputTitle" class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-widest truncate">Kết quả trực quan</h3>
+                <div class="px-4 py-3 bg-purple-950/10 border-b border-purple-950/30 flex flex-wrap items-center justify-between gap-3 rounded-t-2xl">
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-md shadow-purple-400" id="statusDotIndicator"></span>
+                        <h3 id="panelOutputTitle" class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Kết quả trực quan</h3>
                     </div>
                     
-                    <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
-                        <button id="zoomOutBtn" class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg text-purple-400 hover:text-white hover:bg-purple-950/50 border border-transparent hover:border-purple-900/60 flex items-center justify-center transition-colors cursor-pointer" title="Thu nhỏ">
-                            <i class="fa-solid fa-magnifying-glass-minus text-[10px] sm:text-xs"></i>
-                        </button>
-                        <button id="zoomInBtn" class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg text-purple-400 hover:text-white hover:bg-purple-950/50 border border-transparent hover:border-purple-900/60 flex items-center justify-center transition-colors cursor-pointer" title="Phóng to">
-                            <i class="fa-solid fa-magnifying-glass-plus text-[10px] sm:text-xs"></i>
-                        </button>
+                    <div class="flex items-center gap-1.5 relative">
+                        <div class="relative group">
+                            <button id="zoomOutBtn" class="w-7 h-7 rounded-lg text-purple-400 hover:text-white hover:bg-purple-600 border border-transparent hover:border-purple-400 hover:shadow-[0_0_10px_rgba(168,85,247,0.5)] flex items-center justify-center transition-all duration-300 hover:scale-110 cursor-pointer relative z-10">
+                                <i class="fa-solid fa-magnifying-glass-minus text-xs"></i>
+                            </button>
+                            <span class="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 invisible opacity-0 scale-95 -translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 transition-all duration-300 ease-out bg-[#0d0921] text-purple-200 text-[10px] font-bold px-2.5 py-1.5 rounded-md whitespace-nowrap border border-purple-500/40 shadow-[0_8px_25px_rgba(147,51,234,0.3)] pointer-events-none">Thu nhỏ cỡ chữ</span>
+                        </div>
+                        
+                        <div class="relative group">
+                            <button id="zoomInBtn" class="w-7 h-7 rounded-lg text-purple-400 hover:text-white hover:bg-purple-600 border border-transparent hover:border-purple-400 hover:shadow-[0_0_10px_rgba(168,85,247,0.5)] flex items-center justify-center transition-all duration-300 hover:scale-110 cursor-pointer relative z-10">
+                                <i class="fa-solid fa-magnifying-glass-plus text-xs"></i>
+                            </button>
+                            <span class="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 invisible opacity-0 scale-95 -translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 transition-all duration-300 ease-out bg-[#0d0921] text-purple-200 text-[10px] font-bold px-2.5 py-1.5 rounded-md whitespace-nowrap border border-purple-500/40 shadow-[0_8px_25px_rgba(147,51,234,0.3)] pointer-events-none">Phóng to cỡ chữ</span>
+                        </div>
+
                         <div class="w-px h-4 bg-purple-950/60 mx-1"></div>
-                        <button id="copyAllOutputBtn" disabled class="text-[10px] sm:text-[11px] font-bold px-2 sm:px-3 h-6 sm:h-7 rounded-lg border border-purple-900/40 bg-purple-950/10 text-purple-300 hover:text-white hover:border-purple-500/40 disabled:opacity-20 disabled:cursor-not-allowed transition-colors flex items-center gap-1.5 cursor-pointer">
-                            <i class="fa-solid fa-copy text-[10px]"></i> <span class="hidden sm:inline">Sao chép</span>
-                        </button>
-                        <button id="fullscreenToggleBtn" class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg text-purple-400 hover:text-white hover:bg-purple-950/50 border border-transparent hover:border-purple-900/60 flex items-center justify-center transition-colors cursor-pointer" title="Toàn màn hình">
-                            <i class="fa-solid fa-expand text-[10px] sm:text-xs"></i>
-                        </button>
+                        
+                        <div class="relative group">
+                            <button id="copyAllOutputBtn" disabled class="text-[11px] font-bold px-3 h-7 rounded-lg border border-purple-900/40 bg-purple-950/10 text-purple-300 hover:text-white hover:bg-purple-800 hover:border-purple-500/60 hover:shadow-[0_0_10px_rgba(168,85,247,0.4)] disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300 hover:scale-105 flex items-center gap-1.5 cursor-pointer relative z-10">
+                                <i class="fa-solid fa-copy text-[10px]"></i> Sao chép
+                            </button>
+                            <span class="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 invisible opacity-0 scale-95 -translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 transition-all duration-300 ease-out bg-[#0d0921] text-purple-200 text-[10px] font-bold px-2.5 py-1.5 rounded-md whitespace-nowrap border border-purple-500/40 shadow-[0_8px_25px_rgba(147,51,234,0.3)] pointer-events-none">Copy toàn bộ</span>
+                        </div>
+                        
+                        <div class="relative group">
+                            <button id="fullscreenToggleBtn" class="w-7 h-7 rounded-lg text-purple-400 hover:text-white hover:bg-purple-600 border border-transparent hover:border-purple-400 hover:shadow-[0_0_10px_rgba(168,85,247,0.5)] flex items-center justify-center transition-all duration-300 hover:scale-110 cursor-pointer relative z-10">
+                                <i class="fa-solid fa-expand text-xs"></i>
+                            </button>
+                            <span class="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 invisible opacity-0 scale-95 -translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 transition-all duration-300 ease-out bg-[#0d0921] text-purple-200 text-[10px] font-bold px-2.5 py-1.5 rounded-md whitespace-nowrap border border-purple-500/40 shadow-[0_8px_25px_rgba(147,51,234,0.3)] pointer-events-none">Toàn màn hình</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="flex-1 p-4 sm:p-6 overflow-y-auto relative bg-[#06040f]/40" id="previewAreaScrollParent">
-                    <div id="textOutputPreview" class="text-slate-200 leading-relaxed max-w-none transition-all text-xs sm:text-sm space-y-4">
-                        <div id="emptyStateContainer" class="py-16 sm:py-32 flex flex-col items-center text-center max-w-xs mx-auto gap-3.5">
-                            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-purple-950/20 border border-dashed border-purple-500/10 flex items-center justify-center text-purple-400/30">
-                                <i class="fa-solid fa-chart-simple text-base sm:text-lg"></i>
+                <div class="flex-1 p-6 overflow-y-auto relative bg-[#06040f]/40" id="previewAreaScrollParent">
+                    <div id="textOutputPreview" class="text-slate-200 leading-relaxed max-w-none transition-all text-sm space-y-4">
+                        <div id="emptyStateContainer" class="py-32 flex flex-col items-center text-center max-w-xs mx-auto gap-3.5">
+                            <div class="w-14 h-14 rounded-full bg-purple-950/20 border border-dashed border-purple-500/10 flex items-center justify-center text-purple-400/30">
+                                <i class="fa-solid fa-chart-simple text-lg"></i>
                             </div>
                             <div>
                                 <p class="text-xs font-bold text-slate-400">Chưa tìm thấy dữ liệu xuất bản</p>
-                                <p class="text-[10px] sm:text-[11px] text-purple-400/30 mt-1 leading-relaxed">Hãy tải tệp hoặc điền cấu trúc mã lỗi ở bảng bên trái.</p>
+                                <p class="text-[11px] text-purple-400/30 mt-1 leading-relaxed">Hãy tải tệp hoặc điền cấu trúc mã lỗi ở bảng bên trái.</p>
                             </div>
                         </div>
                     </div>
@@ -253,19 +259,19 @@
                     <div id="loadingOverlay" class="absolute inset-0 bg-[#05030b]/95 backdrop-blur-md flex flex-col items-center justify-center gap-4 hidden z-50">
                         <div class="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin shadow-lg"></div>
                         <div class="space-y-2 text-center max-w-xs">
-                            <p class="text-xs font-bold text-purple-300 tracking-wide">Hệ thống đang xử lý...</p>
-                            <div class="w-32 sm:w-40 h-1 shimmer rounded-full mx-auto opacity-50"></div>
+                            <p class="text-xs font-bold text-purple-300 tracking-wide">Hệ thống đang gọi AI xử lý...</p>
+                            <div class="w-40 h-1 shimmer rounded-full mx-auto opacity-50"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="px-4 sm:px-5 py-3 bg-purple-950/10 border-t border-purple-950/30 flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <span class="text-[10px] sm:text-[11px] font-semibold text-purple-400/40" id="executionTimerLabel">Trạng thái: Sẵn sàng</span>
+                <div class="px-5 py-3 bg-purple-950/10 border-t border-purple-950/30 flex flex-col sm:flex-row items-center justify-between gap-3 rounded-b-2xl">
+                    <span class="text-[11px] font-semibold text-purple-400/40" id="executionTimerLabel">Trạng thái: Sẵn sàng</span>
                     <div class="flex items-center gap-2 w-full sm:w-auto">
-                        <button id="downloadMDBtn" disabled class="flex-1 sm:flex-initial text-[10px] sm:text-[11px] font-bold px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl border border-purple-900/40 bg-purple-950/10 text-slate-400 hover:text-purple-400 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer transition-colors flex items-center justify-center gap-1.5">
+                        <button id="downloadMDBtn" disabled class="flex-1 sm:flex-initial text-[11px] font-bold px-3.5 py-2.5 rounded-xl border border-purple-900/40 bg-purple-950/10 text-slate-400 hover:text-purple-400 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer transition-colors flex items-center justify-center gap-1.5">
                             <i class="fa-solid fa-file-code text-[10px]"></i> Tải (.md)
                         </button>
-                        <button id="downloadWordBtn" disabled class="flex-1 sm:flex-initial bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white text-[10px] sm:text-[11px] font-bold px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl shadow-lg disabled:opacity-20 disabled:pointer-events-none cursor-pointer transition-all flex items-center justify-center gap-1.5">
+                        <button id="downloadWordBtn" disabled class="flex-1 sm:flex-initial bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white text-[11px] font-bold px-4 py-2.5 rounded-xl shadow-lg disabled:opacity-20 disabled:pointer-events-none cursor-pointer transition-all flex items-center justify-center gap-1.5">
                             <i class="fa-solid fa-file-word text-[10px]"></i> Tải Word (.docx)
                         </button>
                     </div>
@@ -276,12 +282,12 @@
 
     </main>
 
-    <footer class="mt-auto py-3 sm:py-3.5 px-4 sm:px-8 border-t border-purple-950/30 bg-[#04020a]/60 text-center text-[9px] sm:text-[10px] font-semibold text-purple-400/20 tracking-wider">
+    <footer class="mt-auto py-3.5 px-8 border-t border-purple-950/30 bg-[#04020a]/60 text-center text-[10px] font-semibold text-purple-400/20 tracking-wider">
         © 2026 Trí Thức AI • Giao diện chuẩn Cyber Dark SaaS UI Độc Quyền
     </footer>
 
     <script>
-        const GEMINI_API_KEYS="{{INJECT_API_KEYS_HERE2}}";
+        const GEMINI_API_KEYS = "{{INJECT_API_KEYS_HERE2}}";
         const PANDOC_API_URL = "https://pandoc-export-server.onrender.com/api/export-docx";
 
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
@@ -316,52 +322,99 @@
         let globalFinalMarkdown = "";
         let currentZoomSize = 100;
 
+        let localHistory = [];
+        try {
+            localHistory = JSON.parse(localStorage.getItem('math_conv_history')) || [];
+        } catch(e) { localHistory = []; }
+
+        function renderHistoryList() {
+            if (localHistory.length === 0) {
+                recentHistoryContainer.innerHTML = `<span class="text-purple-400/20 italic text-center py-1 text-xs block w-full">Chưa lưu lịch sử làm việc.</span>`;
+                return;
+            }
+            recentHistoryContainer.innerHTML = localHistory.map(item => `
+                <div class="flex items-center justify-between bg-purple-950/20 border border-purple-900/30 p-2.5 rounded-xl hover:bg-purple-900/30 hover:border-purple-500/40 transition-all duration-300 group/hist">
+                    <div class="flex items-center gap-2.5 flex-1 min-w-0 cursor-pointer" onclick="restoreHistoryItem('${item.id}')">
+                        <div class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/10 flex items-center justify-center text-purple-400 group-hover/hist:bg-purple-600 group-hover/hist:text-white transition-all duration-300">
+                            <i class="fa-solid fa-clock-rotate-left text-[11px]"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-xs font-semibold text-slate-200 truncate group-hover/hist:text-purple-300 transition-colors">${item.name}</p>
+                            <p class="text-[9px] text-slate-500 font-mono">${item.time}</p>
+                        </div>
+                    </div>
+                    <button onclick="deleteHistoryItem('${item.id}', event)" class="w-6 h-6 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-950/40 flex items-center justify-center transition-all duration-200 cursor-pointer" title="Xóa bản ghi này">
+                        <i class="fa-solid fa-trash-can text-[10px]"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function saveToHistoryLog(name, input, markdown, html) {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'}) + ' - ' + now.toLocaleDateString('vi-VN', {day: '2-digit', month: '2-digit'});
+            const newItem = { id: 'hist_' + Date.now(), name: name, time: timeStr, input: input, markdown: markdown, html: html };
+            localHistory.unshift(newItem);
+            if (localHistory.length > 10) localHistory.pop();
+            localStorage.setItem('math_conv_history', JSON.stringify(localHistory));
+            renderHistoryList();
+        }
+
+        window.restoreHistoryItem = function(id) {
+            const item = localHistory.find(x => x.id === id);
+            if (!item) return;
+            textInput.value = item.input;
+            localStorage.setItem('editor_draft_content', item.input);
+            globalFinalMarkdown = item.markdown;
+            textOutputPreview.innerHTML = item.html;
+            
+            downloadWordBtn.disabled = false; downloadMDBtn.disabled = false; copyAllOutputBtn.disabled = false;
+            statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-md shadow-emerald-400/50";
+            panelOutputTitle.innerText = "Đã khôi phục dữ liệu lịch sử!";
+            executionTimerLabel.innerHTML = `Trạng thái: <span class="text-emerald-400 font-bold">Khôi phục thành công (Offline)</span>`;
+            
+            fileInput.value = ""; extractedFileText = "";
+            uploadFileActiveState.classList.add('hidden');
+            uploadPromptState.classList.remove('hidden');
+        };
+
+        window.deleteHistoryItem = function(id, event) {
+            event.stopPropagation();
+            localHistory = localHistory.filter(x => x.id !== id);
+            localStorage.setItem('math_conv_history', JSON.stringify(localHistory));
+            renderHistoryList();
+        };
+
+        renderHistoryList();
+
         if (localStorage.getItem('editor_draft_content')) {
             textInput.value = localStorage.getItem('editor_draft_content');
         }
-        textInput.addEventListener('input', () => {
-            localStorage.setItem('editor_draft_content', textInput.value);
-        });
-
-        function updateHistoryListLog(name) {
-            recentHistoryContainer.innerHTML = `
-                <div class="flex items-center justify-between bg-purple-950/20 border border-purple-900/30 p-2 rounded-lg">
-                    <span class="truncate pr-2 text-slate-300 text-[11px]"><i class="fa-solid fa-clock-rotate-left mr-1.5 opacity-70 text-purple-400"></i> ${name}</span>
-                    <span class="text-[9px] text-emerald-400 shrink-0 font-bold uppercase">Vừa xong</span>
-                </div>
-            `;
-        }
+        textInput.addEventListener('input', () => localStorage.setItem('editor_draft_content', textInput.value));
 
         pasteClipboardBtn.addEventListener('click', async () => {
             try {
                 const text = await navigator.clipboard.readText();
                 textInput.value += text;
                 localStorage.setItem('editor_draft_content', textInput.value);
-            } catch (err) {
-                alert('Không thể đọc dữ liệu từ clipboard.');
-            }
+            } catch (err) { alert('Không thể đọc dữ liệu từ clipboard.'); }
         });
 
         clearEditorBtn.addEventListener('click', () => {
-            textInput.value = "";
-            localStorage.removeItem('editor_draft_content');
+            textInput.value = ""; localStorage.removeItem('editor_draft_content');
         });
 
         fileInput.addEventListener('change', (e) => handleTargetFile(e.target.files[0]));
-        
         removeFileBtn.addEventListener('click', (e) => {
             e.preventDefault(); e.stopPropagation();
             fileInput.value = ""; extractedFileText = "";
-            uploadFileActiveState.classList.add('hidden');
-            uploadPromptState.classList.remove('hidden');
+            uploadFileActiveState.classList.add('hidden'); uploadPromptState.classList.remove('hidden');
         });
 
         async function handleTargetFile(file) {
             if (!file) return;
-            uploadPromptState.classList.add('hidden');
-            uploadFileActiveState.classList.remove('hidden');
+            uploadPromptState.classList.add('hidden'); uploadFileActiveState.classList.remove('hidden');
             activeFileName.innerText = file.name;
-            
             if (file.name.endsWith('.docx')) {
                 fileTypeIcon.innerHTML = `<i class="fa-solid fa-file-word text-blue-400"></i>`;
                 const arrayBuffer = await file.arrayBuffer();
@@ -372,7 +425,6 @@
                 const arrayBuffer = await file.arrayBuffer();
                 extractedFileText = await runPdfExtraction(arrayBuffer);
             }
-            updateHistoryListLog(file.name);
         }
 
         async function runPdfExtraction(arrayBuffer) {
@@ -391,164 +443,113 @@
             let placeholders = [];
             let tokenCount = 0;
             let processedText = mdText || "";
-
             const outputConfig = exportMode === 'word' ? 'mathml' : 'htmlAndMathml';
 
-            processedText = processedText.replace(/\$\$( [\s\S]+?)\$\$/g, (match, formula) => {
+            processedText = processedText.replace(/\$\$([\s\S]+?)\$\$/g, (match, formula) => {
                 const token = `KtxMathBlockToken${tokenCount++}End`; 
                 try {
-                    const rendered = katex.renderToString(formula.trim(), { 
-                        output: outputConfig, 
-                        displayMode: true,
-                        throwOnError: false
-                    });
-                    const wrapHtml = exportMode === 'word'
-                        ? `<div style="text-align:center; margin: 12pt 0;">${rendered}</div>`
-                        : rendered;
+                    const rendered = katex.renderToString(formula.trim(), { output: outputConfig, displayMode: true, throwOnError: false });
+                    const wrapHtml = exportMode === 'word' ? `<div style="text-align:center; margin: 12pt 0;">${rendered}</div>` : rendered;
                     placeholders.push({ token: token, html: wrapHtml });
                     return token;
                 } catch (e) {
-                    placeholders.push({ token: token, html: match });
-                    return token;
+                    placeholders.push({ token: token, html: match }); return token;
                 }
             });
 
             processedText = processedText.replace(/\$([^\$]+?)\$/g, (match, formula) => {
                 const token = `KtxMathInlineToken${tokenCount++}End`;
                 try {
-                    const rendered = katex.renderToString(formula.trim(), { 
-                        output: outputConfig, 
-                        displayMode: false,
-                        throwOnError: false
-                    });
+                    const rendered = katex.renderToString(formula.trim(), { output: outputConfig, displayMode: false, throwOnError: false });
                     placeholders.push({ token: token, html: rendered });
                     return token;
                 } catch (e) {
-                    placeholders.push({ token: token, html: match });
-                    return token;
+                    placeholders.push({ token: token, html: match }); return token;
                 }
             });
 
             let htmlResult = marked.parse(processedText);
-
-            placeholders.forEach(item => {
-                htmlResult = htmlResult.replace(item.token, item.html);
-            });
-
+            placeholders.forEach(item => { htmlResult = htmlResult.replace(item.token, item.html); });
             return htmlResult;
         }
 
         processBtn.addEventListener('click', async () => {
-            let keysArray = GEMINI_API_KEYS.split(',').map(k => k.trim());
+            const keysArray = GEMINI_API_KEYS.split(',').map(key => key.trim()).filter(key => key !== "");
             if (keysArray.length === 0 || keysArray[0] === "ĐIỀN_API_KEY_CỦA_BẠN_VÀO_ĐÂY") { 
-                alert('Vui lòng cấu hình API Key vào biến GEMINI_API_KEYS trong mã nguồn để sử dụng hệ thống!'); 
-                return; 
+                alert('Vui lòng cấu hình API Key!'); return; 
             }
 
-            let targetPayloadText = extractedFileText ? extractedFileText : textInput.value.trim();
+            const apiKey = keysArray[Math.floor(Math.random() * keysArray.length)];
+            let originalInputContent = textInput.value.trim();
+            let targetPayloadText = extractedFileText ? extractedFileText : originalInputContent;
             if (!targetPayloadText) { alert('Dữ liệu thô rỗng! Hãy tải file hoặc dán đề bài.'); return; }
 
             loadingOverlay.classList.remove('hidden');
             statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shadow-md shadow-amber-400/50";
-            panelOutputTitle.innerText = "Đang xử lý...";
+            panelOutputTitle.innerText = "Hệ thống AI đang tính toán...";
             const startTime = performance.now();
 
             const promptRules = `Bạn là chuyên gia chuyển hóa tài liệu đề thi hóa học, toán học, vật lý học cao cấp. Hãy dịch văn bản được gửi thành cấu trúc đề bài Markdown sạch.
 QUY TẮC:
-- Định dạng công thức toán/hóa bắt buộc nằm trong cặp kí tự $...$ cho inline và $$...$$ cho block display. (Ví dụ: $2H_2 + O_2 \\rightarrow 2H_2O$)
+- Định dạng công thức toán/hóa bắt buộc nằm trong cặp kí tự $...$ cho inline và $$...$$ cho block display.
 - Trả về duy nhất nội dung đề thi hoàn chỉnh, tuyệt đối không chèn câu thoại giải thích bên ngoài.`;
 
-            let isSuccess = false;
+            try {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+                const res = await fetch(url, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: targetPayloadText }] }],
+                        systemInstruction: { parts: [{ text: promptRules }] },
+                        generationConfig: { temperature: 0.1 }
+                    })
+                });
 
-            // Duyệt qua từng API Key bằng vòng lặp for...of để chạy cơ chế Fallback
-            for (const apiKey of keysArray) {
-                try {
-                    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-                    const res = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: targetPayloadText }] }],
-                            systemInstruction: { parts: [{ text: promptRules }] },
-                            generationConfig: { temperature: 0.1 }
-                        })
-                    });
-                }
-                    // Nếu HTTP request thất bại (vd: lỗi 429 Quota), bỏ qua và thử key tiếp theo
-                    if (!res.ok) {
-                        continue; 
-                    }
+                if (!res.ok) throw new Error('API Key lỗi hoặc server từ chối.');
 
-                    const json = await res.json();
-                    let rawText = json.candidates[0].content.parts[0].text.trim();
-                    
-                    if (rawText.startsWith('```')) {
-                        rawText = rawText.replace(/^```[a-zA-Z]*\n/, '').replace(/\n```$/, '');
-                    }
-                    
-                    let cleanMarkdownResult = rawText.trim();
-                    cleanMarkdownResult = cleanMarkdownResult
-                        .replace(/\\\[\s*([\s\S]*?)\s*\\\]/g, '$$\n$1\n$$')
-                        .replace(/\\\(\s*([\s\S]*?)\s*\\\)/g, '$$$1$');
-                    
-                    globalFinalMarkdown = cleanMarkdownResult;
-                    textOutputPreview.innerHTML = parseMarkdownAndMath(cleanMarkdownResult, 'web');
+                const json = await res.json();
+                let rawText = json.candidates[0].content.parts[0].text.trim();
+                if (rawText.startsWith('```')) rawText = rawText.replace(/^```[a-zA-Z]*\n/, '').replace(/\n```$/, '');
+                
+                let cleanMarkdownResult = rawText.trim()
+                    .replace(/\\\[\s*([\s\S]*?)\s*\\\]/g, '$$\n$1\n$$')
+                    .replace(/\\\(\s*([\s\S]*?)\s*\\\)/g, '$$$1$');
+                
+                globalFinalMarkdown = cleanMarkdownResult;
+                const renderedHtml = parseMarkdownAndMath(cleanMarkdownResult, 'web');
+                textOutputPreview.innerHTML = renderedHtml;
 
-                    downloadWordBtn.disabled = false;
-                    downloadMDBtn.disabled = false;
-                    copyAllOutputBtn.disabled = false;
-                    statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-md shadow-emerald-400/50";
-                    panelOutputTitle.innerText = "Thành công!";
-                    
-                    const endTime = performance.now();
-                    executionTimerLabel.innerHTML = `Hoàn thành: <span class="text-emerald-400 font-bold">${((endTime - startTime) / 1000).toFixed(2)}s</span>`;
-                    if (!extractedFileText) updateHistoryListLog("Văn bản dán thô từ Editor");
+                downloadWordBtn.disabled = false; downloadMDBtn.disabled = false; copyAllOutputBtn.disabled = false;
+                statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-md shadow-emerald-400/50";
+                panelOutputTitle.innerText = "Đã kết xuất dữ liệu thành công!";
+                
+                const endTime = performance.now();
+                executionTimerLabel.innerHTML = `Hoàn thành trong: <span class="text-emerald-400 font-bold">${((endTime - startTime) / 1000).toFixed(2)}s</span>`;
+                
+                const historyName = fileInput.value ? activeFileName.innerText : (originalInputContent.substring(0, 22) + "...");
+                saveToHistoryLog(historyName, targetPayloadText, globalFinalMarkdown, renderedHtml);
 
-                    // Đã xử lý thành công, thoát ngay khỏi vòng lặp
-                    isSuccess = true;
-                    break; 
-            }
-
-            // Nếu đã chạy hết mảng Key mà vẫn không có key nào phản hồi thành công
-            if (!isSuccess) {
+            } catch (err) {
                 statusDotIndicator.className = "w-1.5 h-1.5 rounded-full bg-rose-500 shadow-md shadow-rose-500/50";
-                panelOutputTitle.innerText = "Lỗi biên dịch!";
-                executionTimerLabel.innerText = "Trạng thái: Thất bại";
-                alert('Tất cả API Key hiện có đều bị lỗi hoặc đã sử dụng hết hạn mức !');
-            }
-            
-            // Tắt giao diện tải
-            loadingOverlay.classList.add('hidden');
+                panelOutputTitle.innerText = "Xảy ra sự cố lỗi biên dịch!"; executionTimerLabel.innerText = "Trạng thái: Thất bại";
+                alert('Có lỗi trong quá trình kết nối API.'); console.error(err);
+            } finally { loadingOverlay.classList.add('hidden'); }
         });
 
         downloadWordBtn.addEventListener('click', async () => {
             if (!globalFinalMarkdown) return;
             const originalBtnContent = downloadWordBtn.innerHTML;
-
             try {
-                downloadWordBtn.disabled = true;
-                downloadWordBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang gọi Backend...';
-                downloadWordBtn.classList.add('opacity-50', 'cursor-not-allowed');
-
+                downloadWordBtn.disabled = true; downloadWordBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang gọi Backend...';
                 const response = await fetch(PANDOC_API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ markdown: globalFinalMarkdown })
                 });
-
-                if (!response.ok) throw new Error(`Mã lỗi HTTP Backend: ${response.status}`);
-
+                if (!response.ok) throw new Error(`HTTP: ${response.status}`);
                 const blob = await response.blob();
                 triggerDirectDownload(blob, 'Cong_Thuc_Chuan.docx');
-
-            } catch (error) {
-                console.error('Lỗi khi xuất file qua Pandoc Backend:', error);
-                alert(`Không thể gọi được Pandoc Backend (${PANDOC_API_URL}). Hãy kiểm tra xem server có đang hoạt động hay không.`);
-            } finally {
-                downloadWordBtn.innerHTML = originalBtnContent;
-                downloadWordBtn.disabled = false;
-                downloadWordBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-            }
+            } catch (error) { console.error(error); alert(`Không thể gọi được Pandoc Backend.`);
+            } finally { downloadWordBtn.innerHTML = originalBtnContent; downloadWordBtn.disabled = false; }
         });
         
         downloadMDBtn.addEventListener('click', () => {
@@ -558,22 +559,12 @@ QUY TẮC:
         });
 
         function triggerDirectDownload(blob, name) {
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url; a.download = name;
-            document.body.appendChild(a); a.click();
-            document.body.removeChild(a); URL.revokeObjectURL(url);
+            const url = URL.createObjectURL(blob); const a = document.createElement('a');
+            a.href = url; a.download = name; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
         }
 
-        zoomInBtn.addEventListener('click', () => {
-            currentZoomSize += 10;
-            textOutputPreview.style.fontSize = `${currentZoomSize}%`;
-        });
-        zoomOutBtn.addEventListener('click', () => {
-            if (currentZoomSize <= 70) return;
-            currentZoomSize -= 10;
-            textOutputPreview.style.fontSize = `${currentZoomSize}%`;
-        });
+        zoomInBtn.addEventListener('click', () => { currentZoomSize += 10; textOutputPreview.style.fontSize = `${currentZoomSize}%`; });
+        zoomOutBtn.addEventListener('click', () => { if (currentZoomSize <= 70) return; currentZoomSize -= 10; textOutputPreview.style.fontSize = `${currentZoomSize}%`; });
 
         copyAllOutputBtn.addEventListener('click', async () => {
             if (!globalFinalMarkdown) return;
@@ -581,42 +572,17 @@ QUY TẮC:
                 const richHtmlMath = parseMarkdownAndMath(globalFinalMarkdown, 'word');
                 const blobPlain = new Blob([globalFinalMarkdown], { type: 'text/plain' });
                 const blobHtml = new Blob([richHtmlMath], { type: 'text/html' });
-                
-                await navigator.clipboard.write([
-                    new ClipboardItem({ 'text/plain': blobPlain, 'text/html': blobHtml })
-                ]);
-                alert('Đã copy toàn bộ dữ liệu! Bạn có thể dán (Ctrl+V) trực tiếp vào Word để lấy công thức gốc, hoặc dán vào trình soạn thảo Markdown.');
+                await navigator.clipboard.write([ new ClipboardItem({ 'text/plain': blobPlain, 'text/html': blobHtml }) ]);
+                alert('Đã sao chép! Bạn có thể nhấn Ctrl+V trực tiếp vào Microsoft Word để giữ nguyên công thức.');
             } catch (err) {
-                try {
-                    await navigator.clipboard.writeText(globalFinalMarkdown);
-                    alert('Đã copy mã cấu trúc Markdown sạch vào bộ nhớ tạm!');
-                } catch (fallbackErr) {
-                    alert('Không thể sao chép dữ liệu.');
-                }
+                try { await navigator.clipboard.writeText(globalFinalMarkdown); alert('Đã copy mã cấu trúc Markdown sạch vào bộ nhớ tạm!');
+                } catch (fallbackErr) { alert('Không thể sao chép dữ liệu.'); }
             }
         });
 
         fullscreenToggleBtn.addEventListener('click', () => {
-            if (!document.fullscreenElement) {
-                outputPanelSection.requestFullscreen().catch(err => alert('Không hỗ trợ xem toàn màn hình.'));
-                fullscreenToggleBtn.innerHTML = `<i class="fa-solid fa-minimize text-xs"></i>`;
-            } else {
-                document.exitFullscreen();
-                fullscreenToggleBtn.innerHTML = `<i class="fa-solid fa-expand text-xs"></i>`;
-            }
-        });
-
-        window.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'Enter') {
-                e.preventDefault();
-                processBtn.click();
-            }
-            if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.key === 'c')) {
-                if (!copyAllOutputBtn.disabled) {
-                    e.preventDefault();
-                    copyAllOutputBtn.click();
-                }
-            }
+            if (!document.fullscreenElement) { outputPanelSection.requestFullscreen().catch(err => alert('Không hỗ trợ xem toàn màn hình.')); fullscreenToggleBtn.innerHTML = `<i class="fa-solid fa-minimize text-xs"></i>`; } 
+            else { document.exitFullscreen(); fullscreenToggleBtn.innerHTML = `<i class="fa-solid fa-expand text-xs"></i>`; }
         });
     </script>
 </body>
