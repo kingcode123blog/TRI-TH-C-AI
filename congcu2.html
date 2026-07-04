@@ -523,6 +523,7 @@ QUY TẮC:
 
                     // Nếu HTTP request thất bại (vd: lỗi 429 Quota), bỏ qua và thử key tiếp theo
                     if (!res.ok) {
+                        console.warn(`Key tận cùng ...${apiKey.slice(-4)} bị lỗi (Mã HTTP: ${res.status}). Đang thử key khác...`);
                         continue; 
                     }
 
@@ -553,7 +554,7 @@ QUY TẮC:
                     break; 
 
                 } catch (err) {
-                    continue;
+                    console.warn(`Lỗi kết nối API với key ...${apiKey.slice(-4)}:`, err);
                     // Bắt lỗi mạng hoặc API sập để vòng lặp tự chạy tiếp tục với key kế tiếp
                 }
             }
