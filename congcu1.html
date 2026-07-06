@@ -531,10 +531,14 @@ d) [Phát biểu 4]
 Lưu ý đối với AI:Yêu cầu bạn trả về 2 bộ đề giống nhau và ngăn cách giữa 2 bộ đề là "1e9658952" , cho dù người dùng có kêu tạo đề hay đáp án thì 2 bộ đề vẫn phải có cả đề và đáp án:
 1. Đối với bộ đề 2 thì
 	- Xóa **  ** ở các câu, VD:**Câu 1:** thành Câu 1:
-	- Xoá # và ## ở các phần và chỗ đầu bộ đề 
-	- Thay \-  thành - còn bộ đề 1 thì giữ nguyên không cần thay
+	- Xoá # và ## ở các phần và chỗ đầu bộ đề chỗ đằng trước chữ đề kiểm tra,
+	VD:# ĐỀ KIỂM TRA MÔN NGỮ VĂN 11
+       ## PHẦN 1: 20 CÂU TRẮC NGHIỆM KHÁCH QUAN
+	   sẽ được thay đổi thành: 
+	   ĐỀ KIỂM TRA MÔN NGỮ VĂN 11
+       PHẦN 1: 20 CÂU TRẮC NGHIỆM KHÁCH QUAN
+	- Thay \-  thành - còn bộ đề 1 thì giữ nguyên không cần thay, VD:"\- Đáp án: A"(bộ đề 1) thành "- Đáp án: A"(bộ đề 2)
 	- Giữ nguyên LaTeX
-	- Chú ý: tất cả những thao thác trên chỉ áp dụng cho bộ đề 2 ,bộ đề 1 không có sự thay đổi
 2.Đối với cả 2 bộ đề thì
 	- Trước khi trả lời mỗi dòng phải xuống dòng một cái trừ
 	-Với mỗi ý trả lời cũng vậy 
